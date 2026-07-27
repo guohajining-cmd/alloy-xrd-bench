@@ -77,7 +77,7 @@ machine-readable `gamma_benchmark_ready` field emitted by
 
 ## Complete Benchmark v1.1
 
-SiteXRD-Bench v1.1 is ready only when both independent tracks pass. Run:
+Alloy-XRD-Bench v1.1 is ready only when both independent tracks pass. Run:
 
 ```bash
 bash scripts/workstation/finalize_sitexrd_v1_1.sh

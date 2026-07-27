@@ -1,11 +1,11 @@
 cff-version: 1.2.0
-message: "Cite the versioned SiteXRD-Bench release and the source datasets used by the applicable track."
-title: "SiteXRD-Bench: HEA-SRO and Gamma-Decomp"
+message: "Cite the versioned Alloy-XRD-Bench release and the source datasets used by the applicable track."
+title: "Alloy-XRD-Bench: HEA-SRO and Gamma-Decomp"
 version: "1.1.0"
 date-released: "2026-07-25"
 license: "CC-BY-4.0"
 authors:
-  - name: "SiteXRD-Bench Contributors"
+  - name: "Alloy-XRD-Bench Contributors"
 references:
   - type: dataset
     title: "DFT dataset for high entropy materials"

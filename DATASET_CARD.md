@@ -1,8 +1,8 @@
-# SiteXRD-Bench v1.1 Dataset Card
+# Alloy-XRD-Bench v1.1 Dataset Card
 
 ## Summary
 
-SiteXRD-Bench v1.1 contains two independent simulated powder-XRD tasks. HEA-SRO
+Alloy-XRD-Bench v1.1 contains two independent simulated powder-XRD tasks. HEA-SRO
 predicts masked first- and second-shell Warren-Cowley short-range order. Results
 are reported for ID, composition OOD, chemistry OOD, and SRO OOD splits with
 parent-group macro averaging. Gamma-Decomp predicts unordered gamma/gamma-prime
