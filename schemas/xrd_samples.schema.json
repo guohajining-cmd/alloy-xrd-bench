@@ -1,0 +1,17 @@
+{
+  "name": "xrd_samples",
+  "id_field": "xrd_sample_id",
+  "fields": [
+    {"name": "xrd_sample_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "relaxed_structure_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "xrd_config_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "two_theta_min", "dtype": "number", "required": true, "description": ""},
+    {"name": "two_theta_max", "dtype": "number", "required": true, "description": ""},
+    {"name": "step", "dtype": "number", "required": true, "description": ""},
+    {"name": "wavelength", "dtype": "string", "required": true, "description": ""},
+    {"name": "broadening", "dtype": "string", "required": true, "description": ""},
+    {"name": "grid_path", "dtype": "path", "required": true, "description": ""},
+    {"name": "peak_path", "dtype": "path", "required": true, "description": ""},
+    {"name": "split", "dtype": "string", "required": true, "description": ""}
+  ]
+}

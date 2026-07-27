@@ -1,0 +1,2793 @@
+candidates:
+- candidate_id: pot_chgnet_0p3p0
+  target_role: general_baseline
+  family: CHGNet
+  engine: chgnet
+  model_name: '0.3.0'
+  source_url: https://github.com/CederGroupHub/chgnet
+  doi: 10.1038/s42256-023-00716-3
+  license: BSD-3-Clause
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  install_method: pip install chgnet
+  artifact_kind: package_pretrained
+  acceptance_status: accepted
+  rejection_reason: ''
+- candidate_id: pot_mace_mp_0b3_medium
+  target_role: general_baseline
+  family: MACE
+  engine: mace
+  model_name: MACE-MP-0b3-medium
+  source_url: https://github.com/ACEsuit/mace-foundations
+  doi: 10.48550/arXiv.2401.00096
+  license: MIT
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  install_method: pip install mace-torch
+  artifact_kind: package_pretrained
+  acceptance_status: accepted
+  rejection_reason: ''
+- candidate_id: pot_matgl_m3gnet_matpes_pbe_2025_2
+  target_role: general_baseline
+  family: MatGL/M3GNet
+  engine: matgl
+  model_name: materialyze/M3GNet-PES-MatPES-PBE-2025.2
+  source_url: https://huggingface.co/materialyze/M3GNet-PES-MatPES-PBE-2025.2
+  doi: 10.48550/arXiv.2212.07687
+  license: BSD-3-Clause
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  install_method: pip install matgl
+  artifact_kind: package_pretrained
+  acceptance_status: accepted
+  rejection_reason: ''
+- candidate_id: pot_crconi_mtp_csro
+  target_role: target_specific_mlip
+  family: MTP
+  engine: mtp_mlp
+  model_name: CrCoNi cSRO trained MTP potentials
+  source_url: https://github.com/yifan-henry-cao/MLP-cSRO
+  artifact_urls:
+  - https://raw.githubusercontent.com/yifan-henry-cao/MLP-cSRO/main/potentials/MTP_TS-3_Cao_Levmax_20.mtp
+  - https://raw.githubusercontent.com/yifan-henry-cao/MLP-cSRO/main/potentials/MTP_TS-f_Cao_Levmax_20.mtp
+  doi: 10.48550/arXiv.2401.06622
+  license: MIT
+  artifact_hashes:
+    potentials/MTP_TS-3_Cao_Levmax_20.mtp:
+      sha256: e1ae0fe802b1ef5ffe94b77f060ec8d23c08859eeec8f8614f890b27957b62c3
+      bytes: 140258
+    potentials/MTP_TS-f_Cao_Levmax_20.mtp:
+      sha256: 4ebe92b0371c8ede99882643e4c72eb2d3b50d0832a7d2fe02be17010d84d4fa
+      bytes: 140210
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Co
+  - Ni
+  phases:
+  - fcc
+  target_systems:
+  - CrCoNi
+  install_method: download repository, select audited optimal MTP file, run with MLIP-3 mlp executable
+  artifact_kind: external_model_file
+  acceptance_status: accepted
+  rejection_reason: >-
+    Downloaded recommended MTP files to local_potential_cache. Round-35 MTP
+    integrity audit parsed both files, recorded SHA256 hashes, and detected
+    trained coefficients. Round-46 found the bundled LAMMPS `lmp.exe`, but it
+    exposes `mliap` rather than the Shapeev MTP/user-mlip interface. Round-48
+    built a local WSL MLIP-3 serial `mlp` executable in an audit-only build copy
+    and completed `calculate_efs` reference inference on
+    `init_CrCoNi_fcc_Co1Cr1Ni1_seed000007`. Round-49 confirmed the primary
+    source type map from the MLP-cSRO README as `{0: Cr, 1: Co, 2: Ni}` and ran
+    audit-only `mlp relax`; the relaxed CrCoNi smoke structure passed the
+    default force gate with max force 0.04208459415273005 eV/A. This candidate
+    was promoted in Round-50 after the reproducible `mtp_mlp` runner was added,
+    `potentials_catalog.yml` admitted the MIT-licensed TS-3 Levmax 20 model with
+    packaged file hash e1ae0fe802b1ef5ffe94b77f060ec8d23c08859eeec8f8614f890b27957b62c3,
+    `potentials verify` passed load/reference/smoke checks, and 5 formal
+    CrCoNi relaxed JSON/CIF structures plus provenance manifests were generated
+    under data/potentials/pot_crconi_mtp_csro/generated.
+- candidate_id: pot_crconi_nep_wu_2026
+  target_role: target_specific_mlip
+  family: NEP
+  engine: nep
+  model_name: General-purpose CrCoNi NEP potential
+  source_url: https://github.com/mushroomfire/NEP-CrCoNi
+  artifact_urls:
+  - https://raw.githubusercontent.com/mushroomfire/NEP-CrCoNi/main/model/nep.txt
+  - https://raw.githubusercontent.com/mushroomfire/NEP-CrCoNi/main/model/nep.in
+  - https://raw.githubusercontent.com/mushroomfire/NEP-CrCoNi/main/README.md
+  - https://raw.githubusercontent.com/mushroomfire/NEP-CrCoNi/main/LICENSE
+  artifact_hashes:
+    model/nep.txt:
+      sha256: 98e4e98e84007b794506c9e0c0ef5993beec19aff27bb667850fbbec35e142b7
+      bytes: 284424
+    model/nep.in:
+      sha256: 308308f74ea75e14d556c52b305c16ac8c10795513e576dde04b366a25a1a92f
+      bytes: 257
+    README.md:
+      sha256: 4ad182c3fb0fad869d193b396e2161ad9ac2d6b5f307bd8789f2deb78cbaa469
+      bytes: 1436
+    LICENSE:
+      sha256: 8ec5adc7d27c26bf58d5b905d9fdafc18530e8d2677dc80c49dc4684f1e5d354
+      bytes: 1069
+  doi: 10.48550/arXiv.2603.25616
+  license: MIT
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Co
+  - Ni
+  phases:
+  - fcc
+  - bcc
+  - hcp
+  target_systems:
+  - CrCoNi
+  install_method: download GitHub NEP model files and run through mdapy.NEP4ASE or GPUMD
+  artifact_kind: external_model_file
+  acceptance_status: accepted
+  rejection_reason: >-
+    Round-36 resolved a public MIT-licensed CrCoNi NEP repository with
+    `model/nep.txt` and `model/nep.in`, downloaded and SHA256-recorded the
+    model files, registered `pot_crconi_nep_wu_2026` in
+    `potentials_catalog.yml`, and verified mdapy.NEP4ASE load, CrCoNi reference
+    inference, and CrCoNi single-point smoke. MoNbTaVW and Ni-Al smoke structures
+    are correctly skipped as unsupported elements.
+- candidate_id: pot_crconi_ace_sheriff_motif_2025
+  target_role: target_specific_mlip
+  family: ACE/PACE
+  engine: pace_lammps
+  model_name: CrCoNi motif-based sampling ACE potential
+  source_url: https://github.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions
+  artifact_urls:
+  - https://raw.githubusercontent.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions/main/potentials/01_motif-based-sampling/CrCoNi/output_potential.yace
+  - https://raw.githubusercontent.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions/main/potentials/01_motif-based-sampling/README.md
+  doi: 10.48550/arXiv.2506.12592
+  license: MIT
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Co
+  - Ni
+  phases:
+  - fcc
+  target_systems:
+  - CrCoNi
+  install_method: download output_potential.yace and install LAMMPS with PACE or ASE/PyACE
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public ACE/PACE .yace model file is resolved. Round-31 found that the
+    installed lammps 2025.7.22.4.0 wheel reports pair_style pace as unavailable
+    because the ML-PACE package is not enabled, so this remains blocked until a
+    LAMMPS/PACE build or ASE/PyACE path is installed/configured for smoke
+    relaxation.
+- candidate_id: pot_cocrfemnni_mtp_cantor_alloy_mlip
+  target_role: target_specific_mlip
+  family: MTP
+  engine: mtp_lammps
+  model_name: CoCrFeMnNi Cantor alloy active-learning MTP
+  source_url: https://github.com/cocokane/CantorAlloyMLIP
+  artifact_urls:
+  - https://raw.githubusercontent.com/cocokane/CantorAlloyMLIP/main/Trained_MTP_models/mtp8-rb10/pot.mtp
+  - https://raw.githubusercontent.com/cocokane/CantorAlloyMLIP/main/Trained_MTP_models/mtp16-rb8/pot.mtp
+  - https://raw.githubusercontent.com/cocokane/CantorAlloyMLIP/main/Trained_MTP_models/mtp8-rb8/pot.mtp
+  - https://raw.githubusercontent.com/cocokane/CantorAlloyMLIP/main/Trained_MTP_models/desc.txt
+  doi: 10.48550/arXiv.2511.12514
+  license: GPL-3.0
+  redistribution_policy: redistributable_with_copyleft
+  elements:
+  - Co
+  - Cr
+  - Fe
+  - Mn
+  - Ni
+  phases:
+  - fcc
+  target_systems:
+  - CoCrFeMnNi
+  install_method: download trained MTP model files and install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public trained MTP model files are resolved. Round-35 MTP integrity audit
+    parsed the downloaded `.mtp` files, recorded SHA256 hashes, and detected
+    trained coefficients. Round-47 rechecked the public GitHub repository,
+    confirmed the `Trained_MTP_models` directory and GPL-3.0 license text, and
+    again classified this as found-but-runtime-blocked rather than
+    missing-model. Round-48 built a local WSL MLIP-3 serial `mlp` executable in
+    an audit-only build copy and completed `calculate_efs` reference inference
+    on `init_CoCrFeMnNi_fcc_Co1Cr1Fe1Mn1Ni1_seed000011` using an assumed
+    registry-order type map. Round-49 found conflicting primary-source mapping
+    evidence: the README states canonical order Co-Cr-Fe-Mn-Ni, the MTP
+    validation LAMMPS scripts imply runtime type order Co-Ni-Cr-Fe-Mn, and a
+    reference POSCAR lists Fe-Mn-Co-Cr-Ni. This candidate remains blocked from
+    accepted status until the intended MTP type-index mapping is resolved from
+    an unambiguous source.
+- candidate_id: pot_cocrfeni_cocrni_mtp_nitol_2026
+  target_role: target_specific_mlip
+  family: MTP
+  engine: mtp_lammps
+  model_name: CoCrFeNi and CoCrNi SRO/GSFE MTP
+  source_url: https://gitlab.com/mtp_potentials/cocrfeni
+  alternate_source_urls:
+  - https://arxiv.org/abs/2509.11231
+  - https://link.aps.org/doi/10.1103/nqsc-gzkw
+  artifact_urls:
+  - https://gitlab.com/mtp_potentials/cocrfeni/-/raw/main/potential_file/cocrfeni.mtp
+  - https://gitlab.com/mtp_potentials/cocrfeni/-/raw/main/potential_file/mlip.ini
+  - https://gitlab.com/mtp_potentials/cocrfeni/-/raw/main/LAMMPS_input/input_mc.in
+  - https://gitlab.com/mtp_potentials/cocrfeni/-/raw/main/README.md
+  artifact_hashes:
+    cocrfeni.mtp:
+      sha256: b1bf52e51e4f9125cbda5780857ee9be46356f64768b60e2b5bf482d3fccda70
+      bytes: 339829
+    mlip.ini:
+      sha256: b2a877777db51149e6c5a9c84fd4c0820c3cac96e9adccc83b20f699f7795c57
+      bytes: 38
+    input_mc.in:
+      sha256: 3551fb3d1b799a8e7347a499eef8cbf5f63c974dbbbd582eed08c92b2dbc7e9f
+      bytes: 3462
+    README.md:
+      sha256: 51d88cf1d8f8006760d5e11462bc1e97abb56333a512336431ec0c573bdf56a6
+      bytes: 593
+  doi: 10.1103/nqsc-gzkw
+  license: unknown
+  redistribution_policy: metadata_only
+  elements:
+  - Co
+  - Cr
+  - Fe
+  - Ni
+  phases:
+  - fcc
+  target_systems:
+  - CrCoNi
+  - CoCrFeNi
+  install_method: download GitLab MTP files and install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public GitLab MTP model file is resolved and hash-recorded. Round-35 MTP
+    integrity audit parsed `cocrfeni.mtp` and detected trained coefficients,
+    but the repository has no explicit LICENSE file and no `mlp` executable or
+    LAMMPS/user-mlip engine is installed/configured for reference inference or
+    smoke relaxation.
+- candidate_id: pot_monbtavw_tabgap_byggmastar
+  target_role: target_specific_mlip
+  family: tabGAP
+  engine: tabgap_lammps
+  model_name: Mo-Nb-Ta-V-W v2 2b+3b+EAM tabGAP
+  source_url: https://etsin.fairdata.fi/dataset/2498ae37-7325-4e51-aed2-473b12ebae69
+  alternate_source_urls:
+  - https://etsin.fairdata.fi/dataset/85872bc9-bd4f-47db-9c73-2e9800515551
+  doi: 10.23729/1e6d0215-d26b-4f5f-8f5b-df575efa6594
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  fairdata_files:
+  - dataset_id: 2498ae37-7325-4e51-aed2-473b12ebae69
+    path: /Mo-Nb-Ta-V-W_v2_potentials_and_data/tabgap_potential_files/2b+3b+EAM/Mo-Nb-Ta-V-W.tabgap
+    filename: Mo-Nb-Ta-V-W_v2_2b+3b+EAM.tabgap
+    sha256: 105ea798a832d2d333d7c0d5051c24dcd108b887d339d3a35d39c5db077fc46e
+    size: 842948145
+  - dataset_id: 2498ae37-7325-4e51-aed2-473b12ebae69
+    path: /Mo-Nb-Ta-V-W_v2_potentials_and_data/tabgap_potential_files/2b+3b+EAM/Mo-Nb-Ta-V-W.eam.fs
+    filename: Mo-Nb-Ta-V-W_v2_2b+3b+EAM.eam.fs
+    sha256: 4bdbc1a36b9d1f49ca1091d46e37b31beafd1cf91f20d92d37b1b5516a33e35e
+    size: 4342687
+  - dataset_id: 2498ae37-7325-4e51-aed2-473b12ebae69
+    path: /Mo-Nb-Ta-V-W_v2_potentials_and_data/tabgap_potential_files/2b+3b+EAM/README
+    filename: Mo-Nb-Ta-V-W_v2_2b+3b+EAM_README
+    sha256: 333c6b15501abe7d7daf1f50c717711fbffd63638cefdf03d97d261263023e43
+    size: 1652
+  - dataset_id: 85872bc9-bd4f-47db-9c73-2e9800515551
+    path: /tabGAP_2b+3b_MoNbTaVW/pair_tabgap.cpp
+    filename: MoNbTaVW_pair_tabgap.cpp
+    sha256: 087db4f1ff4f80edfb596e0847f4a0e3bdc3f7026e27bb7de032c0de3a336ec0
+    size: 33904
+  - dataset_id: 85872bc9-bd4f-47db-9c73-2e9800515551
+    path: /tabGAP_2b+3b_MoNbTaVW/pair_tabgap.h
+    filename: MoNbTaVW_pair_tabgap.h
+    sha256: 7f6fbb1e3f9f49d48cd0563e6105a85fc0bf6056f7003011ff8fc54e91c6a984
+    size: 2919
+  elements:
+  - Mo
+  - Nb
+  - Ta
+  - V
+  - W
+  phases:
+  - bcc
+  target_systems:
+  - MoNbTaVW
+  install_method: download Fairdata potential files and use the provided LAMMPS tabGAP implementation
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Fairdata/Metax file metadata and authorized-download paths are resolved; all listed tabGAP/EAM/source files are staged and hash-validated in local_potential_cache. Round-46 found the bundled LAMMPS `lmp.exe`, but no tabGAP custom pair style is exposed, so this candidate remains blocked until a tabGAP-capable LAMMPS build is installed/configured for smoke relaxation.
+- candidate_id: pot_monbtavw_mtp_wang_2024
+  target_role: target_specific_mlip
+  family: MTP
+  engine: mtp_lammps
+  model_name: MoNbTaVW MTP and CRSS ML model
+  source_url: https://github.com/ucsdlxg/MoNbTaVW-ML-interatomic-potential-and-CRSS-ML-model
+  artifact_urls:
+  - https://raw.githubusercontent.com/ucsdlxg/MoNbTaVW-ML-interatomic-potential-and-CRSS-ML-model/main/README.md
+  - https://raw.githubusercontent.com/ucsdlxg/MoNbTaVW-ML-interatomic-potential-and-CRSS-ML-model/main/potential/fitted.mtp
+  - https://raw.githubusercontent.com/ucsdlxg/MoNbTaVW-ML-interatomic-potential-and-CRSS-ML-model/main/potential/mlip.ini
+  - https://raw.githubusercontent.com/ucsdlxg/MoNbTaVW-ML-interatomic-potential-and-CRSS-ML-model/main/potential/quinary.json
+  artifact_hashes:
+    README.md:
+      sha256: 4227488c91687703b5a0401e60ff615014f43fa9dbf49497a0646bf6678db75c
+      bytes: 453
+    potential/fitted.mtp:
+      sha256: 80075e111fa2d6676adcd57842dc014e556518a8efba319ea3cc4e573f822083
+      bytes: 154572
+    potential/mlip.ini:
+      sha256: 711c2e111284d71351c1932e1d7fdceddd2f8d3916a2533923a5360d08b22a82
+      bytes: 130
+    potential/quinary.json:
+      sha256: 64bdbad2cadd31e68d453e830e591762140c5ce5c831eb9f8c47580a15a769bc
+      bytes: 78117426
+  doi: 10.1038/s41524-024-01330-6
+  license: unknown
+  redistribution_policy: metadata_only
+  elements:
+  - Mo
+  - Nb
+  - Ta
+  - V
+  - W
+  phases:
+  - bcc
+  - dislocation
+  - defects
+  target_systems:
+  - MoNbTaVW
+  install_method: download GitHub fitted.mtp/mlip.ini/quinary.json and install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public MoNbTaVW MTP model/config/training JSON files are resolved and
+    hash-recorded under local_potential_cache. Round-35 MTP integrity audit
+    parsed `fitted.mtp` and detected trained coefficients. The GitHub
+    repository has no explicit LICENSE file, and no `mlp` executable or
+    LAMMPS/user-mlip engine is installed/configured for reference inference or
+    smoke relaxation.
+- candidate_id: pot_monbtaw_mtp_ufsf_2025
+  target_role: refractory_alloy_specific_mlip
+  family: MTP
+  engine: mtp_lammps
+  model_name: MoNbTaW MTP14/MTP16 for multi-principal element alloy plasticity
+  source_url: https://github.com/ufsf/Machine-Learning-Potentials/tree/main/MoNbTaW
+  artifact_urls:
+  - https://raw.githubusercontent.com/ufsf/Machine-Learning-Potentials/main/MoNbTaW/MTP14/MoNbTaW-mtp14-final.mtp
+  - https://raw.githubusercontent.com/ufsf/Machine-Learning-Potentials/main/MoNbTaW/MTP16/MoNbTaW-16-final.mtp
+  artifact_hashes:
+    MoNbTaW/readme:
+      sha256: 6055048356fa24e4e79aa0e0ce4f05dfce435b7ac507ad5f6e0324a5630375e9
+      bytes: 1092
+    MoNbTaW/MTP14/MoNbTaW-mtp14-final.mtp:
+      sha256: 67fcc0f4f743da3659ced393578e00e65130a92c0536ebe54a1ce1373f526dab
+      bytes: 21569
+    MoNbTaW/MTP14/report.out:
+      sha256: f0268aacbdd5f90e4a79cad85615f7b8d81d9ad65868408ba36eb5fd0ae92b4f
+      bytes: 25411
+    MoNbTaW/MTP16/MoNbTaW-16-final.mtp:
+      sha256: bb08bc315e14618d1362378ab151253210e8f24295746505b9febac1232651b4
+      bytes: 34642
+    MoNbTaW/MTP16/report.out:
+      sha256: 80cee85df1c19a0a72b29d71a163491a4a1b8b40afa0d50f3f9993f5f1efdb58
+      bytes: 56564
+  doi: 10.1016/j.ijplas.2025.104308
+  license: unknown
+  redistribution_policy: metadata_only
+  elements:
+  - Mo
+  - Nb
+  - Ta
+  - W
+  phases:
+  - bcc
+  - dislocation
+  - defects
+  target_systems:
+  - MoNbTaW
+  - refractory_bcc_HEA
+  install_method: download GitHub MTP14/MTP16 files and install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public MoNbTaW MTP14/MTP16 model files are resolved and hash-recorded under local_potential_cache; this is a refractory Mo-Nb-Ta-W model rather than the exact MoNbTaVW benchmark system, and the repository has no explicit LICENSE file plus LAMMPS/user-mlip is not installed/configured for smoke relaxation.
+- candidate_id: pot_nbmotaw_snap_mvl_2021
+  target_role: refractory_alloy_specific_mlip
+  family: SNAP
+  engine: snap_lammps
+  model_name: NbMoTaW SNAP potential
+  source_url: https://github.com/materialsvirtuallab/snap/tree/master/NbMoTaW
+  artifact_urls:
+  - https://raw.githubusercontent.com/materialsvirtuallab/snap/master/NbMoTaW/Ta-W-Nb-Mo.snapcoeff
+  - https://raw.githubusercontent.com/materialsvirtuallab/snap/master/NbMoTaW/Ta-W-Nb-Mo.snapparam
+  artifact_hashes:
+    LICENSE:
+      sha256: 4c7a43fb32ed4913586679f60ada915357f5933c378d1d7ae2ae991f92ab7e9c
+      bytes: 1521
+    NbMoTaW/README.md:
+      sha256: dddf4861606ea72a219764703cb93ecb7a88de82c9f5873af418a6d9ea3e5064
+      bytes: 1006
+    NbMoTaW/Ta-W-Nb-Mo.snapcoeff:
+      sha256: 714cd0b9caf7c206ce51fc994b103276576c1530702b55f2adc6f819b8c90acd
+      bytes: 2696
+    NbMoTaW/Ta-W-Nb-Mo.snapparam:
+      sha256: cf8cf6aa9703f66d1588e1207a548a078798e64ae4c40876316755ea3acd934a
+      bytes: 178
+  doi: 10.1038/s41467-021-25134-0
+  license: BSD-3-Clause
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Nb
+  - Mo
+  - Ta
+  - W
+  phases:
+  - bcc
+  - defects
+  target_systems:
+  - MoNbTaW
+  - refractory_bcc_HEA
+  install_method: download SNAP coeff/param files and install LAMMPS SNAP pair style
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public NbMoTaW SNAP coeff/param files are downloaded and hash-recorded
+    under local_potential_cache under a BSD-3-Clause repository license.
+    Round-32 adds a snap_lammps adapter and confirms that the installed LAMMPS
+    ML-SNAP engine can evaluate the model with a temporary smoke-only
+    compatibility copy of the parameter file that removes the obsolete
+    diagonalstyle keyword. The original cached parameter file fails directly on
+    LAMMPS 2025 because diagonalstyle was removed after 2019, and the model
+    lacks V, so it remains a supporting partial-coverage candidate rather than
+    an accepted MoNbTaVW potential. Round-46 confirms the bundled LAMMPS
+    `lmp.exe` exposes pair_style `snap`, making this the most practical next
+    LAMMPS-backed supporting smoke target after compatibility normalization.
+- candidate_id: pot_monbtaw_mtp_mvl_2021
+  target_role: refractory_alloy_specific_mlip
+  family: MTP
+  engine: mtp_lammps
+  model_name: MoNbTaW MTP from Materials Virtual Lab PES models
+  source_url: https://github.com/materialsvirtuallab/maml/tree/main/mvl_models/pes/MoNbTaW/mtp.2021.08
+  artifact_urls:
+  - https://raw.githubusercontent.com/materialsvirtuallab/maml/main/mvl_models/pes/MoNbTaW/mtp.2021.08/quaternary.mtp
+  artifact_hashes:
+    LICENSE:
+      sha256: 3cb84d1280a2bdb707e0934f333742017412fe6220b44d13c058ee8decc2a431
+      bytes: 1529
+    mvl_models/pes/MoNbTaW/mtp.2021.08/README.md:
+      sha256: c984e593ddddf7309392c5ad8a814bbe16a5e487892f88f22174810633a62b4e
+      bytes: 458
+    mvl_models/pes/MoNbTaW/mtp.2021.08/quaternary.mtp:
+      sha256: b52cd2a25d6ac8e3a6bb99ead6da280da878e7091069b52cf23b92245a679327
+      bytes: 21365
+  doi: 10.1038/s41467-021-25134-0
+  license: BSD-3-Clause
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Mo
+  - Nb
+  - Ta
+  - W
+  phases:
+  - bcc
+  - defects
+  target_systems:
+  - MoNbTaW
+  - refractory_bcc_HEA
+  install_method: download MAML quaternary.mtp and install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public Materials Virtual Lab MoNbTaW MTP file is downloaded and
+    hash-recorded under local_potential_cache under a BSD-3-Clause repository
+    license. Round-35 MTP integrity audit parsed `quaternary.mtp` and detected
+    trained coefficients. It remains blocked until an `mlp` executable or
+    LAMMPS/user-mlip or MLIP-3 smoke path is configured.
+- candidate_id: pot_monbtavw_dpa2_lam_jiang_2026
+  target_role: refractory_alloy_specific_mlip
+  family: DeepMD/DPA2
+  engine: deepmd_lammps
+  model_name: Ta-Nb-W-Mo-V DPA2-5E LAM distilled model
+  source_url: https://github.com/JiangXiaoMingSan/LAM-DPA-Train-Script
+  artifact_urls:
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-5E/distilltion/dpa2_only5_compress.pth
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-5E/distilltion/train.json
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-5E/distilltion/template.lammps
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-5E/distilltion/zbl_potential_VNbMoTaW.txt
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-5E/finetune/model.ckpt.pt
+  artifact_hashes:
+    dpa2_only5_compress.pth:
+      sha256: ed42cacc375d7e5fca5afdf0bceea5fb2058d86cdc3e75ed1ad601d98d8a595f
+      bytes: 21710092
+    train.json:
+      sha256: d5d37ae0eeff159fb34d2f97c2bebcf6744161fe08f3c8d92a5fc7ef070ca1e5
+      bytes: 1879
+    template.lammps:
+      sha256: 6693ad29332153eb1f512eff4200d5a7d00c00d06ba1cb58dc64f82d64523213
+      bytes: 1026
+    zbl_potential_VNbMoTaW.txt:
+      sha256: c98b9f5cb384c4499d652ba6f251007e9a209d622741e0c414395d58f07ee784
+      bytes: 890323
+    finetune/model.ckpt.pt:
+      sha256: 5ebe9f3a930e6925c55202954b71a1721589ffd3b6065e30d3af34e29e3ad737
+      bytes: 24660538
+  doi: 10.1038/s41524-025-01950-6
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - V
+  - Nb
+  - Mo
+  - Ta
+  - W
+  phases:
+  - bcc
+  - liquid
+  - defects
+  - surface
+  target_systems:
+  - MoNbTaVW
+  install_method: download GitHub DPA2-5E distilled and finetune model/config files; install DeePMD-kit v3 with LAMMPS deepmd pair style
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public DPA2-5E Ta-Nb-W-Mo-V distilled and finetune model/config files are
+    resolved and hash-recorded from GitHub, but the repository has no explicit
+    license. Round-31 installed deepmd-kit 3.1.3 and lammps
+    2025.7.22.4.0 into the user Python environment, but the LAMMPS wheel does
+    not recognize pair_style deepmd and dp --pt show fails with a PyTorch CXX11
+    ABI mismatch, so reference inference and smoke relaxation still have not
+    passed. Round-46 confirms `dp.exe` and bundled `lmp.exe` are discoverable,
+    but LAMMPS still lacks `pair_style deepmd` and `dp --pt show` still fails
+    with the DeepMD/PyTorch CXX11 ABI mismatch.
+- candidate_id: pot_monbtavw_dpa2_lam_all_jiang_2026
+  target_role: refractory_alloy_specific_mlip
+  family: DeepMD/DPA2
+  engine: deepmd_lammps
+  model_name: Ta-Nb-W-Mo-V DPA2-All LAM distilled model
+  source_url: https://github.com/JiangXiaoMingSan/LAM-DPA-Train-Script
+  artifact_urls:
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-All/distilltion/dpa2_alldata_compress.pth
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-All/distilltion/train.json
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-All/distilltion/template.lammps
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-All/distilltion/zbl_potential_VNbMoTaW.txt
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-All/finetune/5alloy_alldata_ft.pth
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DPA2-All/finetune/model.ckpt-800000.pt
+  artifact_hashes:
+    dpa2_alldata_compress.pth:
+      sha256: 4906af15c48374e7be57f3538cd5a3e136a085511cd103a7b8786a47ab2b0423
+      bytes: 24398640
+    train.json:
+      sha256: d5d37ae0eeff159fb34d2f97c2bebcf6744161fe08f3c8d92a5fc7ef070ca1e5
+      bytes: 1879
+    template.lammps:
+      sha256: 6693ad29332153eb1f512eff4200d5a7d00c00d06ba1cb58dc64f82d64523213
+      bytes: 1026
+    zbl_potential_VNbMoTaW.txt:
+      sha256: c98b9f5cb384c4499d652ba6f251007e9a209d622741e0c414395d58f07ee784
+      bytes: 890323
+    finetune/5alloy_alldata_ft.pth:
+      sha256: 026d8dfe6c65a9f5277886441d287ce4052d5285f515f7bfd363eed4ac7f73ae
+      bytes: 8427272
+    finetune/model.ckpt-800000.pt:
+      sha256: 977faa90546466ed1a02b4850e801f5239eecead98d4a99ace135188903b6bec
+      bytes: 24660538
+  doi: 10.1038/s41524-025-01950-6
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - V
+  - Nb
+  - Mo
+  - Ta
+  - W
+  phases:
+  - bcc
+  - liquid
+  - defects
+  - surface
+  target_systems:
+  - MoNbTaVW
+  install_method: download GitHub DPA2-All distilled and finetune model/config files; install DeePMD-kit v3 with LAMMPS deepmd pair style
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public DPA2-All Ta-Nb-W-Mo-V distilled and finetune model/config files are
+    resolved and hash-recorded from GitHub, but the repository has no explicit
+    license. Round-31 installed deepmd-kit 3.1.3 and lammps
+    2025.7.22.4.0 into the user Python environment, but the LAMMPS wheel does
+    not recognize pair_style deepmd and dp --pt show fails with a PyTorch CXX11
+    ABI mismatch, so reference inference and smoke relaxation still have not
+    passed. Round-46 confirms `dp.exe` and bundled `lmp.exe` are discoverable,
+    but LAMMPS still lacks `pair_style deepmd` and `dp --pt show` still fails
+    with the DeepMD/PyTorch CXX11 ABI mismatch.
+- candidate_id: pot_monbtavw_dp_lam_jiang_2026
+  target_role: refractory_alloy_specific_mlip
+  family: DeepMD/DP
+  engine: deepmd_lammps
+  model_name: Ta-Nb-W-Mo-V DP-5E LAM checkpoint
+  source_url: https://github.com/JiangXiaoMingSan/LAM-DPA-Train-Script
+  artifact_urls:
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DP-5E/model.ckpt.pt
+  artifact_hashes:
+    model.ckpt.pt:
+      sha256: 56fc69e942ab80f975e04bec3e1ac88838161840aad159177531ef392e1cb321
+      bytes: 17265350
+  doi: 10.1038/s41524-025-01950-6
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - V
+  - Nb
+  - Mo
+  - Ta
+  - W
+  phases:
+  - bcc
+  - liquid
+  - defects
+  - surface
+  target_systems:
+  - MoNbTaVW
+  install_method: download GitHub DP-5E checkpoint file; install DeePMD-kit v3 with LAMMPS deepmd pair style
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public DP-5E Ta-Nb-W-Mo-V checkpoint is resolved and hash-recorded from
+    GitHub, but the repository has no explicit license. Round-31 installed
+    deepmd-kit 3.1.3 and lammps 2025.7.22.4.0 into the user Python environment,
+    but the LAMMPS wheel does not recognize pair_style deepmd and dp --pt show
+    fails with a PyTorch CXX11 ABI mismatch, so reference inference and smoke
+    relaxation still have not passed. Round-46 confirms `dp.exe` and bundled
+    `lmp.exe` are discoverable, but LAMMPS still lacks `pair_style deepmd` and
+    `dp --pt show` still fails with the DeepMD/PyTorch CXX11 ABI mismatch.
+- candidate_id: pot_monbtavw_dp_lam_all_jiang_2026
+  target_role: refractory_alloy_specific_mlip
+  family: DeepMD/DP
+  engine: deepmd_lammps
+  model_name: Ta-Nb-W-Mo-V DP-All LAM checkpoint
+  source_url: https://github.com/JiangXiaoMingSan/LAM-DPA-Train-Script
+  artifact_urls:
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/DP-All/model.ckpt.pt
+  artifact_hashes:
+    model.ckpt.pt:
+      sha256: 1470d1304651904a9662bd60bdda0f70c20a1ee1f66b72414a52561339d80566
+      bytes: 17265350
+  doi: 10.1038/s41524-025-01950-6
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - V
+  - Nb
+  - Mo
+  - Ta
+  - W
+  phases:
+  - bcc
+  - liquid
+  - defects
+  - surface
+  target_systems:
+  - MoNbTaVW
+  install_method: download GitHub DP-All checkpoint file; install DeePMD-kit v3 with LAMMPS deepmd pair style
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public DP-All Ta-Nb-W-Mo-V checkpoint is resolved and hash-recorded from
+    GitHub, but the repository has no explicit license. Round-31 installed
+    deepmd-kit 3.1.3 and lammps 2025.7.22.4.0 into the user Python environment,
+    but the LAMMPS wheel does not recognize pair_style deepmd and dp --pt show
+    fails with a PyTorch CXX11 ABI mismatch, so reference inference and smoke
+    relaxation still have not passed. Round-46 confirms `dp.exe` and bundled
+    `lmp.exe` are discoverable, but LAMMPS still lacks `pair_style deepmd` and
+    `dp --pt show` still fails with the DeepMD/PyTorch CXX11 ABI mismatch.
+- candidate_id: pot_nicofecraltita_dpa3_lam_jiang_2026_lead
+  target_role: gamma_prime_specific_candidate
+  family: DeepMD/DPA3
+  engine: deepmd_lammps
+  model_name: Ni-Co-Fe-Cr-Al-Ti-Ta FCC+L12 DPA3 training lead, checkpoint not found
+  source_url: https://github.com/JiangXiaoMingSan/LAM-DPA-Train-Script/tree/main/complex-structures/dpa3-FCC%2BL12
+  artifact_urls:
+  - https://raw.githubusercontent.com/JiangXiaoMingSan/LAM-DPA-Train-Script/main/complex-structures/dpa3-FCC%2BL12/input_dpa3ft.json
+  artifact_hashes:
+    input_dpa3ft.json:
+      sha256: 4d3060738a7a5d2ac3f28994bbe60d69481d4e60c6f1368397db10ccd3849b4e
+      bytes: 66876
+  doi: 10.1038/s41524-025-01950-6
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - Ti
+  - Ta
+  - Al
+  - Cr
+  - Fe
+  - Ni
+  - Co
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: continue public model search; repository currently exposes the FCC+L12 DPA3 training input/config but no trained checkpoint/model artifact
+  artifact_kind: training_config_only_no_checkpoint
+  acceptance_status: research_needed
+  rejection_reason: >-
+    The npj Computational Materials 2026 LAM/DPA repository exposes a DPA3
+    FCC+L12 input config with Ti-Ta-Al-Cr-Fe-Ni-Co type map, which is directly
+    relevant to Ni-Al-Ti-Ta gamma/gamma-prime chemistry; input_dpa3ft.json is
+    downloaded and hash-recorded under local_potential_cache. Round-29
+    rechecked the current GitHub main tree, branches, and releases: the
+    repository still has no explicit license, exposes no releases, and the
+    complex-structures/dpa3-FCC+L12 path contains only input_dpa3ft.json rather
+    than a trained checkpoint/model file; there is still no trained FCC+L12
+    checkpoint. This cannot be admitted as a usable gamma/gamma-prime MLIP until
+    a trained model artifact and license are published. Round-34 rechecked the
+    GitHub repository on 2026-07-04: the repo was updated on 2026-06-01, still
+    has no releases or detected license, and the FCC+L12 directory still
+    contains only input_dpa3ft.json. Round-43 rechecked the GitHub API tree,
+    branches, and releases on 2026-07-05: the repository still has one branch,
+    zero releases, no detected license, and the FCC+L12 DPA3 directory still
+    contains only `input_dpa3ft.json` rather than a trained checkpoint.
+- candidate_id: pot_nialti_mace_fitsnap_song_2026_lead
+  target_role: gamma_prime_specific_candidate
+  family: MACE/FitSNAP-NN
+  engine: mace_or_fitsnap_lammps
+  model_name: Ni-Al-Ti ML-IAP for gamma/gamma-prime phase properties
+  source_url: https://www.programmaster.org/PM/PM.nsf/ApprovedAbstracts/3322D07859DB17C985258CB50057C95A
+  doi: none_found
+  license: model_license_not_found
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ti
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Al-Ti
+  install_method: track the TMS 2026 abstract and author/project pages until a public checkpoint, training repository, or archive is released
+  artifact_kind: conference_abstract_no_model_file
+  acceptance_status: research_needed
+  rejection_reason: >-
+    TMS 2026 ProgramMaster abstract states that Ni-Al-Ti ML-IAPs for
+    gamma/gamma-prime phase properties were trained using MACE and
+    neural-network architectures through FitSNAP, but no public
+    checkpoint/model archive, repository, license, or installation recipe was
+    found by exact title, author, MACE, FitSNAP, GitHub, Zenodo, Materials
+    Cloud, Hugging Face, or AISSquare searches. Round-34 exact Hugging Face,
+    GitHub repository, DataCite, Zenodo, and arXiv checks again found zero
+    public Ni-Al-Ti MACE/FitSNAP model artifacts. Round-37 rechecked GitHub
+    repositories, Hugging Face, Zenodo, Crossref, and exact NiAlTi/nep/MACE/
+    FitSNAP/gamma-prime terms on 2026-07-05; no public checkpoint, repository,
+    license, checksum, or installable model file was found. Round-40 repeated
+    public web, GitHub repository, Hugging Face model, Zenodo, and NEP-data
+    tree checks on 2026-07-05; no public Ni-Al-Ti MACE/FitSNAP checkpoint or
+    installable model file was found. Round-42 repeated web, GitHub repository,
+    Hugging Face model, Zenodo, and DataCite searches on 2026-07-05; repository
+    and model-hub exact queries again returned zero target checkpoint hits, and
+    Zenodo/DataCite hits were unrelated or non-MLIP literature/data. Round-44
+    re-opened the ProgramMaster abstract on 2026-07-05 and confirmed the
+    Ni-Al-Ti gamma/gamma-prime target, MACE, and FitSNAP claims, but the page
+    still exposes no checkpoint/model archive, license, checksum, or runnable
+    engine recipe; fresh GitHub repository, Hugging Face model, Zenodo,
+    DataCite, and GitLab searches also found zero target checkpoint hits. Keep
+    as a high-priority lead; do not admit until a real model file and license
+    are available. Round-47 repeated GitHub repository, Hugging Face model, and
+    Zenodo searches for Ni-Al-Ti MACE/FitSNAP/gamma-prime checkpoint terms; no
+    public checkpoint, license, checksum, or installable artifact was found.
+- candidate_id: pot_nibased_gamma_prime_mou_2023_lead
+  target_role: gamma_prime_specific_candidate
+  family: DeepMD/NequIP/Allegro/MTP
+  engine: deepmd_or_nequip_or_mtp
+  model_name: High-entropy-strategy Ni-based superalloy gamma/gamma-prime MLIP thesis lead
+  source_url: https://bearworks.missouristate.edu/theses/3860/
+  doi: none_found
+  license: model_license_not_found
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-based-gamma-gamma-prime
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: track thesis metadata, author pages, and any future supplemental archive; do not use until a public checkpoint/model file and license are available
+  artifact_kind: thesis_abstract_no_model_file
+  acceptance_status: research_needed
+  rejection_reason: >-
+    BearWorks thesis metadata and the author homepage report Deep Learning
+    interatomic potentials for multiphase multicomponent Ni-based superalloys
+    with Gamma, Gamma Prime, and carbide phases using DeePMD, NequIP/Allegro,
+    and MTP. However, the public thesis page exposes metadata and a PDF
+    download link but no model archive; the author's public GitHub repositories
+    do not expose a Ni-based gamma/gamma-prime checkpoint/model archive; no
+    public checkpoint/model archive, exact element map, license, or runnable
+    engine recipe was found. Round-34 public index checks again found no
+    DeePMD/NequIP/Allegro/MTP checkpoint for this lead. Round-37 rechecked
+    BearWorks/author-search/public indexes and exact Ni-based gamma/gamma-prime
+    checkpoint terms on 2026-07-05; no public model archive, license, checksum,
+    or installable engine recipe was found. Round-43 found the author's public
+    GitHub profile and a 2026 MIT-licensed high-entropy carbide MACE-OMAT
+    workflow repository, plus NequIP/Allegro support discussions, but these
+    expose no Ni-based gamma/gamma-prime checkpoint, chemistry map, license,
+    checksum, or model download. Keep as a high-priority literature lead only.
+- candidate_id: pot_wtacrv_tabgap_byggmastar_2025
+  target_role: target_specific_mlip
+  family: tabGAP
+  engine: tabgap_lammps
+  model_name: W-Ta-Cr-V tabGAP potential files
+  source_url: https://zenodo.org/records/15063031
+  artifact_urls:
+  - https://zenodo.org/api/records/15063031/files/tabgap_potfiles_hdf5.zip/content
+  - https://zenodo.org/api/records/15063031/files/gap_xml_files.zip/content
+  - https://zenodo.org/api/records/15063031/files/README/content
+  optional_artifacts:
+  - url: https://zenodo.org/api/records/15063031/files/tabgap_potfiles_rawtext.zip/content
+    filename: tabgap_potfiles_rawtext.zip
+    md5: 6c1fa518fbbe551c664f6cafecd2c491
+    size: 171836569
+    reason: Optional raw-text alternative to the HDF5 LAMMPS tabGAP package; automated transfer stalled at 0 bytes during a 15-minute attempt on 2026-07-03.
+  doi: 10.5281/zenodo.15063031
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - W
+  - Ta
+  - Cr
+  - V
+  phases:
+  - bcc
+  target_systems:
+  - WTaCrV
+  install_method: download Zenodo tabGAP potential files and use LAMMPS tabGAP
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Downloaded Zenodo HDF5 LAMMPS tabGAP package and GAP XML package to local_potential_cache. Round-46 found the bundled LAMMPS `lmp.exe`, but no tabGAP custom pair style is exposed, so this candidate remains blocked until a tabGAP-capable LAMMPS build is installed/configured for smoke relaxation.
+- candidate_id: pot_nial_mtp_wang_2025_candidate
+  target_role: target_specific_mlip
+  family: MTP
+  engine: mtp_mlp
+  model_name: Ni-Al MTP for defects in Ni-Al alloys
+  source_url: https://github.com/wftao1995/MTP_dataset
+  artifact_urls:
+  - https://raw.githubusercontent.com/wftao1995/MTP_dataset/main/potential.mtp
+  - https://raw.githubusercontent.com/wftao1995/MTP_dataset/main/README.md
+  artifact_hashes:
+    potential.mtp:
+      sha256: 4697dfcebbae24f99a2ef66d0dcf2a8577fd8aa6143d7313ad8bc95d5d0996f1
+      bytes: 349227
+    README.md:
+      sha256: 812bb1cf756145933496d25033d89f032585d4d5b477ae233702534630425682
+      bytes: 1120
+  doi: 10.1103/PhysRevMaterials.9.053805
+  license: unknown
+  redistribution_policy: metadata_only
+  elements:
+  - Al
+  - Ni
+  phases:
+  - fcc
+  - l12
+  - b2
+  target_systems:
+  - Ni-Al
+  install_method: download potential.mtp locally; run through the local MLIP-3 `mlp` executable; map type 0 to Al and type 1 to Ni
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  type_map:
+    '0': Al
+    '1': Ni
+  type_map_evidence: README.md explicitly states `potential.mtp` type 0 is Al and type 1 is Ni.
+  rejection_reason: >-
+    Public `potential.mtp` is resolved and hash-recorded. Round-35 MTP
+    integrity audit parsed it and detected trained coefficients. Round-40
+    rechecked the GitHub repository on 2026-07-05: it still exposes README.md,
+    potential.mtp, train.1.xyz, train.2.xyz, and valid.xyz, but no LICENSE file
+    or repository license metadata. Round-41 found no usable local MTP runtime
+    at that time. Round-51 reran the candidate through the local MLIP-3 `mlp`
+    executable with the README type map and obtained passing audit-only
+    single-point and smoke-relax records for Ni-Al fcc/L12 structures in
+    `audits/mtp_nial_ni3al_direct_smoke_round51_2026-07-05/summary.json`.
+    It remains blocked from accepted/formal generation because the source
+    repository still has no explicit license, so redistribution and benchmark
+    admission policy remain unresolved.
+- candidate_id: pot_nial_hdnnp_sandberg_2024
+  target_role: target_specific_mlip
+  family: HDNNP/n2p2
+  engine: n2p2_lammps
+  model_name: Al-Ni high-dimensional neural network potential for undercooled melts
+  source_url: https://archive.materialscloud.org/records/wejc0-9tz40
+  artifact_urls:
+  - https://archive.materialscloud.org/api/records/wejc0-9tz40/files/nnp-data.AlNi.tgz/content
+  - https://archive.materialscloud.org/api/records/wejc0-9tz40/files/files_description.md/content
+  artifact_hashes:
+    nnp-data.AlNi.tgz:
+      sha256: 936703196b883d9f6f28936f168819a176ec7337bf0e0a2dc5402a17231c605f
+      md5: 396254658109de25364cac74cae63ecd
+      bytes: 117231
+    files_description.md:
+      sha256: 36055657fddc39e208f30ead2d61abfa5f2a647ec322b45f2ee94a329d3dcc8b
+      md5: 3dcb2e4419c3b44c26c72cfdc2dec093
+      bytes: 246
+  optional_artifacts:
+  - url: https://archive.materialscloud.org/api/records/wejc0-9tz40/files/dataset-AlNi.tgz/content
+    filename: dataset-AlNi.tgz
+    md5: 4a80a5116b55deabbcee67c9e1b250d6
+    size: 369256120
+    reason: Large training/simulation dataset; the compact n2p2 potential package is sufficient for candidate admission.
+  doi: 10.24435/materialscloud:dq-ax
+  related_publication_doi: 10.48550/arXiv.2410.07886
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Al
+  - Ni
+  phases:
+  - liquid
+  - fcc
+  - b2
+  target_systems:
+  - Ni-Al
+  install_method: download Materials Cloud nnp-data.AlNi.tgz; install n2p2/LAMMPS HDNNP interface for smoke relaxation
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public Materials Cloud n2p2 HDNNP potential package for Al-Ni is resolved
+    under CC-BY-4.0, but n2p2/LAMMPS engine is not installed/configured for
+    smoke relaxation. Round-31 found that the installed lammps 2025.7.22.4.0
+    wheel reports pair_style hdnnp as unavailable because the ML-HDNNP package
+    is not enabled; the model is Ni-Al specific and does not cover Ti or Ta
+    gamma-prime substitutions. Round-41 confirmed that neither `n2p2` nor
+    `pynnp` is available from PyPI in this environment and the Python LAMMPS
+    module cannot load `liblammps.dll`, so the HDNNP runtime remains unresolved.
+- candidate_id: pot_ni3al_mtp_darus_yield_anomaly_2024
+  target_role: gamma_prime_specific_mlip
+  family: MTP
+  engine: mtp_mlp
+  model_name: Ni3Al L12 physically informed MTP for yield-stress anomaly
+  source_url: https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/DARUS-4480
+  doi: 10.18419/DARUS-4480
+  related_publication_doi: 10.1016/j.actamat.2024.120423
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ni
+  - Al
+  phases:
+  - l12
+  target_systems:
+  - Ni-Al
+  - Ni3Al
+  install_method: download DaRUS Ni3Al.mtp and train.cfg; install LAMMPS/user-mlip or MLIP-3 MTP interface
+  artifact_kind: external_model_file
+  dataverse_files:
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 317664
+    filename: Ni3Al.mtp
+    md5: e03223837c3f56322142114786f325d7
+    sha256: 8f5fad22adcd6e4fad9334b65dccd04dd66fdb766eb38f6992960f1f26ce532b
+    size: 6160
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 317667
+    filename: train.cfg
+    md5: eca88cae9ad4e5f43ac71015bc7d045e
+    sha256: 23ba91ad36196caf937d6f7dc008c40ee7b45601806e7677b5a4ae2cf0d5e864
+    size: 14639583
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 317666
+    filename: 100APBE.dat
+    md5: 92b1a1a78f1e351e1efcfb8d2309b898
+    sha256: 36f8f905af9e887465cdfd546e002fd3a66c2ed4504bc7e282fc4524a00b6395
+    size: 11815
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 317668
+    filename: 111APBE.dat
+    md5: 51d3293ee858aaa402e050553509baa0
+    sha256: 08e4913ab23c8a6c22676a91318876191622a1bb1aa67723147158037710325c
+    size: 11821
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 317665
+    filename: CSFE.dat
+    md5: a1b5fbc39ac14c10fcb0ad8fae9d5851
+    sha256: 83db7c9f9fa946fc74948624ca5c5dc04537bdacc9cbff0d7e2d7d2ff223c238
+    size: 11815
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 317669
+    filename: SIFE.dat
+    md5: b7c1d6af0bdf59ef39698d7694851e57
+    sha256: 446fb303ff28632afd7547cea849d38c36bf0e0963d041c035d32acc16d89585
+    size: 11811
+  type_map:
+    '0': Al
+    '1': Ni
+  type_map_evidence: >-
+    Inferred from the DaRUS Ni3Al `train.cfg` first frame: 27 atoms have MTP
+    type 0 and 81 atoms have MTP type 1, matching the 1:3 Al:Ni stoichiometry
+    of Ni3Al described by the dataset.
+  acceptance_status: accepted
+  rejection_reason: >-
+    Accepted in round-51 using the local MLIP-3 `mtp_mlp` runner. The CC-BY-4.0
+    DaRUS `Ni3Al.mtp` file is hash-validated, copied into the per-potential
+    workspace, and verified by audit-only reference inference plus smoke
+    relaxation on the public Ni-Al L12 initial structure. Formal relaxation is
+    restricted to declared `l12` structures by phase-scope filtering.
+- candidate_id: pot_ni3al_mtp_darus_spin_fluctuations_2023
+  target_role: gamma_prime_specific_mlip
+  family: MTP
+  engine: mtp_lammps
+  model_name: Ni3Al MTP for spin-fluctuation effects on antiphase boundaries
+  source_url: https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/DARUS-3579
+  doi: 10.18419/DARUS-3579
+  related_publication_doi: 10.1016/j.actamat.2023.118986
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ni
+  - Al
+  phases:
+  - l12
+  target_systems:
+  - Ni-Al
+  - Ni3Al
+  install_method: download DaRUS MTP-training-set.tar.gz, extract utilized MTP, and install LAMMPS/user-mlip or MLIP-3 MTP interface
+  artifact_kind: archive_extracted_model_files
+  artifact_hashes:
+    MTP-training-set/mtp-training/24.mtp:
+      sha256: f3b3be363b8cb941e89c1e154048774d09d2817135ff40a198c4d0a64c3967aa
+      bytes: 741332
+    MTP-training-set/mtp-training/Trained.mtp_:
+      sha256: e5ec87dd5290317989fa5ed2d67a7319adce35b8db4c7f2306ff843b0d776a87
+      bytes: 766402
+  dataverse_files:
+  - base_url: https://darus.uni-stuttgart.de
+    file_id: 239457
+    filename: MTP-training-set.tar.gz
+    md5: 2179eeb854d0bcaf778578d24b2c5b60
+    size: 580894549
+    auto_download: false
+    extracted_members:
+    - MTP-training-set/mtp-training/24.mtp
+    - MTP-training-set/mtp-training/Trained.mtp_
+    skip_reason: Full archive is 580894549 bytes and the Stuttgart S3 redirected object returned 403 or timed out before a complete archive could be staged; a partial tar.gz prefix was sufficient to extract and hash the two MTP model members listed above.
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public DaRUS Ni3Al dataset contains utilized MTP model files under
+    CC-BY-4.0. A partial archive transfer exposed and extracted `24.mtp` and
+    `Trained.mtp_` into local_potential_cache with SHA256 hashes recorded here.
+    Round-35 MTP integrity audit found `24.mtp` to be header/template-like
+    without trained coefficients, while `Trained.mtp_` parsed with trained
+    coefficients. The candidate remains blocked until LAMMPS/user-mlip or
+    MLIP-3 is installed/configured and a reference inference or smoke relaxation
+    passes. Round-41 confirmed that the model-file gate is closed but the MTP
+    runtime gate is still open: MAML is only a wrapper around external
+    `mlp`/LAMMPS, PyPI `mlip` is unrelated to Shapeev MTP inference, and no
+    local `mlp` executable is available.
+- candidate_id: pot_ni3al_lightpfp_research_lead_2025
+  target_role: gamma_prime_specific_candidate
+  family: MTP/LightPFP
+  engine: commercial_lightpfp
+  model_name: Ni3Al LightPFP fine-tuned MTP research lead
+  source_url: https://github.com/pfnet-research/light-pfp
+  doi: 10.21203/rs.3.rs-8215329/v1
+  license: commercial_platform_terms
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  phases:
+  - l12
+  target_systems:
+  - Ni-Al
+  - Ni3Al
+  install_method: Track only as a literature/software lead; LightPFP/PFP packages are Matlantis commercial components and no standalone public Ni3Al MTP checkpoint was found.
+  artifact_kind: model_file_not_found
+  acceptance_status: research_needed
+  rejection_reason: The LightPFP paper demonstrates fine-tuned MTP students on Ni3Al and points to a GitHub repository for data/examples, but the implementation depends on commercial Matlantis/PFP/LightPFP packages and no redistributable standalone Ni3Al checkpoint/model file was found. Round-43 rechecked the public LightPFP GitHub tree and releases on 2026-07-05; the repository still contains datasets, CIFs, notebooks, result tables, and training JSON, but no standalone trained Ni3Al checkpoint artifact.
+- candidate_id: pot_alcocrfeni_lightpfp_2025_lead
+  target_role: hea_specific_candidate
+  family: MTP/LightPFP
+  engine: commercial_lightpfp
+  model_name: Al-Co-Cr-Fe-Ni LightPFP HEA reproduction-data and training-config lead
+  source_url: https://github.com/pfnet-research/light-pfp
+  doi: 10.48550/arXiv.2510.23064
+  license: MIT_for_repository_examples_only
+  redistribution_policy: metadata_only
+  elements:
+  - Al
+  - Co
+  - Cr
+  - Fe
+  - Ni
+  phases:
+  - fcc
+  - slab
+  - grain_boundary
+  target_systems:
+  - AlCoCrFeNi
+  - HEA_related
+  install_method: Track only as a reproduction-data/training-config lead; examples require Matlantis Product / LightPFP, and no standalone trained HEA checkpoint is exposed in the public repository.
+  artifact_kind: training_data_and_configs_no_standalone_model
+  acceptance_status: research_needed
+  rejection_reason: The public LightPFP repository includes HEA datasets, CIF inputs, notebooks, and model-training JSON configs for LightPFP and MTP-DFT, but GitHub tree and release checks found no standalone trained HEA model checkpoint or redistributable runtime. Round-43 rechecked the GitHub tree and releases on 2026-07-05 and again found datasets/configs/results rather than a standalone checkpoint. This is a useful Al-Co-Cr-Fe-Ni HEA lead, not an accepted potential for CrCoNi, CoCrFeMnNi, or benchmark relaxed-structure generation.
+- candidate_id: pot_nicoal_nep_qin_2025_lead
+  target_role: gamma_prime_specific_candidate
+  family: NEP
+  engine: gpumd
+  model_name: Ni-Co-Al NEP for gamma/gamma-prime Ni-based single-crystal superalloys
+  source_url: https://www.sciencedirect.com/science/article/pii/S0264127525009554
+  doi: 10.1016/j.matdes.2025.114535
+  license: data_on_request
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Co
+  - Al
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Co-Al
+  install_method: request training dataset and NEP model file from authors; only admit if nep.txt/model file plus license are provided
+  artifact_kind: model_file_not_found
+  acceptance_status: research_needed
+  rejection_reason: >-
+    The open-access Materials & Design paper reports a Ni-Co-Al NEP for
+    gamma/gamma-prime Ni-based single-crystal superalloys, but ScienceDirect
+    lists data availability as on request and no public
+    GitHub/Zenodo/materialsmodeling.org nep.txt model file was found. Round-34
+    exact searches for Ni-Co-Al NEP, NiCoAl nep.txt, and gamma/gamma-prime
+    terms across Hugging Face, GitHub repositories, DataCite, Zenodo, and arXiv
+    still found no public model archive or checkpoint. Round-37 rechecked the
+    primary paper, GitHub, Hugging Face, Zenodo, Crossref, and the published NEP
+    model table on 2026-07-05; the data path remains request-only and no public
+    Ni-Co-Al `nep.txt`, checkpoint, license, or checksum was found. Round-40
+    confirmed the ScienceDirect data availability line remains "Data will be
+    made available on request", Crossref exposes no public dataset relation,
+    common Elsevier mmc supplement paths return 404, and GitHub/Hugging
+    Face/Zenodo checks still expose no Ni-Co-Al `nep.txt` model file. Round-42
+    repeated public web, GitHub repository, Hugging Face model, Zenodo, and
+    DataCite exact searches on 2026-07-05; no public Ni-Co-Al `nep.txt`,
+    checkpoint, license, checksum, or installable model file was found.
+    Round-44 rechecked ScienceDirect, the GPUMD publications page, GitHub
+    repository search, Hugging Face model search, Zenodo, DataCite, the public
+    GitLab `brucefan1983/nep-data` tree, and the GPUMD GitHub tree on
+    2026-07-05. The paper and GPUMD page confirm the Ni-Co-Al NEP publication,
+    but data remain request-only and no public `nep.txt`, checkpoint, license,
+    checksum, or installable model artifact was found. Round-47 repeated
+    GitHub repository, Hugging Face model, Zenodo, GPUMD `nep-data`, and public
+    NEP model table checks; no public Ni-Co-Al `nep.txt`, checkpoint, license,
+    checksum, or installable model artifact was found.
+- candidate_id: pot_nicrfealp_mtp_ning_2026_lead
+  target_role: nickel_alloy_specific_candidate
+  family: MTP
+  engine: mtp_lammps
+  model_name: Ni-Cr-Fe-Al-P uncertainty-aware MTP for nickel-based polycrystals
+  source_url: https://www.sciencedirect.com/science/article/pii/S0264127526010841
+  artifact_urls:
+  - https://ars.els-cdn.com/content/image/1-s2.0-S0264127526010841-mmc1.pdf
+  artifact_hashes:
+    S0264127526010841-mmc1.pdf:
+      sha256: 3bafe2d9831a0dad21656b55d53721ffaaa08bfbf6138b3fff012f833e142bec
+      bytes: 2895553
+  doi: 10.1016/j.matdes.2026.116511
+  license: model_license_not_found
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Cr
+  - Fe
+  - Al
+  - P
+  phases:
+  - fcc
+  - hcp
+  - l12
+  - grain_boundary
+  target_systems:
+  - Ni-Cr-Fe-Al-P
+  - Ni-based-polycrystal
+  - Ni-Al
+  install_method: request the trained MTP model file from the corresponding author; the public article and supplementary PDF describe the training set and validation but do not expose a runnable .mtp artifact
+  artifact_kind: supplementary_pdf_no_model_file
+  acceptance_status: research_needed
+  rejection_reason: The Materials & Design 2026 article and Supplementary Data 1 describe a high-fidelity moment tensor potential trained for Ni-Cr-Fe-Al-P nickel-based polycrystals, including Ni3Al and Ni3P ordered phases plus fcc/hcp/grain-boundary/defect data. The supplementary PDF was downloaded and hash-recorded under local_potential_cache/source_documents, but no trained .mtp model file, license, or installation recipe is publicly exposed. This is a useful Ni-based specialized MTP literature lead, not an accepted potential and not a substitute for the missing Ni-Al-Ti, Ni-Al-Ta, or Ni-Al-Ti-Ta gamma/gamma-prime MLIP.
+- candidate_id: pot_nialti_meam_kim_2017_classical_fallback
+  target_role: classical_fallback
+  family: MEAM
+  engine: meam_lammps
+  model_name: NIST Ni-Al-Ti 2NN-MEAM for Ni-base superalloys
+  source_url: https://www.ctcms.nist.gov/potentials/entry/2017--Kim-Y-K-Kim-H-K-Jung-W-S-Lee-B-J--Ni-Al-Ti/2017--Kim-Y-K--Ni-Al-Ti--LAMMPS--ipr1.html
+  artifact_urls:
+  - https://www.ctcms.nist.gov/potentials/Download/2017--Kim-Y-K-Kim-H-K-Jung-W-S-Lee-B-J--Ni-Al-Ti/1/library.meam
+  - https://www.ctcms.nist.gov/potentials/Download/2017--Kim-Y-K-Kim-H-K-Jung-W-S-Lee-B-J--Ni-Al-Ti/1/NiAlTi.meam
+  artifact_hashes:
+    library.meam:
+      sha256: abc3c9be75d99ada38f66a17398da927d497ed61a275ec67580a9f2556b7b51b
+      bytes: 539
+    NiAlTi.meam:
+      sha256: 06ed0ac0eb798dbc41ef0690a325583a67ca104c9ffd54c38e29bc4f14cfe1c8
+      bytes: 1717
+  doi: 10.1016/j.commatsci.2017.08.002
+  license: NIST-IPR-terms
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ti
+  phases:
+  - l12
+  - fcc
+  target_systems:
+  - Ni-Al-Ti
+  install_method: download NIST library.meam and NiAlTi.meam; install LAMMPS with MEAM support if classical fallback smoke is explicitly requested
+  artifact_kind: classical_potential_file
+  acceptance_status: blocked
+  rejection_reason: NIST provides LAMMPS MEAM files for a Ni-Al-Ti 2NN-MEAM potential targeting Ni-base superalloys and titanium effects in gamma-prime/gamma-gamma-prime behavior. The files are downloaded and hash-recorded under local_potential_cache. This is a classical MEAM fallback, not an MLIP, so it cannot satisfy the dedicated gamma/gamma-prime MLIP requirement and must remain separate from MLIP-derived relaxed structures.
+- candidate_id: pot_nialcoti_meam_huang_2024_classical_fallback
+  target_role: classical_fallback
+  family: MEAM
+  engine: meam_lammps
+  model_name: NIST Ni-Al-Co-Ti MEAM for L12 A3B intermetallic structural order
+  source_url: https://www.ctcms.nist.gov/potentials/entry/2024--Huang-S-Xiong-Y-Ma-S-et-al--Ni-Al-Co-Ti/2024--Huang-S--Ni-Al-Co-Ti--LAMMPS--ipr1.html
+  artifact_urls:
+  - https://www.ctcms.nist.gov/potentials/Download/2024--Huang-S-Xiong-Y-Ma-S-et-al--Ni-Al-Co-Ti/1/library.meam
+  - https://www.ctcms.nist.gov/potentials/Download/2024--Huang-S-Xiong-Y-Ma-S-et-al--Ni-Al-Co-Ti/1/NiAlCoTi.meam
+  artifact_hashes:
+    library.meam:
+      sha256: 974e59ebc93c14a7207591c365877b2fdbc0404253255eeccb32b63a61e270d0
+      bytes: 559
+    NiAlCoTi.meam:
+      sha256: a883ff0b4e4f12f33246912ef1cd854568a8b54224d354a14d9dfd2b4ca440ff
+      bytes: 3461
+  doi: 10.1016/j.jmrt.2024.06.016
+  license: NIST-IPR-terms
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Co
+  - Ti
+  phases:
+  - l12
+  - fcc
+  target_systems:
+  - Ni-Al-Ti
+  - Ni-Al-Co-Ti
+  install_method: download NIST library.meam and NiAlCoTi.meam; install LAMMPS with MEAM support if classical fallback smoke is explicitly requested
+  artifact_kind: classical_potential_file
+  acceptance_status: blocked
+  rejection_reason: NIST provides LAMMPS MEAM files for Ni-Al-Co-Ti L12 A3B intermetallic structural order, and the files are downloaded and hash-recorded under local_potential_cache. This is a classical MEAM fallback, not an MLIP, so it cannot satisfy the dedicated gamma/gamma-prime MLIP requirement and must remain separate from MLIP-derived relaxed structures.
+- candidate_id: pot_nialti_meam_sharifi_2025_classical_fallback
+  target_role: classical_fallback
+  family: MEAM
+  engine: meam_lammps
+  model_name: NIST Ni-Ti-Al MEAM from Sharifi/Wick CCA parameterization
+  source_url: https://www.ctcms.nist.gov/potentials/testing/entry/2025--Sharifi-H-Wick-C-D--Ni-Ti-Al/
+  artifact_urls:
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Sharifi-H-Wick-C-D--Ni-Ti-Al/1/library.meam
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Sharifi-H-Wick-C-D--Ni-Ti-Al/1/NiTiAl.meam
+  artifact_hashes:
+    library.meam:
+      sha256: 2aaac220049577b343feabb50a73a3c17b31abe893443b5467c39e69caaf586e
+      bytes: 934
+    NiTiAl.meam:
+      sha256: 702cf6d6a469698acb36600e888f6e40d82e140c0f86c93a764928a84df150ff
+      bytes: 1419
+  doi: 10.1016/j.commatsci.2024.113595
+  license: NIST-IPR-terms
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ti
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Al-Ti
+  install_method: download NIST library.meam and NiTiAl.meam; install LAMMPS with MEAM support if classical fallback smoke is explicitly requested
+  artifact_kind: classical_potential_file
+  acceptance_status: blocked
+  rejection_reason: NIST provides LAMMPS MEAM files for the Ni-Ti-Al ternary entry from the Sharifi/Wick CCA potential family. The files are useful as a classical fallback lead for Ni-Al-Ti chemistry, but the source article and NIST page identify the model as MEAM, not an MLIP, so it cannot satisfy the dedicated gamma/gamma-prime MLIP requirement.
+- candidate_id: pot_nicoal_meam_sharifi_2025_classical_fallback
+  target_role: classical_fallback
+  family: MEAM
+  engine: meam_lammps
+  model_name: NIST Ni-Co-Al MEAM from Sharifi/Wick CCA parameterization
+  source_url: https://www.ctcms.nist.gov/potentials/testing/entry/2025--Sharifi-H-Wick-C-D--Ni-Co-Al/
+  artifact_urls:
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Sharifi-H-Wick-C-D--Ni-Co-Al/1/library.meam
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Sharifi-H-Wick-C-D--Ni-Co-Al/1/NiCoAl.meam
+  artifact_hashes:
+    library.meam:
+      sha256: 2aaac220049577b343feabb50a73a3c17b31abe893443b5467c39e69caaf586e
+      bytes: 934
+    NiCoAl.meam:
+      sha256: 29cc4822dfdaa0c0426333f81d1936174921f27de337fac3c0aab38e69ffce01
+      bytes: 1393
+  doi: 10.1016/j.commatsci.2024.113595
+  license: NIST-IPR-terms
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Co
+  - Al
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Co-Al
+  install_method: download NIST library.meam and NiCoAl.meam; install LAMMPS with MEAM support if classical fallback smoke is explicitly requested
+  artifact_kind: classical_potential_file
+  acceptance_status: blocked
+  rejection_reason: NIST provides LAMMPS MEAM files for the Ni-Co-Al ternary entry from the Sharifi/Wick CCA potential family. The files are useful as a classical fallback lead for Ni-Co-Al gamma/gamma-prime-adjacent chemistry, but the source article and NIST page identify the model as MEAM, not an MLIP, so it cannot replace a dedicated Ni-Co-Al NEP/MLIP checkpoint.
+- candidate_id: pot_nialta_eam_fan_2016_classical_lead
+  target_role: classical_fallback
+  family: EAM
+  engine: eam_lammps
+  model_name: Ni-Al-Ta EAM potential for gamma-prime Ni3Al-Ta dislocation studies
+  source_url: https://www.sciencedirect.com/science/article/abs/pii/S092702561630115X
+  doi: 10.1016/j.commatsci.2016.03.017
+  license: unknown
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ta
+  phases:
+  - l12
+  - gamma_prime
+  target_systems:
+  - Ni-Al-Ta
+  install_method: publication-only lead; continue searching for an upstream EAM file if classical fallback runs are requested, but do not treat it as an MLIP
+  artifact_kind: publication_only_no_public_file
+  acceptance_status: research_needed
+  rejection_reason: The 2016 Computational Materials Science article reports a ternary Ni-Al-Ta embedded-atom-method potential for gamma-prime Ni3Al-Ta dislocation studies. This is directly relevant to Ni-Al-Ta gamma-prime classical comparison, but public NIST/OpenKIM/GitHub/Zenodo checks did not find a downloadable potential file, and EAM is classical rather than MLIP. It cannot satisfy the dedicated gamma/gamma-prime MLIP requirement.
+- candidate_id: pot_altiv_mtp_nitol_2025
+  target_role: supporting_specialized_mlip_partial_coverage
+  family: MTP
+  engine: mtp_lammps
+  model_name: Al-Ti-V multicomponent MTP
+  source_url: https://www.ctcms.nist.gov/potentials/entry/2025--Nitol-M-S-Mishra-A-Xu-S-Fensin-S-J--Al-Ti-V/
+  artifact_urls:
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Nitol-M-S-Mishra-A-Xu-S-Fensin-S-J--Al-Ti-V/1/mlip.ini
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Nitol-M-S-Mishra-A-Xu-S-Fensin-S-J--Al-Ti-V/1/AlTiV.mtp
+  - https://www.ctcms.nist.gov/potentials/Download/2025--Nitol-M-S-Mishra-A-Xu-S-Fensin-S-J--Al-Ti-V/1/potential.mod
+  artifact_hashes:
+    mlip.ini:
+      sha256: f4860f9f5a2205485cba541952e8e3862da026077c7608425ae934806cec0872
+      bytes: 36
+    AlTiV.mtp:
+      sha256: 0cfeade1fe1dd568b2d86773b99145b5fc02970afab6022e1d1c2c423cdd7cc7
+      bytes: 140152
+    potential.mod:
+      sha256: 62bd3d43114b9016fc09bf90530cad517cffd0fb08723f94a649f66d95553d64
+      bytes: 58
+  doi: 10.1103/PhysRevMaterials.9.063601
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - Al
+  - Ti
+  - V
+  phases:
+  - hcp
+  - bcc
+  - d019
+  target_systems:
+  - Ti-Al-V
+  install_method: download NIST-hosted AlTiV.mtp, mlip.ini, and potential.mod; install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public Al-Ti-V MTP files are downloaded and hash-recorded under local_potential_cache, and are relevant to Ti/Al MLIP coverage, but the model lacks Ni and cannot be used as the Ni-Al-Ti gamma/gamma-prime potential; blocked until license audit and LAMMPS/user-mlip setup.
+- candidate_id: pot_tial_polymlp_seko_2022p3_openkim
+  target_role: supporting_specialized_mlip_partial_coverage
+  family: PolyMLP
+  engine: openkim_polymlp
+  model_name: OpenKIM PolyMLP Seko 2022 p3 Ti-Al
+  source_url: https://openkim.org/id/PolyMLP_Seko_2022p3_TiAl__MO_945531783513_000
+  alternate_model_ids:
+  - PolyMLP_Seko_2022p1_TiAl__MO_223894196126_000
+  - PolyMLP_Seko_2022p2_TiAl__MO_578636983448_000
+  - PolyMLP_Seko_2022p4_TiAl__MO_804233947597_000
+  - PolyMLP_Seko_2022p5_TiAl__MO_155544599291_000
+  artifact_urls:
+  - https://openkim.org/files/1759075555/MO_945531783513_000/CMakeLists.txt
+  - https://openkim.org/files/1759075555/MO_945531783513_000/LICENSE
+  - https://openkim.org/files/1759075555/MO_945531783513_000/kimprovenance.edn
+  - https://openkim.org/files/1759075555/MO_945531783513_000/kimspec.edn
+  - https://openkim.org/files/1759075555/MO_945531783513_000/polymlp.settings
+  - https://openkim.org/files/1759075555/MO_945531783513_000/polymlp.yaml
+  artifact_hashes:
+    CMakeLists.txt:
+      sha256: 237c21803d6de1f5d7b8662e1171025b74589ebdee74357abeb32e5330aca012
+      bytes: 539
+    LICENSE:
+      sha256: cf7ba340a4f70fff24b7c25c8147d98eb60d7c467ed5183615923c2f45a3a301
+      bytes: 1535
+    kimprovenance.edn:
+      sha256: c4517e14aecc1e685b5db6aa54615704d60307fa8214b4fa91e7ef17909108ba
+      bytes: 569
+    kimspec.edn:
+      sha256: 27c830068f33c19b79a8c6b0af2b8eeeb28130b4db0f71798ac8c9c845b140ef
+      bytes: 1953
+    polymlp.settings:
+      sha256: 4b1ab7b435eb4c9942c12a9ac8318a97965ba4c298e9843da04e57132a7c1e3a
+      bytes: 7
+    polymlp.yaml:
+      sha256: 9152a7758c23b1d0edcf8dcbf907108780ecee634ff10e7f1a311d865384a1c0
+      bytes: 1448436
+  doi: 10.25950/c94dd27e
+  license: OpenKIM-item-license
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ti
+  - Al
+  phases:
+  - fcc
+  - hcp
+  - l10
+  - l12
+  - d019
+  target_systems:
+  - Ti-Al
+  - Ni-Al-Ti
+  install_method: install KIM API, PolyMLP model driver PolyMLP__MD_367995833009_000, and OpenKIM model PolyMLP_Seko_2022p3_TiAl__MO_945531783513_000
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: OpenKIM Ti-Al PolyMLP files are downloaded and hash-recorded under local_potential_cache and are relevant to Ti/Al gamma-prime chemistry, but the model lacks Ni and cannot be used as the Ni-Al-Ti gamma/gamma-prime potential; blocked until KIM API/PolyMLP driver setup.
+- candidate_id: pot_tial_mtp_mvl_2023
+  target_role: supporting_specialized_mlip_partial_coverage
+  family: MTP
+  engine: mtp_lammps
+  model_name: TiAl MTP from Materials Virtual Lab PES models
+  source_url: https://github.com/materialsvirtuallab/maml/tree/main/mvl_models/pes/TiAl/mtp.2023.04
+  artifact_urls:
+  - https://raw.githubusercontent.com/materialsvirtuallab/maml/main/mvl_models/pes/TiAl/mtp.2023.04/fitted.bulk.mtp
+  - https://raw.githubusercontent.com/materialsvirtuallab/maml/main/mvl_models/pes/TiAl/mtp.2023.04/fitted.mtp
+  artifact_hashes:
+    LICENSE:
+      sha256: 3cb84d1280a2bdb707e0934f333742017412fe6220b44d13c058ee8decc2a431
+      bytes: 1529
+    mvl_models/pes/TiAl/mtp.2023.04/README.md:
+      sha256: 7ee0324e2bc4ec7f9784bc1c60af36a777bff3055cc8bd335d968878a8935aac
+      bytes: 384
+    mvl_models/pes/TiAl/mtp.2023.04/fitted.bulk.mtp:
+      sha256: 76b7622a1243b42e1e0e4032b3c70bdce76953513fab1b62883c38aa9badf7e0
+      bytes: 324110
+    mvl_models/pes/TiAl/mtp.2023.04/fitted.mtp:
+      sha256: 704f7fd900c7446286066b741084c30ebc7fcf26e5b9b8fd2f29a18ba4ffd661
+      bytes: 324216
+  doi: 10.1038/s41524-023-01046-z
+  license: BSD-3-Clause
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ti
+  - Al
+  phases:
+  - bcc
+  - hcp
+  - intermetallic
+  target_systems:
+  - Ti-Al
+  - Ni-Al-Ti
+  install_method: download MAML TiAl fitted MTP files and install LAMMPS with MLIP/MTP interface
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public TiAl MTP files are downloaded and hash-recorded under local_potential_cache under a BSD-3-Clause repository license and are useful for Ti/Al subspace evidence, but the model lacks Ni and cannot be used as the Ni-Al-Ti gamma/gamma-prime potential; blocked until LAMMPS/user-mlip or MLIP-3 smoke relaxation is configured.
+- candidate_id: pot_titavw_ace_sheriff_motif_2025
+  target_role: target_specific_mlip
+  family: ACE/PACE
+  engine: pace_lammps
+  model_name: TiTaVW motif-based sampling ACE potential
+  source_url: https://github.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions
+  artifact_urls:
+  - https://raw.githubusercontent.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions/main/potentials/01_motif-based-sampling/TiTaVW/output_potential.yace
+  - https://raw.githubusercontent.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions/main/potentials/01_motif-based-sampling/README.md
+  doi: 10.48550/arXiv.2506.12592
+  license: MIT
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ti
+  - Ta
+  - V
+  - W
+  phases:
+  - bcc
+  target_systems:
+  - TiTaVW
+  install_method: download output_potential.yace and install LAMMPS with PACE or ASE/PyACE
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public ACE/PACE .yace model file is resolved. Round-31 found that the
+    installed lammps 2025.7.22.4.0 wheel reports pair_style pace as unavailable
+    because the ML-PACE package is not enabled, so this remains blocked until a
+    LAMMPS/PACE build or ASE/PyACE path is installed/configured for smoke
+    relaxation.
+- candidate_id: pot_titavw_ace_sheriff_chemical_mixing_2025
+  target_role: target_specific_mlip
+  family: ACE/PACE
+  engine: pace_lammps
+  model_name: TiTaVW chemical-mixing ACE potential
+  source_url: https://github.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions
+  artifact_urls:
+  - https://raw.githubusercontent.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions/main/potentials/02_chemical-mixing/TiTaVW/output_potential.yace
+  - https://raw.githubusercontent.com/killiansheriff/Machine-learning-potentials-for-modeling-alloys-across-compositions/main/potentials/02_chemical-mixing/README.md
+  doi: 10.48550/arXiv.2506.12592
+  license: MIT
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ti
+  - Ta
+  - V
+  - W
+  phases:
+  - bcc
+  target_systems:
+  - TiTaVW
+  install_method: download output_potential.yace and install LAMMPS with PACE or ASE/PyACE
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: >-
+    Public ACE/PACE .yace model file is resolved. Round-31 found that the
+    installed lammps 2025.7.22.4.0 wheel reports pair_style pace as unavailable
+    because the ML-PACE package is not enabled, so this remains blocked until a
+    LAMMPS/PACE build or ASE/PyACE path is installed/configured for smoke
+    relaxation.
+- candidate_id: pot_titavw_milady_wrobel_2025
+  target_role: target_specific_mlip
+  family: MILADY/SNAP-kernel
+  engine: milady_lammps
+  model_name: Ti-V-Ta-W linear and kernel ML potentials for LAMMPS/MILADY
+  source_url: https://zenodo.org/records/17144932
+  artifact_urls:
+  - https://zenodo.org/api/records/17144932/files/lammps_bso4_snap1_params.pot/content
+  - https://zenodo.org/api/records/17144932/files/lammps_bso4_kernl_params.pot/content
+  - https://zenodo.org/api/records/17144932/files/potential.mod/content
+  - https://zenodo.org/api/records/17144932/files/init.mod/content
+  - https://zenodo.org/api/records/17144932/files/displace.mod/content
+  - https://zenodo.org/api/records/17144932/files/in.elastic/content
+  - https://zenodo.org/api/records/17144932/files/structure.lammps/content
+  artifact_hashes:
+    lammps_bso4_snap1_params.pot:
+      sha256: 32592117665288aef4b69364552387907605e570e9dcdb16b3370d30ef755a25
+      md5: ec25eff3462dc387754a86e17249f458
+      bytes: 59858
+    lammps_bso4_kernl_params.pot:
+      sha256: a04f9e8fae79e10b9e6ab90be22ae8774f1fbe51053d422fd0b839093a82f321
+      md5: 6b9a93a3c98f67d0fe9c745557d4d2c0
+      bytes: 27808144
+    potential.mod:
+      sha256: 3918ab11654ba6aa51de5b5b82d69103af16d6d23ad77f36ef040584ff6f1373
+      md5: 644b250cffabceb3761220e798e0f003
+      bytes: 499
+    init.mod:
+      sha256: b53b37ea8424570076694d863ffe508a179bee9a89758f10e5a5de196c851dcf
+      md5: ff8065cbde483bf78a333c422666bb80
+      bytes: 1649
+    displace.mod:
+      sha256: d814a4eabc859d664d761a127991b343b831d95fa11b3ef9a07d0b27d9d739c7
+      md5: 5e4563f7b32a37cd73562ceba0340217
+      bytes: 3779
+    in.elastic:
+      sha256: 31a6e06109bf45ad7b6f5ce509a190b96b2aceb7adbbfd02e7ad30ab4db5950d
+      md5: 4d03eb1c4d57812bd683f4c53b36ac82
+      bytes: 6491
+    structure.lammps:
+      sha256: 0653a9deaf88f3c4fe99b5f15eeebb2af373d7b1344979c88b7f533db8e8b858
+      md5: c477664ff0c84a9a830d3e0db876c111
+      bytes: 18142
+  doi: 10.5281/zenodo.17144932
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ti
+  - Ta
+  - V
+  - W
+  phases:
+  - bcc
+  target_systems:
+  - TiTaVW
+  install_method: download Zenodo model files and install LAMMPS with pair_style milady / MILADY support
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public Ti-V-Ta-W linear and kernel ML potential files are downloaded and hash-recorded under local_potential_cache; blocked until LAMMPS pair_style milady / MILADY engine and a milady_lammps adapter are installed/configured for smoke relaxation.
+- candidate_id: pot_rhea9_nep_byggmastar_2026
+  target_role: refractory_alloy_specific_mlip
+  family: NEP
+  engine: gpumd
+  model_name: Cr-Hf-Mo-Nb-Ta-Ti-V-W-Zr RHEA NEP large potential
+  source_url: https://zenodo.org/records/18863415
+  doi: 10.5281/zenodo.18863415
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Hf
+  - Mo
+  - Nb
+  - Ta
+  - Ti
+  - V
+  - W
+  - Zr
+  phases:
+  - bcc
+  - hcp
+  - laves
+  - b2
+  - omega
+  - liquid
+  - glass
+  target_systems:
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - refractory_bcc_HEA
+  install_method: extract nep-RHEA-large.txt from Zenodo RHEA-data.zip and install GPUMD
+  artifact_kind: external_model_file
+  zip_members:
+  - archive_url: https://zenodo.org/api/records/18863415/files/RHEA-data.zip/content
+    archive_md5: c09162ecfec475d126b8fb5060dabe5e
+    archive_size: 1923530248
+    member_path: potential_files/nep-RHEA-large.txt
+    filename: nep-RHEA-large.txt
+    sha256: 018bc44356b48ee370f51a8748f3aeb3ef94fb2319ef43edb570cf2e5e65a3df
+    compressed_size: 285560
+    size: 967086
+  - archive_url: https://zenodo.org/api/records/18863415/files/RHEA-data.zip/content
+    archive_md5: c09162ecfec475d126b8fb5060dabe5e
+    archive_size: 1923530248
+    member_path: potential_files/README
+    filename: README
+    sha256: 55d9ea8070c0f748ff07dc5bf217dd2430678b8bc495ea4d79550a698d23d031
+    compressed_size: 855
+    size: 2120
+  artifact_hashes:
+    potential_files/nep-RHEA-large.txt:
+      sha256: 018bc44356b48ee370f51a8748f3aeb3ef94fb2319ef43edb570cf2e5e65a3df
+      bytes: 967086
+    potential_files/README:
+      sha256: 55d9ea8070c0f748ff07dc5bf217dd2430678b8bc495ea4d79550a698d23d031
+      bytes: 2120
+  acceptance_status: accepted
+  rejection_reason: Round-38 accepted the RHEA NEP model and README after extracting them from the CC-BY-4.0 Zenodo RHEA-data.zip archive, hash-validating them, copying them into data/potentials/pot_rhea9_nep_byggmastar_2026/potential, registering the model in potentials_catalog.yml, and verifying mdapy.NEP4ASE reference/smoke checks on WTaCrV, MoNbTaVW, and TiTaVW public initial structures without modifying formal generated manifests.
+- candidate_id: pot_mncofenicu_nep_unimi_2026
+  target_role: hea_related_mlip
+  family: NEP
+  engine: gpumd
+  model_name: Mn-Co-Fe-Ni-Cu HEA Neuroevolution Potential
+  source_url: https://dataverse.unimi.it/dataset.xhtml?persistentId=doi:10.13130/RD_UNIMI/UOVZ9H
+  doi: 10.13130/RD_UNIMI/UOVZ9H
+  license: CC0-1.0
+  redistribution_policy: redistributable_public_domain
+  elements:
+  - Mn
+  - Co
+  - Fe
+  - Ni
+  - Cu
+  phases:
+  - fcc
+  - disordered_alloy
+  target_systems:
+  - MnCoFeNiCu
+  - HEA_related
+  install_method: download UNIMI Dataverse NEP archives and install GPUMD or LAMMPS with NEP pair_style
+  artifact_kind: external_archive_with_model_files
+  dataverse_files:
+  - base_url: https://dataverse.unimi.it
+    file_id: 370060
+    filename: NEP_Jan08_maxF10_80percent.tar.bz2
+    md5: ced0d5a2e2aecadae65a8c3b761bbe1b
+    sha256: e2285129195e987ef5894e07a4115db0f2022524755616479696f882376bef99
+    size: 10582645
+  - base_url: https://dataverse.unimi.it
+    file_id: 370059
+    filename: NEP_Jan08_maxF10_alltrain_alt.tar.bz2
+    md5: 27d4c443b3ee88c13e60c85bdf3d8b35
+    sha256: 3ab5a13c5a8060faef07395b7c78810b3cac72663874c25121653f42341be0f7
+    size: 11637368
+  - base_url: https://dataverse.unimi.it
+    file_id: 370061
+    filename: NEP_Jan08_maxF10_alltrain.tar.bz2
+    md5: 50e0cf257cc87b23de5a142390932e3a
+    sha256: 6972a83553fc2ad643cf8c3677d3a798af85167c37eadd4b7ceabaf22c6dc554
+    size: 11651814
+  - base_url: https://dataverse.unimi.it
+    file_id: 370210
+    filename: README
+    md5: be24b9936304736e357b601665ec300a
+    sha256: f936200a14b6f7e0654330ae27d66592981ca43b6d7b534d5622d1c33c911859
+    size: 1020
+  acceptance_status: blocked
+  rejection_reason: UNIMI Dataverse exposes three CC0 GPUMD/NEP archive variants whose description states that the generated MLIP is the nep.txt file and that the model describes Mn, Co, Fe, Ni, and Cu alloys. Round-33 mdapy.NEP4ASE reference inference passed for a Mn-Co-Fe-Ni-Cu smoke structure. This is useful HEA-related NEP coverage, but it lacks Cr, Ti, Ta, Mo, Nb, V, and W, so it cannot replace the target CrCoNi/CoCrFeMnNi/refractory/gamma-prime potentials; keep blocked until formal admission and target-compatible smoke criteria are satisfied.
+- candidate_id: pot_rhea9_tabgap_byggmastar_2026
+  target_role: refractory_alloy_specific_mlip
+  family: tabGAP
+  engine: tabgap_lammps
+  model_name: Cr-Hf-Mo-Nb-Ta-Ti-V-W-Zr RHEA tabGAP potential
+  source_url: https://zenodo.org/records/18863415
+  doi: 10.5281/zenodo.18863415
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Hf
+  - Mo
+  - Nb
+  - Ta
+  - Ti
+  - V
+  - W
+  - Zr
+  phases:
+  - bcc
+  - hcp
+  - laves
+  - b2
+  - omega
+  - liquid
+  - glass
+  target_systems:
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - refractory_bcc_HEA
+  install_method: extract LAMMPS tabGAP HDF5 and EAM companion files from Zenodo RHEA-data.zip
+  artifact_kind: external_model_file
+  zip_members:
+  - archive_url: https://zenodo.org/api/records/18863415/files/RHEA-data.zip/content
+    archive_md5: c09162ecfec475d126b8fb5060dabe5e
+    archive_size: 1923530248
+    member_path: potential_files/Cr-Hf-Mo-Nb-Ta-Ti-V-W-Zr.eam.fs
+    filename: Cr-Hf-Mo-Nb-Ta-Ti-V-W-Zr.eam.fs
+    sha256: 66a1ba17a4894a5a2f9227344819984fea92ce482882e177ab75270c4a6b76f4
+    compressed_size: 7811521
+    size: 21360853
+  - archive_url: https://zenodo.org/api/records/18863415/files/RHEA-data.zip/content
+    archive_md5: c09162ecfec475d126b8fb5060dabe5e
+    archive_size: 1923530248
+    member_path: potential_files/README
+    filename: README
+    sha256: 55d9ea8070c0f748ff07dc5bf217dd2430678b8bc495ea4d79550a698d23d031
+    compressed_size: 855
+    size: 2120
+  - archive_url: https://zenodo.org/api/records/18863415/files/RHEA-data.zip/content
+    archive_md5: c09162ecfec475d126b8fb5060dabe5e
+    archive_size: 1923530248
+    member_path: potential_files/Cr-Hf-Mo-Nb-Ta-Ti-V-W-Zr.tabgap.h5
+    filename: Cr-Hf-Mo-Nb-Ta-Ti-V-W-Zr.tabgap.h5
+    compressed_size: 725159399
+    size: 773142992
+    auto_download: false
+    skip_reason: Large primary HDF5 tabGAP member is resolved but not auto-extracted until LAMMPS/tabGAP is installed and an explicit staged transfer is requested.
+  acceptance_status: blocked
+  rejection_reason: Public RHEA tabGAP EAM companion and README are downloaded and hash-recorded under local_potential_cache; blocked until the large HDF5 member is staged and LAMMPS/tabGAP is installed/configured.
+- candidate_id: pot_unep_v1_16metals_without_zbl
+  target_role: metal_domain_baseline
+  family: NEP/UNEP
+  engine: gpumd
+  model_name: UNEP-v1 16 elemental metals model without ZBL
+  source_url: https://zenodo.org/records/10081677
+  artifact_urls:
+  - https://zenodo.org/api/records/10081677/files/UNEP-v1-model-without-ZBL.txt/content
+  - https://zenodo.org/api/records/10081677/files/nep.in/content
+  artifact_hashes:
+    UNEP-v1-model-without-ZBL.txt:
+      sha256: 498c7a395cf1639435945401485a0d94a710dc8119b271ce1328ae255ea924d6
+      bytes: 1254024
+    nep.in:
+      sha256: e408d04fde95e316bbd9f6302233306a256d3409b87ccb6ff2c47088ccc08a7b
+      bytes: 299
+  doi: 10.5281/zenodo.10081677
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ag
+  - Al
+  - Au
+  - Cr
+  - Cu
+  - Mg
+  - Mo
+  - Ni
+  - Pb
+  - Pd
+  - Pt
+  - Ta
+  - Ti
+  - V
+  - W
+  - Zr
+  phases:
+  - fcc
+  - bcc
+  - hcp
+  - l12
+  - b2
+  - liquid
+  - amorphous
+  target_systems:
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  - TiTaVW
+  - WTaCrV
+  install_method: download UNEP-v1 NEP text model and install GPUMD
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public UNEP-v1 NEP model without ZBL is downloaded and hash-recorded under local_potential_cache. Round-33 mdapy.NEP4ASE reference inference passed for a Ni-Al-Ti-Ta smoke structure. It covers Ni-Al-Ti-Ta element sets, but it is a metal-domain baseline rather than a gamma/gamma-prime-specialized MLIP; keep blocked from accepted status until baseline admission and smoke-relax policy are explicitly chosen.
+- candidate_id: pot_unep_v1_16metals_with_zbl
+  target_role: metal_domain_baseline
+  family: NEP/UNEP
+  engine: gpumd
+  model_name: UNEP-v1 16 elemental metals model with ZBL
+  source_url: https://zenodo.org/records/10081677
+  artifact_urls:
+  - https://zenodo.org/api/records/10081677/files/UNEP-v1-model-with-ZBL.txt/content
+  - https://zenodo.org/api/records/10081677/files/nep.in/content
+  artifact_hashes:
+    UNEP-v1-model-with-ZBL.txt:
+      sha256: fd25aafb355f401c9ecbe2cd34b5af0287952ea80f888e36c7379686d2970238
+      bytes: 1254040
+    nep.in:
+      sha256: e408d04fde95e316bbd9f6302233306a256d3409b87ccb6ff2c47088ccc08a7b
+      bytes: 299
+  doi: 10.5281/zenodo.10081677
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Ag
+  - Al
+  - Au
+  - Cr
+  - Cu
+  - Mg
+  - Mo
+  - Ni
+  - Pb
+  - Pd
+  - Pt
+  - Ta
+  - Ti
+  - V
+  - W
+  - Zr
+  phases:
+  - fcc
+  - bcc
+  - hcp
+  - l12
+  - b2
+  - liquid
+  - amorphous
+  target_systems:
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  - TiTaVW
+  - WTaCrV
+  install_method: download UNEP-v1 NEP text model with ZBL and install GPUMD
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public UNEP-v1 NEP model with ZBL is downloaded and hash-recorded under local_potential_cache. Round-33 mdapy.NEP4ASE reference inference passed for a Ni-Al-Ti-Ta smoke structure. It covers Ni-Al-Ti-Ta element sets, but it is a metal-domain baseline rather than a gamma/gamma-prime-specialized MLIP; keep blocked from accepted status until baseline admission and smoke-relax policy are explicitly chosen.
+- candidate_id: pot_alloy53_dpa1_vasp_dai_2026_aissquare
+  target_role: metal_domain_baseline
+  family: DeepMD/DPA1
+  engine: deepmd_lammps
+  model_name: Alloy53_VASP 53-metal DPA-1 model
+  source_url: https://www.aissquare.com/models/detail?pageType=models&name=Alloy53_VASP&id=403
+  alternate_source_urls:
+  - https://www.nature.com/articles/s41524-026-02072-3
+  - https://backend.aissquare.com/content/models?type=models&page=1&perPage=10&search=Alloy53_VASP
+  doi: 10.1038/s41524-026-02072-3
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - Li
+  - Be
+  - Na
+  - Mg
+  - Al
+  - K
+  - Ca
+  - Sc
+  - Ti
+  - V
+  - Cr
+  - Mn
+  - Fe
+  - Co
+  - Ni
+  - Cu
+  - Zn
+  - Sr
+  - Y
+  - Zr
+  - Nb
+  - Mo
+  - Ru
+  - Rh
+  - Pd
+  - Ag
+  - Cd
+  - In
+  - Sn
+  - La
+  - Hf
+  - Ta
+  - W
+  - Re
+  - Os
+  - Ir
+  - Pt
+  - Au
+  - Pb
+  - Ce
+  - Pr
+  - Nd
+  - Sm
+  - Gd
+  - Tb
+  - Dy
+  - Ho
+  - Er
+  - Tm
+  - Lu
+  phases:
+  - general
+  - fcc
+  - bcc
+  - hcp
+  - ordered_intermetallic
+  - amorphous
+  - surface
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: resolve AISSquare authenticated model detail/download, record files and hashes, then install DeePMD-kit/LAMMPS deepmd
+  artifact_kind: aissquare_model_entry_auth_required
+  acceptance_status: research_needed
+  rejection_reason: The 2026 npj Computational Materials article reports a DPA-1 potential spanning 53 metallic elements and states that the model is uploaded to AISSquare. AISSquare public search resolves the Alloy53_VASP model entry, but anonymous detail/download requests return HTTP 401, so model files, license metadata, and hashes are not yet available. This is a metal-domain baseline, not a gamma/gamma-prime-specialized MLIP.
+- candidate_id: pot_alloy53_dpa1_2_multitask_wen_2024_aissquare
+  target_role: metal_domain_baseline
+  family: DeepMD/DPA1+DPA2
+  engine: deepmd_lammps
+  model_name: DPA-1&2-53-alloy-multitask-400w
+  source_url: https://www.aissquare.com/models/detail?pageType=models&name=DPA-1%262-53-alloy-multitask-400w%5BEN%5D&id=283
+  alternate_source_urls:
+  - https://www.aissquare.com/models/detail?pageType=models&name=DPA-1%262-53-alloy-multitask-400w&id=280
+  - https://backend.aissquare.com/content/models?type=models&page=1&perPage=10&search=DPA-1%262-53-alloy-multitask-400w
+  doi: unassigned
+  license: license-audit-needed
+  redistribution_policy: metadata_only
+  elements:
+  - Li
+  - Be
+  - Na
+  - Mg
+  - Al
+  - K
+  - Ca
+  - Sc
+  - Ti
+  - V
+  - Cr
+  - Mn
+  - Fe
+  - Co
+  - Ni
+  - Cu
+  - Zn
+  - Sr
+  - Y
+  - Zr
+  - Nb
+  - Mo
+  - Ru
+  - Rh
+  - Pd
+  - Ag
+  - Cd
+  - In
+  - Sn
+  - La
+  - Hf
+  - Ta
+  - W
+  - Re
+  - Os
+  - Ir
+  - Pt
+  - Au
+  - Pb
+  - Ce
+  - Pr
+  - Nd
+  - Sm
+  - Gd
+  - Tb
+  - Dy
+  - Ho
+  - Er
+  - Tm
+  - Lu
+  phases:
+  - general
+  - fcc
+  - bcc
+  - hcp
+  - ordered_intermetallic
+  - amorphous
+  - surface
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: resolve AISSquare authenticated model detail/download, record files and hashes, then install DeePMD-kit/LAMMPS deepmd
+  artifact_kind: aissquare_model_entry_auth_required
+  acceptance_status: research_needed
+  rejection_reason: AISSquare public search resolves English and Chinese DPA-1&2-53-alloy-multitask-400w model entries, but anonymous detail/download requests return HTTP 401, so model files, license metadata, and hashes are not yet available. This is a metal-domain baseline lead, not a gamma/gamma-prime-specialized MLIP.
+- candidate_id: pot_nep89_gpumd_2025
+  target_role: general_baseline
+  family: NEP
+  engine: gpumd
+  model_name: NEP89 89-element GPUMD model, 2025-04-09
+  source_url: https://github.com/brucefan1983/GPUMD/tree/v4.0/potentials/nep/nep89_20250409
+  artifact_urls:
+  - https://raw.githubusercontent.com/brucefan1983/GPUMD/v4.0/potentials/nep/nep89_20250409/nep89_20250409.txt
+  - https://raw.githubusercontent.com/brucefan1983/GPUMD/v4.0/potentials/nep/nep89_20250409/nep.in
+  artifact_hashes:
+    nep89_20250409.txt:
+      sha256: 75168ece02e840e4a32644f982b78d43cba697f5b64b4c8134ab66c7a8c28be1
+      bytes: 15622195
+    nep.in:
+      sha256: 5216382174889973a00adfb5f7491112555381d4a7d5acb05903562f84eeb3ca
+      bytes: 642
+  doi: unassigned
+  license: GPL-3.0
+  redistribution_policy: redistributable_with_license
+  elements:
+  - H
+  - He
+  - Li
+  - Be
+  - B
+  - C
+  - N
+  - O
+  - F
+  - Ne
+  - Na
+  - Mg
+  - Al
+  - Si
+  - P
+  - S
+  - Cl
+  - Ar
+  - K
+  - Ca
+  - Sc
+  - Ti
+  - V
+  - Cr
+  - Mn
+  - Fe
+  - Co
+  - Ni
+  - Cu
+  - Zn
+  - Ga
+  - Ge
+  - As
+  - Se
+  - Br
+  - Kr
+  - Rb
+  - Sr
+  - Y
+  - Zr
+  - Nb
+  - Mo
+  - Tc
+  - Ru
+  - Rh
+  - Pd
+  - Ag
+  - Cd
+  - In
+  - Sn
+  - Sb
+  - Te
+  - I
+  - Xe
+  - Cs
+  - Ba
+  - La
+  - Ce
+  - Pr
+  - Nd
+  - Pm
+  - Sm
+  - Eu
+  - Gd
+  - Tb
+  - Dy
+  - Ho
+  - Er
+  - Tm
+  - Yb
+  - Lu
+  - Hf
+  - Ta
+  - W
+  - Re
+  - Os
+  - Ir
+  - Pt
+  - Au
+  - Hg
+  - Tl
+  - Pb
+  - Bi
+  - Ac
+  - Th
+  - Pa
+  - U
+  - Np
+  - Pu
+  phases:
+  - general
+  - fcc
+  - bcc
+  - l12
+  - defects
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: download GPUMD NEP89 nep text model and install GPUMD
+  artifact_kind: external_model_file
+  acceptance_status: blocked
+  rejection_reason: Public GPUMD NEP89 text model is resolved and covers Ni-Al-Ti-Ta plus all current HEA target element sets. Round-33 mdapy.NEP4ASE reference inference passed for a Cr-Co-Ni smoke structure, but this remains a broad 89-element general baseline rather than a gamma/gamma-prime-specialized MLIP; keep blocked until baseline admission and smoke-relax policy are explicitly chosen.
+- candidate_id: pot_nialti_mlip_candidate
+  target_role: gamma_prime_specific_candidate
+  family: MLIP
+  engine: unknown
+  model_name: Ni-Al-Ti gamma/gamma-prime MLIP candidate, exact model not found
+  source_url: https://www.ctcms.nist.gov/potentials/testing/system/Ti/
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ti
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Al-Ti
+  install_method: continue public MLIP search; NIST/OpenKIM MEAM entries may be tracked only as classical fallback, not as MLIP
+  artifact_kind: model_file_not_found
+  acceptance_status: research_needed
+  rejection_reason: >-
+    No public Ni-Al-Ti MLIP model file and license were found. NIST's Ni-Al-Ti
+    entries are LAMMPS pair_style meam / 2NN-MEAM classical potentials, not
+    MLIP; the OpenKIM Ni-Al-Ti species query returned only EAM/MEAM/LJ plus
+    broad TorchML_MACE_BatatiaBennerChiang_2023_MP0a_medium, which is a general
+    baseline only. The TMS 2026 Ni-Al-Ti MACE/FitSNAP abstract and the Ni-based
+    gamma/gamma-prime thesis are strong leads but have no public
+    checkpoint/model archive yet. The downloaded Al-Ti-V MTP and Ti-Al PolyMLP
+    lack Ni, and LightPFP's Ni3Al lead lacks Ti plus a public standalone
+    checkpoint. Round-31 Hugging Face, DataCite, and Zenodo keyword rechecks
+    for NiAlTi, Ni-Al-Ti MLIP, Ni3Al, and gamma-prime potential terms did not
+    find a new admittable model/checkpoint, so none can be admitted as a
+    Ni-Al-Ti gamma/gamma-prime MLIP. Round-34 repeated exact Hugging Face,
+    GitHub repository, DataCite, Zenodo, and arXiv searches for Ni-Al-Ti,
+    NiAlTi, MACE, FitSNAP, and gamma-prime checkpoint terms; no public target
+    model artifact was found. NIST Al-Ni-Ti still exposes MEAM/classical files
+    only. Round-37 rechecked GitHub repositories, Hugging Face, Zenodo,
+    Crossref, and exact Ni-Al-Ti/NiAlTi/NEP/MACE/FitSNAP/gamma-prime checkpoint
+    terms on 2026-07-05; no public target model, license, checksum, or
+    installable artifact was found. Round-40 repeated GitHub, Hugging Face,
+    Zenodo, ScienceDirect/Crossref, and `brucefan1983/nep-data` tree checks on
+    2026-07-05; no public Ni-Al-Ti checkpoint was found. A TiAlNb Zenodo record
+    was observed but classified as non-target supporting context because it
+    lacks Ni and does not close the Ni-Al-Ti gamma/gamma-prime gap. Round-42
+    repeated public web, GitHub repository, Hugging Face model, Zenodo, and
+    DataCite searches on 2026-07-05; no public Ni-Al-Ti MACE, FitSNAP, NEP,
+    MTP, checkpoint, license, checksum, or installable model file was found.
+    Round-43 checked the Mou/Sakidja author profile and public GitHub repos,
+    LAM-DPA FCC+L12, LightPFP, and SMC-X supplementary repository trails on
+    2026-07-05; these expose author evidence, workflows, configs, datasets, or
+    non-target high-entropy carbide scripts, but no Ni-Al-Ti gamma/gamma-prime
+    checkpoint. Round-44 re-opened the TMS 2026 Ni-Al-Ti MACE/FitSNAP abstract
+    and confirmed it is target-relevant, but no downloadable model/checkpoint,
+    license, checksum, or runnable engine recipe is exposed; fresh GitHub
+    repository, Hugging Face model, Zenodo, DataCite, GitLab `nep-data`, and
+    GPUMD tree checks also found no public Ni-Al-Ti target model artifact.
+    Round-47 repeated public GitHub repository, Hugging Face model, Zenodo,
+    GPUMD `nep-data`, and NEP model table checks; no public Ni-Al-Ti
+    gamma/gamma-prime MLIP checkpoint was found.
+- candidate_id: pot_nialta_mlip_candidate
+  target_role: gamma_prime_specific_candidate
+  family: MLIP
+  engine: unknown
+  model_name: Ni-Al-Ta gamma/gamma-prime MLIP candidate, exact model not found
+  source_url: https://www.ctcms.nist.gov/potentials/system/Nb/
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ta
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Al-Ta
+  install_method: continue public MLIP search; NIST/OpenKIM EAM/MEAM entries may be tracked only as classical fallback, not as MLIP
+  artifact_kind: model_file_not_found
+  acceptance_status: research_needed
+  rejection_reason: >-
+    No public Ni-Al-Ta MLIP model file and license were found. The OpenKIM
+    Ni-Al-Ta species query returned only broad EAM/LJ plus
+    TorchML_MACE_BatatiaBennerChiang_2023_MP0a_medium, which is a general
+    baseline only. GitHub repository search and AISSquare public model-list
+    filtering found no Ni-Al-Ta or NiAlTa target checkpoint. Available
+    Ni-Al-Nb/Ni-Al-Cr/Ni-Al classical fallbacks, Al-Ta classical/partial leads,
+    UNEP-v1 metal-domain baselines, and the Fe-Co-Ni-Al-Ti-Ta-V arXiv
+    ML-surrogate lead do not provide a downloadable Ni-Al-Ta gamma/gamma-prime
+    model/checkpoint. Round-31 Hugging Face, DataCite, and Zenodo keyword
+    rechecks also found no new Ni-Al-Ta gamma/gamma-prime MLIP checkpoint.
+    Round-34 repeated exact Hugging Face, GitHub repository, DataCite, Zenodo,
+    and arXiv searches for Ni-Al-Ta and gamma-prime MLIP checkpoint terms; no
+    public target model artifact was found. Round-37 rechecked GitHub
+    repositories, Hugging Face, Zenodo, Crossref, and exact Ni-Al-Ta
+    gamma-prime MLIP checkpoint terms on 2026-07-05; no public target model,
+    license, checksum, or installable artifact was found. Round-40 repeated
+    public GitHub, Hugging Face, Zenodo, Crossref/ScienceDirect, and NEP-data
+    tree checks on 2026-07-05; no public Ni-Al-Ta model file, license, checksum,
+    or installable artifact was found. Round-42 repeated public web, GitHub
+    repository, Hugging Face model, Zenodo, and DataCite searches on 2026-07-05;
+    no public Ni-Al-Ta MLIP checkpoint was found. DataCite NiAlTa hits were
+    experimental/coating or Materials Project data, not runnable MLIP files.
+    Round-43 checked the same author/repository leads plus LAM-DPA FCC+L12,
+    LightPFP, and SMC-X supplementary trails on 2026-07-05; none exposed a
+    Ni-Al-Ta gamma/gamma-prime checkpoint or installable MLIP artifact.
+    Round-47 repeated public GitHub repository, Hugging Face model, Zenodo, and
+    NEP-index checks; no public Ni-Al-Ta gamma/gamma-prime MLIP checkpoint,
+    license, checksum, or installable artifact was found.
+- candidate_id: pot_nialtita_mlip_candidate
+  target_role: gamma_prime_specific_candidate
+  family: MLIP
+  engine: unknown
+  model_name: Ni-Al-Ti-Ta gamma/gamma-prime MLIP candidate, exact model not found
+  source_url: https://arxiv.org/abs/2603.21207
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Ni
+  - Al
+  - Ti
+  - Ta
+  phases:
+  - fcc
+  - l12
+  target_systems:
+  - Ni-Al-Ti-Ta
+  install_method: continue public MLIP search; only admit if a real model/checkpoint plus license and engine are available
+  artifact_kind: model_file_not_found
+  acceptance_status: research_needed
+  rejection_reason: >-
+    The seven-element Fe-Co-Ni-Al-Ti-Ta-V arXiv lead was inspected through its
+    TeX source; it benchmarks ML surrogate models but does not expose a public
+    checkpoint/model file for Ni-Al-Ti-Ta gamma/gamma-prime relaxation. The
+    OpenKIM Ni-Al-Ti-Ta species query returned only broad EAM/LJ plus
+    TorchML_MACE_BatatiaBennerChiang_2023_MP0a_medium, which is a general
+    baseline only. GitHub repository search and AISSquare public model-list
+    filtering found no Ni-Al-Ti-Ta or NiAlTiTa target checkpoint. UNEP-v1 covers
+    the element set but is only a metal-domain baseline, not a
+    gamma/gamma-prime-specialized MLIP. Round-29 rechecked the LAM-DPA FCC+L12
+    DPA3 repository: its Ti-Ta-Al-Cr-Fe-Ni-Co config remains public, but no
+    trained checkpoint/model file or license is published. Round-31 Hugging
+    Face, DataCite, and Zenodo keyword rechecks for NiAlTi, Ni-Al-Ti, Ni-Al-Ta,
+    Ni-Al-Ti-Ta, Ni3Al, and gamma-prime potential terms still found no new
+    admittable multicomponent gamma/gamma-prime model/checkpoint. Round-34
+    repeated exact Hugging Face, GitHub repository, DataCite, Zenodo, and arXiv
+    searches for Ni-Al-Ti-Ta, FCC+L12, DPA3, MACE/FitSNAP, and NEP checkpoint
+    terms; the LAM-DPA FCC+L12 GitHub path still contains only the training
+    input JSON, with no release, license, or trained checkpoint. Round-37
+    rechecked arXiv 2603.21207, the author/repository trail, and the
+    JCTC-SMCX-Supplementary repository on 2026-07-05; that repository exposes
+    only a README plus a Google Drive data pointer, with no direct model file,
+    release, detected license, checksum, or trained Ni-Al-Ti-Ta gamma/gamma-
+    prime checkpoint. Round-40 repeated public GitHub, Hugging Face, Zenodo,
+    Crossref/ScienceDirect, and NEP-data tree checks on 2026-07-05; no public
+    Ni-Al-Ti-Ta checkpoint or installable artifact was found. Round-42 repeated
+    public web, GitHub repository, Hugging Face model, Zenodo, and DataCite
+    searches on 2026-07-05; no public Ni-Al-Ti-Ta or broader gamma/gamma-prime
+    MLIP checkpoint was found. DataCite hits were non-MLIP literature or
+    unrelated records, not model artifacts. Round-43 rechecked LAM-DPA FCC+L12
+    directly through the GitHub API and plugin search; the path still exposes
+    only `input_dpa3ft.json`, with no trained Ni-Al-Ti-Ta/FCC+L12 checkpoint.
+    Round-47 repeated public GitHub repository, Hugging Face model, Zenodo, and
+    NEP-index checks; no public Ni-Al-Ti-Ta gamma/gamma-prime MLIP checkpoint,
+    license, checksum, or installable artifact was found.
+- candidate_id: pot_nep_gpumd_hea_candidate
+  target_role: hea_specific_candidate
+  family: NEP
+  engine: gpumd
+  model_name: NEP HEA candidate, exact model not selected
+  source_url: https://gpumd.org/potentials/nep.html
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - refractory_bcc_HEA
+  install_method: install GPUMD and place nep.txt under accepted potential files/
+  artifact_kind: external_model_file
+  acceptance_status: research_needed
+  rejection_reason: Public NEP model files are now tracked separately for RHEA9 and Mn-Co-Fe-Ni-Cu, but no exact CrCoNi, CoCrFeMnNi, or benchmark-target HEA NEP checkpoint with matching element coverage has been selected and license-audited for this umbrella placeholder.
+- candidate_id: pot_mtp_hea_candidate
+  target_role: hea_specific_candidate
+  family: MTP
+  engine: mlip
+  model_name: MTP HEA candidate, exact model not selected
+  source_url: https://gitlab.com/ashapeev/mlip-2
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - refractory_bcc_HEA
+  install_method: install MLIP engine and place selected .mtp under accepted potential files/
+  artifact_kind: external_model_file
+  acceptance_status: research_needed
+  rejection_reason: No specific public HEA MTP model file has been selected and license-audited.
+- candidate_id: pot_ace_hea_candidate
+  target_role: hea_specific_candidate
+  family: ACE/PACE
+  engine: pace
+  model_name: ACE HEA candidate, exact model not selected
+  source_url: https://github.com/ICAMS/python-ace
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - refractory_bcc_HEA
+  install_method: install ACE/PACE engine and place selected model under accepted potential files/
+  artifact_kind: external_model_file
+  acceptance_status: research_needed
+  rejection_reason: No specific public HEA ACE model file has been selected and license-audited.
+- candidate_id: pot_gap_hea_candidate
+  target_role: hea_specific_candidate
+  family: GAP
+  engine: quip
+  model_name: GAP HEA candidate, exact model not selected
+  source_url: https://libatoms.github.io/GAP/
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - refractory_bcc_HEA
+  install_method: install QUIP/GAP and place selected XML model under accepted potential files/
+  artifact_kind: external_model_file
+  acceptance_status: research_needed
+  rejection_reason: No specific public HEA GAP model file has been selected and license-audited.
+- candidate_id: pot_snap_hea_candidate
+  target_role: hea_specific_candidate
+  family: SNAP
+  engine: lammps
+  model_name: SNAP HEA candidate, exact model not selected
+  source_url: https://docs.lammps.org/pair_snap.html
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - refractory_bcc_HEA
+  install_method: install LAMMPS with SNAP and place selected coeff files under accepted potential files/
+  artifact_kind: external_model_file
+  acceptance_status: research_needed
+  rejection_reason: >-
+    No exact public HEA SNAP model file has been selected and license-audited.
+    Round-32 verifies the downloaded NbMoTaW Materials Virtual Lab SNAP
+    supporting candidate through LAMMPS ML-SNAP after a temporary compatibility
+    transform, but that model lacks V and therefore does not close the exact
+    MoNbTaVW or broader HEA SNAP requirement.
+- candidate_id: pot_nequip_allegro_hea_candidate
+  target_role: hea_specific_candidate
+  family: NequIP/Allegro
+  engine: nequip
+  model_name: NequIP/Allegro HEA candidate, exact checkpoint not selected
+  source_url: https://github.com/mir-group/nequip
+  doi: varies_by_model
+  license: varies_by_model
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - refractory_bcc_HEA
+  install_method: install nequip/allegro and place selected checkpoint under accepted potential files/
+  artifact_kind: external_model_file
+  acceptance_status: research_needed
+  rejection_reason: No target-trained HEA NequIP/Allegro checkpoint has been selected and license-audited. NequIP-OAM-L and Allegro-OAM-L foundation artifacts are tracked separately as general baselines, not as HEA-specific or gamma/gamma-prime-specific MLIPs.
+- candidate_id: pot_nequip_oam_l_0p1
+  target_role: general_baseline
+  family: NequIP
+  engine: nequip
+  model_name: mir-group/NequIP-OAM-L v0.1a
+  source_url: https://www.nequip.net/models/mir-group/NequIP-OAM-L%3A0.1
+  artifact_urls:
+  - https://zenodo.org/api/records/18775904/files/NequIP-OAM-L-0.1.nequip.zip/content
+  doi: 10.5281/zenodo.18775904
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: download Zenodo .nequip.zip, install NequIP, compile/runtime-select the model for ASE or LAMMPS ML-IAP, then run load/reference inference and smoke relaxation
+  artifact_kind: external_model_file
+  artifact_hashes:
+    NequIP-OAM-L-0.1.nequip.zip:
+      sha256: 5d01a4fab228abb3cdb6ace0033f93993729956bca6a42234a2a8816825b9a0f
+      md5: 67144367c710a70a53a8e21acf331980
+      bytes: 78464590
+  acceptance_status: blocked
+  rejection_reason: Public NequIP-OAM-L foundation model artifact is downloaded and hash-recorded under local_potential_cache, with Zenodo metadata reporting CC-BY-4.0 and broad inorganic-solid element coverage including the current HEA and Ni-Al-Ti-Ta elements. It is a general foundation baseline, not a target-trained HEA or gamma/gamma-prime MLIP, and remains blocked until NequIP runtime load/reference inference and smoke relaxation are configured.
+- candidate_id: pot_allegro_oam_l_0p1
+  target_role: general_baseline
+  family: Allegro
+  engine: nequip_allegro
+  model_name: mir-group/Allegro-OAM-L v0.1
+  source_url: https://www.nequip.net/models/mir-group/Allegro-OAM-L%3A0.1
+  artifact_urls:
+  - https://zenodo.org/api/records/18775904/files/Allegro-OAM-L-0.1.nequip.zip/content
+  doi: 10.5281/zenodo.18775904
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  target_systems:
+  - CrCoNi
+  - CoCrFeMnNi
+  - TiTaVW
+  - MoNbTaVW
+  - WTaCrV
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  install_method: download Zenodo .nequip.zip, install NequIP/Allegro, compile/runtime-select the model for ASE or LAMMPS ML-IAP, then run load/reference inference and smoke relaxation
+  artifact_kind: external_model_file
+  artifact_hashes:
+    Allegro-OAM-L-0.1.nequip.zip:
+      sha256: 3f0d3ca7bb136d4c2ee76278170fcbe756436f037e16c673a86e2c57d271c64e
+      md5: 0db7f9b3c3a62e74d78b3fcf2973c462
+      bytes: 80738705
+  acceptance_status: blocked
+  rejection_reason: Public Allegro-OAM-L foundation model artifact is downloaded and hash-recorded under local_potential_cache, with Zenodo metadata reporting CC-BY-4.0 and broad inorganic-solid element coverage including the current HEA and Ni-Al-Ti-Ta elements. It is a general foundation baseline, not a target-trained HEA or gamma/gamma-prime MLIP, and remains blocked until NequIP/Allegro runtime load/reference inference and smoke relaxation are configured.
+- candidate_id: pot_heaml_pointff_wu_2024_lead
+  target_role: hea_specific_candidate
+  family: PointFF/TorchScript
+  engine: pointff_lammps
+  model_name: CrFeCoNiPd PointFF TorchScript HEA MLIP
+  source_url: https://github.com/lianpingWu/HEAML.github.io
+  artifact_urls:
+  - https://raw.githubusercontent.com/lianpingWu/HEAML.github.io/main/jit_epoch.pth
+  - https://raw.githubusercontent.com/lianpingWu/HEAML.github.io/main/pair_PointFF.cpp
+  - https://raw.githubusercontent.com/lianpingWu/HEAML.github.io/main/pair_PointFF.h
+  - https://raw.githubusercontent.com/lianpingWu/HEAML.github.io/main/in.MC
+  - https://raw.githubusercontent.com/lianpingWu/HEAML.github.io/main/in.tensile
+  - https://raw.githubusercontent.com/lianpingWu/HEAML.github.io/main/CMakeLists.txt
+  doi: 10.1016/j.jmps.2024.105639
+  license: license_not_found
+  redistribution_policy: metadata_only
+  elements:
+  - Cr
+  - Fe
+  - Co
+  - Ni
+  - Pd
+  phases:
+  - fcc
+  target_systems:
+  - CrFeCoNiPd
+  - HEA_related
+  - CrCoNi_partial_coverage
+  install_method: download TorchScript model and compile custom LAMMPS pair_style PointFF with LibTorch/CUDA
+  artifact_kind: external_model_file_custom_lammps_pair_style
+  artifact_hashes:
+    CMakeLists.txt:
+      sha256: ddc521f7c2972bd7ba7c4880e59d9cbb8c6e531ca7ab858dbd38644dd87118d8
+      bytes: 34972
+    in.MC:
+      sha256: 7accc4d5233f7c504835c24a005c0b0aa38e3aef5f7713fb46116c6cb5c492aa
+      bytes: 2672
+    in.tensile:
+      sha256: b562f6f6fb607ddb060f952c2156a8bbddb5df45039f23e901e7ada0ae24e70a
+      bytes: 1946
+    jit_epoch.pth:
+      sha256: 97f43b8036335fc3cc52888500b988738377424f162c699df7a4a78a5be98ff8
+      bytes: 1087409
+    pair_PointFF.cpp:
+      sha256: a5b2e6bbadd4604f66b6afc07bd5f2e09666697dc7895e4be14d2dbabb0c65da
+      bytes: 8341
+    pair_PointFF.h:
+      sha256: ce781abfecdee31099da7b87507888e0bb9ba044e9f452d37bc262feebd2ddd6
+      bytes: 1737
+  acceptance_status: blocked
+  rejection_reason: >-
+    Round-39 found the public HEAML GitHub repository linked from the 2024
+    CrFeCoNiPd HEA MLIP article and downloaded the TorchScript model,
+    PointFF LAMMPS pair-style source files, LAMMPS input files, and CMake file
+    into local_potential_cache with SHA256 hashes. `torch.jit.load` succeeds on
+    `jit_epoch.pth`, but the repository exposes no explicit LICENSE or README,
+    the atom-type mapping still needs upstream confirmation, the model is not
+    an exact current benchmark target because it includes Pd and lacks Mn, and
+    no PointFF-enabled LAMMPS/LibTorch runtime or smoke relaxation is available,
+    so it remains a blocked HEA-related candidate and no formal generated
+    manifest changed.

@@ -1,0 +1,28 @@
+{
+  "protocol_id": "nickel_gamma_component_scoring_v1",
+  "matching": {
+    "algorithm": "hungarian",
+    "phase_hkl_mismatch": "prohibitive",
+    "center_gate_min_deg": 0.15,
+    "center_gate_truth_fwhm_multiplier": 1.5,
+    "cost_terms": ["normalized_center_error", "relative_width_error", "normalized_profile_l1"],
+    "cost_weights": [0.3333333333333333, 0.3333333333333333, 0.3333333333333333]
+  },
+  "primary_metrics": [
+    "component_precision",
+    "component_recall",
+    "component_f1",
+    "phase_hkl_accuracy",
+    "overlap_detection_f1",
+    "overlap_region_f1"
+  ],
+  "reported_errors": [
+    "center_mae_deg",
+    "fwhm_mae_deg",
+    "area_mae",
+    "profile_distance",
+    "forward_reconstruction_l1"
+  ],
+  "aggregation": "parent_pair_macro",
+  "reconstruction_is_supplementary": true
+}

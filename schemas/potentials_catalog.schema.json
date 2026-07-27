@@ -1,0 +1,19 @@
+{
+  "name": "potentials_catalog",
+  "id_field": "potential_id",
+  "fields": [
+    {"name": "potential_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "family", "dtype": "string", "required": true, "description": ""},
+    {"name": "engine", "dtype": "string", "required": true, "description": ""},
+    {"name": "elements", "dtype": "list[string]", "required": true, "description": ""},
+    {"name": "phases", "dtype": "list[string]", "required": true, "description": ""},
+    {"name": "source_url", "dtype": "string", "required": true, "description": ""},
+    {"name": "doi", "dtype": "string", "required": true, "description": ""},
+    {"name": "license", "dtype": "string", "required": true, "description": ""},
+    {"name": "file_sha256", "dtype": "sha256", "required": true, "description": ""},
+    {"name": "redistribution_policy", "dtype": "string", "required": true, "description": ""},
+    {"name": "citation_keys", "dtype": "list[string]", "required": true, "description": ""},
+    {"name": "potential_dir", "dtype": "path", "required": true, "description": ""},
+    {"name": "generated_data_dir", "dtype": "path", "required": true, "description": ""}
+  ]
+}

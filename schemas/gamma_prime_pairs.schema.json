@@ -1,0 +1,14 @@
+{
+  "name": "gamma_prime_pairs",
+  "id_field": "pair_id",
+  "fields": [
+    {"name": "pair_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "gamma_initial_structure_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "gamma_prime_initial_structure_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "gamma_relaxed_structure_id", "dtype": "string", "required": false, "description": ""},
+    {"name": "gamma_prime_relaxed_structure_id", "dtype": "string", "required": false, "description": ""},
+    {"name": "nominal_alloy_system", "dtype": "string", "required": true, "description": ""},
+    {"name": "partitioning_rule", "dtype": "string", "required": true, "description": ""},
+    {"name": "misfit_definition", "dtype": "string", "required": true, "description": ""}
+  ]
+}

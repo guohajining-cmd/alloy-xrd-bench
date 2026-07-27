@@ -1,0 +1,11 @@
+splits:
+  id:
+    alloy_systems: [CrCoNi]
+  composition_ood:
+    alloy_systems: [WTaCrV]
+  chemistry_ood:
+    alloy_systems: [CoCrFeMnNi, MoNbTaVW]
+  phase_ood:
+    alloy_systems: [Ni-Al]
+  private_test:
+    alloy_systems: [TiTaVW]

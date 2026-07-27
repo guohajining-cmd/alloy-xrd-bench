@@ -1,0 +1,12 @@
+potential_id: pot_example
+family: MACE
+engine: mace
+elements: [Cr, Co, Ni]
+phases: [fcc]
+source_url: https://example.org/potential
+doi: 10.0000/example
+license: MIT
+redistribution_policy: metadata_only
+file_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+citation_keys: [example]
+notes: "Replace with real source, license, checksum, and installation notes."

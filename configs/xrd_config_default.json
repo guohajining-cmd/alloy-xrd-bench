@@ -1,0 +1,15 @@
+{
+  "xrd_config_id": "xrd_cu_kalpha_20_100_step_0p02_gauss_0p1_v1",
+  "radiation": "Cu Kalpha",
+  "two_theta_min": 20.0,
+  "two_theta_max": 100.0,
+  "step": 0.02,
+  "broadening": {
+    "kind": "gaussian",
+    "fwhm_deg": 0.1
+  },
+  "intensity_normalization": {
+    "method": "max",
+    "max_intensity": 100.0
+  }
+}

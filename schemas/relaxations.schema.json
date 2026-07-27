@@ -1,0 +1,17 @@
+{
+  "name": "relaxations",
+  "id_field": "relaxation_run_id",
+  "fields": [
+    {"name": "relaxation_run_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "initial_structure_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "potential_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "engine", "dtype": "string", "required": true, "description": ""},
+    {"name": "relax_config_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "converged", "dtype": "boolean", "required": true, "description": ""},
+    {"name": "fmax", "dtype": "number", "required": true, "description": ""},
+    {"name": "stress", "dtype": "object", "required": true, "description": ""},
+    {"name": "volume_change", "dtype": "number", "required": true, "description": ""},
+    {"name": "steps", "dtype": "integer", "required": true, "description": ""},
+    {"name": "log_path", "dtype": "path", "required": true, "description": ""}
+  ]
+}

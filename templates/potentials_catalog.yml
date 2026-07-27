@@ -1,0 +1,14 @@
+potentials:
+  - potential_id: pot_mace_mp_0
+    family: MACE
+    engine: mace
+    elements: [Cr, Co, Ni]
+    phases: [fcc]
+    source_url: https://example.org/mace
+    doi: 10.0000/example
+    license: MIT
+    file_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    redistribution_policy: metadata_only
+    citation_keys: [mace]
+    potential_dir: data/potentials/pot_mace_mp_0/potential
+    generated_data_dir: data/potentials/pot_mace_mp_0/generated

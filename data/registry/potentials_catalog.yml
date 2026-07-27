@@ -1,0 +1,182 @@
+potentials:
+- potential_id: pot_chgnet_0p3p0
+  family: CHGNet
+  engine: chgnet
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  source_url: https://github.com/CederGroupHub/chgnet
+  doi: 10.1038/s42256-023-00716-3
+  license: BSD-3-Clause
+  file_sha256: d14ab7c0f093efe64b60a7bcd540bca10e74fb7f46c86108a079af60524659d1
+  redistribution_policy: metadata_only
+  citation_keys:
+  - chgnet
+  potential_dir: data/potentials/pot_chgnet_0p3p0/potential
+  generated_data_dir: data/potentials/pot_chgnet_0p3p0/generated
+- potential_id: pot_crconi_mtp_csro
+  family: MTP
+  engine: mtp_mlp
+  elements:
+  - Cr
+  - Co
+  - Ni
+  phases:
+  - fcc
+  source_url: https://github.com/yifan-henry-cao/MLP-cSRO
+  doi: 10.48550/arXiv.2401.06622
+  license: MIT
+  file_sha256: e1ae0fe802b1ef5ffe94b77f060ec8d23c08859eeec8f8614f890b27957b62c3
+  redistribution_policy: redistributable_with_attribution
+  citation_keys:
+  - caocapturing2024
+  - sheriffquantifying2024
+  type_map:
+    '0': Cr
+    '1': Co
+    '2': Ni
+  potential_dir: data/potentials/pot_crconi_mtp_csro/potential
+  generated_data_dir: data/potentials/pot_crconi_mtp_csro/generated
+- potential_id: pot_crconi_nep_wu_2026
+  family: NEP
+  engine: nep
+  elements:
+  - Cr
+  - Co
+  - Ni
+  phases:
+  - fcc
+  - bcc
+  - hcp
+  source_url: https://github.com/mushroomfire/NEP-CrCoNi
+  doi: 10.48550/arXiv.2603.25616
+  license: MIT
+  file_sha256: 98e4e98e84007b794506c9e0c0ef5993beec19aff27bb667850fbbec35e142b7
+  redistribution_policy: redistributable_with_attribution
+  citation_keys:
+  - wu2026crconi_nep
+  potential_dir: data/potentials/pot_crconi_nep_wu_2026/potential
+  generated_data_dir: data/potentials/pot_crconi_nep_wu_2026/generated
+- potential_id: pot_mace_mp_0b3_medium
+  family: MACE
+  engine: mace
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  source_url: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0/2023-12-03-mace-128-L1_epoch-199.model
+  doi: 10.48550/arXiv.2401.00096
+  license: MIT
+  file_sha256: 01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845
+  redistribution_policy: metadata_only
+  citation_keys:
+  - mace_mp
+  potential_dir: data/potentials/pot_mace_mp_0b3_medium/potential
+  generated_data_dir: data/potentials/pot_mace_mp_0b3_medium/generated
+- potential_id: pot_matgl_m3gnet_matpes_pbe_2025_2
+  family: MatGL/M3GNet
+  engine: matgl
+  elements:
+  - Cr
+  - Co
+  - Ni
+  - Fe
+  - Mn
+  - Ti
+  - Ta
+  - V
+  - W
+  - Mo
+  - Nb
+  - Al
+  phases:
+  - fcc
+  - bcc
+  - l12
+  source_url: https://huggingface.co/materialyze/M3GNet-PES-MatPES-PBE-2025.2
+  doi: 10.48550/arXiv.2212.07687
+  license: BSD-3-Clause
+  file_sha256: fba71f3020ebedaa8a22cac27ff94364f80cb6b4c2da76f40fa6d22ab8492afc
+  redistribution_policy: metadata_only
+  citation_keys:
+  - matgl_m3gnet_matpes
+  potential_dir: data/potentials/pot_matgl_m3gnet_matpes_pbe_2025_2/potential
+  generated_data_dir: data/potentials/pot_matgl_m3gnet_matpes_pbe_2025_2/generated
+- potential_id: pot_ni3al_mtp_darus_yield_anomaly_2024
+  family: MTP
+  engine: mtp_mlp
+  elements:
+  - Al
+  - Ni
+  phases:
+  - l12
+  source_url: https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/DARUS-4480
+  doi: 10.18419/DARUS-4480
+  license: CC-BY-4.0
+  file_sha256: 8f5fad22adcd6e4fad9334b65dccd04dd66fdb766eb38f6992960f1f26ce532b
+  redistribution_policy: redistributable_with_attribution
+  citation_keys:
+  - xu2024ni3al_yield_anomaly_mtp
+  type_map:
+    '0': Al
+    '1': Ni
+  type_map_evidence: inferred_from_darus_train_cfg_first_frame_ni3al_stoichiometry
+  potential_dir: data/potentials/pot_ni3al_mtp_darus_yield_anomaly_2024/potential
+  generated_data_dir: data/potentials/pot_ni3al_mtp_darus_yield_anomaly_2024/generated
+- potential_id: pot_rhea9_nep_byggmastar_2026
+  family: NEP
+  engine: gpumd
+  elements:
+  - Cr
+  - Hf
+  - Mo
+  - Nb
+  - Ta
+  - Ti
+  - V
+  - W
+  - Zr
+  phases:
+  - bcc
+  - hcp
+  - laves
+  - b2
+  - omega
+  - liquid
+  - glass
+  source_url: https://zenodo.org/records/18863415
+  doi: 10.5281/zenodo.18863415
+  license: CC-BY-4.0
+  file_sha256: 018bc44356b48ee370f51a8748f3aeb3ef94fb2319ef43edb570cf2e5e65a3df
+  redistribution_policy: redistributable_with_attribution
+  citation_keys:
+  - byggmastar2026rhea_nep
+  potential_dir: data/potentials/pot_rhea9_nep_byggmastar_2026/potential
+  generated_data_dir: data/potentials/pot_rhea9_nep_byggmastar_2026/generated

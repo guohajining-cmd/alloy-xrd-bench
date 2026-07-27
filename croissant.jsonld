@@ -1,0 +1,42 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/"
+  },
+  "@type": "Dataset",
+  "name": "SiteXRD-Bench: HEA-SRO and Gamma-Decomp",
+  "description": "A two-track simulated powder-XRD benchmark for short-range-order prediction and gamma/gamma-prime reflection-component decomposition.",
+  "version": "1.1.0",
+  "datePublished": "2026-07-25",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "hasPart": [
+    {
+      "@type": "Dataset",
+      "name": "HEA-SRO v1.1",
+      "description": "84,019 canonical structure-derived clean XRD patterns with first- and second-shell Warren-Cowley SRO targets.",
+      "isBasedOn": "https://doi.org/10.5281/zenodo.10854500"
+    },
+    {
+      "@type": "Dataset",
+      "name": "Gamma-Decomp v1.1",
+      "description": "10,000 synthetic gamma/gamma-prime mixtures with grouped phase/HKL reflection components and overlap windows."
+    }
+  ],
+  "variableMeasured": [
+    "two_theta",
+    "intensity",
+    "warren_cowley_sro_shell1",
+    "warren_cowley_sro_shell2",
+    "parent_group_id",
+    "id_split",
+    "composition_ood_split",
+    "chemistry_ood_split",
+    "sro_ood_split",
+    "hkl_group_id",
+    "component_center",
+    "component_fwhm",
+    "component_integrated_intensity",
+    "instrument_slice",
+    "overlap_difficulty"
+  ]
+}

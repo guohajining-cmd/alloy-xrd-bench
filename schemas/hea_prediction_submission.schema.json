@@ -1,0 +1,29 @@
+{
+  "schema_version": "sitexrd-predictions-v1",
+  "required_metadata": [
+    "schema_version",
+    "model_id",
+    "seed",
+    "split_column",
+    "split_value",
+    "tasks"
+  ],
+  "task_files": {
+    "family": {
+      "path": "family.parquet",
+      "required_columns": ["sample_id", "parent_group_id", "model_id", "seed", "predicted_label", "probabilities_json"]
+    },
+    "sro": {
+      "path": "sro.parquet",
+      "required_columns": ["sample_id", "parent_group_id", "model_id", "seed", "sro_predictions_json"]
+    },
+    "occupancy": {
+      "path": "occupancy.parquet",
+      "required_columns": ["sample_id", "parent_group_id", "model_id", "seed", "predicted_score", "confidence"]
+    },
+    "uncertainty": {
+      "path": "uncertainty.parquet",
+      "required_columns": ["sample_id", "parent_group_id", "model_id", "seed", "identifiable_probability", "abstain"]
+    }
+  }
+}

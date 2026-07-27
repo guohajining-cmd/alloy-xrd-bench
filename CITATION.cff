@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Cite the versioned SiteXRD-Bench release and the source datasets used by the applicable track."
+title: "SiteXRD-Bench: HEA-SRO and Gamma-Decomp"
+version: "1.1.0"
+date-released: "2026-07-25"
+license: "CC-BY-4.0"
+authors:
+  - name: "SiteXRD-Bench Contributors"
+references:
+  - type: dataset
+    title: "DFT dataset for high entropy materials"
+    authors:
+      - name: "Kangming Li"
+      - name: "Jason Hattrick-Simpers"
+    doi: "10.5281/zenodo.10854500"

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://alloy-xrd-bench.org/schemas/hea_family_adjudication.schema.json",
+  "title": "HEA family expert adjudication",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "structure_state_id",
+    "current_label",
+    "proposed_label",
+    "ptm_evidence",
+    "cna_evidence",
+    "reviewer_id",
+    "review_date",
+    "decision",
+    "expert_label",
+    "notes"
+  ],
+  "properties": {
+    "structure_state_id": {"type": "string", "minLength": 1},
+    "current_label": {"$ref": "#/$defs/familyLabel"},
+    "proposed_label": {"$ref": "#/$defs/familyLabel"},
+    "ptm_evidence": {"type": "string"},
+    "cna_evidence": {"type": "string"},
+    "reviewer_id": {"type": "string", "minLength": 1},
+    "review_date": {"type": "string", "format": "date"},
+    "decision": {
+      "enum": ["accept_current", "accept_proposed", "exclude"]
+    },
+    "expert_label": {
+      "anyOf": [{"$ref": "#/$defs/familyLabel"}, {"type": "null"}]
+    },
+    "notes": {"type": "string"}
+  },
+  "$defs": {
+    "familyLabel": {
+      "enum": [
+        "fcc_like",
+        "l12_like",
+        "bcc_like",
+        "b2_like",
+        "hcp_like",
+        "complex",
+        "unknown"
+      ]
+    }
+  },
+  "x-doubleBlindContract": {
+    "reviewsPerStructure": 2,
+    "independentReviewerIds": true,
+    "minimumCohenKappa": 0.8,
+    "minimumOverallAccuracy": 0.95,
+    "disagreementsRequireIndependentAdjudicator": true
+  }
+}

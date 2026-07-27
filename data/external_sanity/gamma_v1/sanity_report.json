@@ -1,0 +1,36 @@
+{
+  "allowed_claims": [
+    "gamma matrix peak trend",
+    "whole-pattern reconstruction trend",
+    "simulation-to-experiment domain gap"
+  ],
+  "article_doi": "10.1017/dce.2022.31",
+  "derived_pattern_files_distributed": false,
+  "exact_latent_truth_claimed": false,
+  "license": "CC-BY-ND-4.0",
+  "prohibited_claims": [
+    "experimental component-level accuracy",
+    "gamma-prime versus gamma-double-prime component accuracy",
+    "experimental sublattice occupancy accuracy"
+  ],
+  "sample_count": 2,
+  "schema_version": "sitexrd-external-sanity-v1",
+  "source_bundle_sha256": "e58445b9c2769ac3991e97fa6216b05e6332845ff6eadaeaf2b6e4545c377465",
+  "source_creators": [
+    "Markanday, Jonathon",
+    "Conduit, Gareth",
+    "Conduit, Bryce",
+    "Purstl, Julia",
+    "Christofidou, Katerina",
+    "Chechik, Lova",
+    "Baxter, Gavin",
+    "Heason, Christopher",
+    "Stone, Howard"
+  ],
+  "source_doi": "10.17863/CAM.87406",
+  "source_files_redistributed_unmodified": true,
+  "source_limitations": "The associated article states that gamma-prime and gamma-double-prime superlattice reflections are not distinguishable in these patterns.",
+  "source_title": "Research data supporting \"Design of a Ni-based Superalloy for Laser Repair Applications using Probabilistic Neural Network Identification\"",
+  "status": "pass",
+  "track": "gamma_decomp"
+}

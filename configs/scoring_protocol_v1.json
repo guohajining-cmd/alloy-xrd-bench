@@ -1,0 +1,61 @@
+{
+  "protocol_id": "sitexrd_scoring_v1",
+  "score_range": [0.0, 100.0],
+  "family_qualification": {
+    "primary_metric": "macro_f1",
+    "minimum": 0.9,
+    "reported_metrics": ["macro_f1", "balanced_accuracy"]
+  },
+  "sro": {
+    "primary_error": "masked_parent_macro_mae",
+    "normalization": "100 * max(0, 1 - model_mae / composition_only_baseline_mae)",
+    "reported_metrics": ["masked_parent_macro_mae", "rmse", "shell_1_spearman", "shell_2_spearman"]
+  },
+  "occupancy": {
+    "pair_accuracy_weight": 0.5,
+    "mrr_weight": 0.3,
+    "top_k_accuracy_weight": 0.2,
+    "top_k": 3,
+    "primary_slice": "identifiable",
+    "ambiguous_slice_policy": "uncertainty_only"
+  },
+  "robustness": {
+    "clean_score_floor": 40.0,
+    "aggregation": "geometric_mean_of_capped_perturbed_to_clean_ratios"
+  },
+  "ood": {
+    "required_shifts": ["composition_ood", "chemistry_ood", "sro_ood"],
+    "aggregation": "geometric_mean"
+  },
+  "trustworthiness": {
+    "components": ["ece", "coverage", "aurc_skill", "identifiability_auroc_skill"],
+    "aggregation": "geometric_mean",
+    "target_coverage": 0.9,
+    "coverage_tolerance": 0.1
+  },
+  "reference_overall": {
+    "dimensions": ["sro", "occupancy", "robustness", "ood", "trust"],
+    "aggregation": "geometric_mean",
+    "secondary_only": true,
+    "complete_capability_dimension_floor": 40.0
+  },
+  "diagnostic_thresholds": {
+    "shortcut_minimum_gain_points": 5.0,
+    "occupancy_blindness_family_score": 90.0,
+    "occupancy_blindness_occupancy_score": 40.0,
+    "perturbation_retention": 0.75,
+    "ood_retention": 0.65,
+    "nonidentifiable_confidence": 0.8
+  },
+  "uncertainty": {
+    "confidence_level": 0.95,
+    "bootstrap_replicates": 2000,
+    "bootstrap_seed": 2027,
+    "resampling_unit": "parent_group",
+    "learned_model_seeds_minimum": 3
+  },
+  "threshold_selection": {
+    "identifiability": "train_validation_only",
+    "test_tuning_forbidden": true
+  }
+}

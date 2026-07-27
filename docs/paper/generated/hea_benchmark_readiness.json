@@ -1,0 +1,38 @@
+{
+  "benchmark_release_ready": true,
+  "core_benchmark_ready": true,
+  "decision": "GO",
+  "diagnostic_family_status": "diagnostic_pending_review",
+  "diagnostic_occupancy_status": "diagnostic_non_identifiable",
+  "evidence_files": {
+    "bootstrap": "bootstrap_summary.json",
+    "canonical": "canonical_audit.json",
+    "controls": "controls.json",
+    "evaluator": "evaluator_smoke.json",
+    "family": "family_support.json",
+    "identifiability": "identifiability.json",
+    "model_gain": "model_comparison.json",
+    "ood": "ood_summary.json",
+    "perturbation": "perturbation_summary.json",
+    "predictions": "prediction_completeness.json",
+    "release_package": "release_package.json"
+  },
+  "experimental_noise_calibrated": false,
+  "failure_codes": [],
+  "full_production_allowed": true,
+  "gamma_included": false,
+  "gates": {
+    "bootstrap": true,
+    "canonical_immutable": true,
+    "controls": true,
+    "evaluator": true,
+    "ood": true,
+    "perturbation": true,
+    "prediction_matrix": true,
+    "release_package": true
+  },
+  "model_gain_is_release_gate": false,
+  "release_scope": "sro_core",
+  "schema_version": "sitexrd-hea-readiness-v1.1",
+  "track": "hea"
+}

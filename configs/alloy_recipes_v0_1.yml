@@ -1,0 +1,434 @@
+recipes:
+  # fcc HEA starters
+  - alloy_system: CrCoNi
+    phase: fcc
+    composition: {Cr: 1, Co: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 7
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CrCoNi
+    phase: fcc
+    composition: {Cr: 1, Co: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 8
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CrCoNi
+    phase: fcc
+    composition: {Cr: 1, Co: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 10
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CrCoNi
+    phase: fcc
+    composition: {Cr: 2, Co: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 9
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CrCoNi
+    phase: fcc
+    composition: {Cr: 2, Co: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 21
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+
+  - alloy_system: CoCrFeMnNi
+    phase: fcc
+    composition: {Co: 1, Cr: 1, Fe: 1, Mn: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 11
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CoCrFeMnNi
+    phase: fcc
+    composition: {Co: 1, Cr: 1, Fe: 1, Mn: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 12
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CoCrFeMnNi
+    phase: fcc
+    composition: {Co: 1, Cr: 1, Fe: 1, Mn: 1, Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 16
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CoCrFeMnNi
+    phase: fcc
+    composition: {Co: 1, Cr: 1, Fe: 1, Mn: 1, Ni: 2}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 25
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: CoCrFeMnNi
+    phase: fcc
+    composition: {Co: 1, Cr: 1, Fe: 1, Mn: 1, Ni: 2}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 26
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+
+  # bcc refractory HEA starters
+  - alloy_system: TiTaVW
+    phase: bcc
+    composition: {Ti: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.20
+    seed: 13
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: TiTaVW
+    phase: bcc
+    composition: {Ti: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.20
+    seed: 14
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: TiTaVW
+    phase: bcc
+    composition: {Ti: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.20
+    seed: 22
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: TiTaVW
+    phase: bcc
+    composition: {Ti: 2, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.20
+    seed: 15
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: TiTaVW
+    phase: bcc
+    composition: {Ti: 2, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.20
+    seed: 28
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+
+  - alloy_system: MoNbTaVW
+    phase: bcc
+    composition: {Mo: 1, Nb: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.22
+    seed: 17
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: MoNbTaVW
+    phase: bcc
+    composition: {Mo: 1, Nb: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.22
+    seed: 18
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: MoNbTaVW
+    phase: bcc
+    composition: {Mo: 1, Nb: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.22
+    seed: 30
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: MoNbTaVW
+    phase: bcc
+    composition: {Mo: 2, Nb: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.22
+    seed: 31
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: MoNbTaVW
+    phase: bcc
+    composition: {Mo: 2, Nb: 1, Ta: 1, V: 1, W: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.22
+    seed: 32
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+
+  - alloy_system: WTaCrV
+    phase: bcc
+    composition: {W: 1, Ta: 1, Cr: 1, V: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.10
+    seed: 19
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: WTaCrV
+    phase: bcc
+    composition: {W: 1, Ta: 1, Cr: 1, V: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.10
+    seed: 20
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: WTaCrV
+    phase: bcc
+    composition: {W: 1, Ta: 1, Cr: 1, V: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.10
+    seed: 34
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: WTaCrV
+    phase: bcc
+    composition: {W: 1, Ta: 1, Cr: 2, V: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.10
+    seed: 35
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: WTaCrV
+    phase: bcc
+    composition: {W: 1, Ta: 1, Cr: 2, V: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.10
+    seed: 36
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+
+  # gamma / gamma-prime paired starters
+  - alloy_system: Ni-Al
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al_seed000023
+    nominal_alloy_system: Ni-Al
+    partitioning_rule: Ni-rich gamma paired with Ni3Al gamma-prime
+    composition: {Ni: 9, Al: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.57
+    seed: 23
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al_seed000023
+    nominal_alloy_system: Ni-Al
+    partitioning_rule: Ni-rich gamma paired with Ni3Al gamma-prime
+    composition: {Ni: 3, Al: 1}
+    sublattice_composition:
+      corner: {Al: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.57
+    seed: 23
+    generation_method: l12_sublattice_occupancy
+  - alloy_system: Ni-Al
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al_seed000024
+    nominal_alloy_system: Ni-Al
+    partitioning_rule: Ni-rich gamma paired with Ni3Al gamma-prime
+    composition: {Ni: 9, Al: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.57
+    seed: 24
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al_seed000024
+    nominal_alloy_system: Ni-Al
+    partitioning_rule: Ni-rich gamma paired with Ni3Al gamma-prime
+    composition: {Ni: 3, Al: 1}
+    sublattice_composition:
+      corner: {Al: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.57
+    seed: 24
+    generation_method: l12_sublattice_occupancy
+
+  - alloy_system: Ni-Al-Ti
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti_seed000101
+    nominal_alloy_system: Ni-Al-Ti
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti) gamma-prime
+    composition: {Ni: 17, Al: 2, Ti: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 101
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al-Ti
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti_seed000101
+    nominal_alloy_system: Ni-Al-Ti
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti) gamma-prime
+    composition: {Ni: 6, Al: 1, Ti: 1}
+    sublattice_composition:
+      corner: {Al: 1, Ti: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 101
+    generation_method: l12_sublattice_occupancy
+  - alloy_system: Ni-Al-Ti
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti_seed000104
+    nominal_alloy_system: Ni-Al-Ti
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti) gamma-prime
+    composition: {Ni: 17, Al: 2, Ti: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 104
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al-Ti
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti_seed000104
+    nominal_alloy_system: Ni-Al-Ti
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti) gamma-prime
+    composition: {Ni: 6, Al: 1, Ti: 1}
+    sublattice_composition:
+      corner: {Al: 1, Ti: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.58
+    seed: 104
+    generation_method: l12_sublattice_occupancy
+  - alloy_system: Ni-Al-Ta
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ta_seed000102
+    nominal_alloy_system: Ni-Al-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ta) gamma-prime
+    composition: {Ni: 17, Al: 2, Ta: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 102
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al-Ta
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ta_seed000102
+    nominal_alloy_system: Ni-Al-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ta) gamma-prime
+    composition: {Ni: 6, Al: 1, Ta: 1}
+    sublattice_composition:
+      corner: {Al: 1, Ta: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 102
+    generation_method: l12_sublattice_occupancy
+  - alloy_system: Ni-Al-Ta
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ta_seed000105
+    nominal_alloy_system: Ni-Al-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ta) gamma-prime
+    composition: {Ni: 17, Al: 2, Ta: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 105
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al-Ta
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ta_seed000105
+    nominal_alloy_system: Ni-Al-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ta) gamma-prime
+    composition: {Ni: 6, Al: 1, Ta: 1}
+    sublattice_composition:
+      corner: {Al: 1, Ta: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 105
+    generation_method: l12_sublattice_occupancy
+  - alloy_system: Ni-Al-Ti-Ta
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti-Ta_seed000103
+    nominal_alloy_system: Ni-Al-Ti-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti,Ta) gamma-prime
+    composition: {Ni: 20, Al: 2, Ti: 1, Ta: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 103
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al-Ti-Ta
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti-Ta_seed000103
+    nominal_alloy_system: Ni-Al-Ti-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti,Ta) gamma-prime
+    composition: {Ni: 12, Al: 2, Ti: 1, Ta: 1}
+    sublattice_composition:
+      corner: {Al: 2, Ti: 1, Ta: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 103
+    generation_method: l12_sublattice_occupancy
+  - alloy_system: Ni-Al-Ti-Ta
+    phase: fcc
+    phase_role: gamma
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti-Ta_seed000106
+    nominal_alloy_system: Ni-Al-Ti-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti,Ta) gamma-prime
+    composition: {Ni: 20, Al: 2, Ti: 1, Ta: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 106
+    generation_method: pair_balance_occupancy
+    candidate_count: 32
+  - alloy_system: Ni-Al-Ti-Ta
+    phase: l12
+    phase_role: gamma_prime
+    structure_family: gamma_gamma_prime
+    pair_id: pair_Ni-Al-Ti-Ta_seed000106
+    nominal_alloy_system: Ni-Al-Ti-Ta
+    partitioning_rule: Ni-rich gamma paired with Ni3(Al,Ti,Ta) gamma-prime
+    composition: {Ni: 12, Al: 2, Ti: 1, Ta: 1}
+    sublattice_composition:
+      corner: {Al: 2, Ti: 1, Ta: 1}
+      face: {Ni: 1}
+    supercell: [2, 2, 2]
+    lattice_a: 3.59
+    seed: 106
+    generation_method: l12_sublattice_occupancy

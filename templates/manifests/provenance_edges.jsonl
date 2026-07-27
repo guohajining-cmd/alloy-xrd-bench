@@ -1,0 +1,6 @@
+{"source_id":"init_CrCoNi_fcc_000001","source_type":"initial_structure","target_id":"relax_CrCoNi_fcc_000001","target_type":"relaxation_run","relation_type":"input_to"}
+{"source_id":"pot_mace_mp_0","source_type":"potential_file","target_id":"relax_CrCoNi_fcc_000001","target_type":"relaxation_run","relation_type":"used_by"}
+{"source_id":"relax_fmax_0p05_maxsteps_1000_v1","source_type":"relax_config","target_id":"relax_CrCoNi_fcc_000001","target_type":"relaxation_run","relation_type":"configured_by"}
+{"source_id":"relax_CrCoNi_fcc_000001","source_type":"relaxation_run","target_id":"rstr_CrCoNi_fcc_000001","target_type":"relaxed_structure","relation_type":"produced"}
+{"source_id":"rstr_CrCoNi_fcc_000001","source_type":"relaxed_structure","target_id":"xrd_CrCoNi_fcc_000001","target_type":"xrd_sample","relation_type":"simulated_as"}
+{"source_id":"xrd_cu_kalpha_20_100_step_0p02_gauss_0p1_v1","source_type":"xrd_config","target_id":"xrd_CrCoNi_fcc_000001","target_type":"xrd_sample","relation_type":"configured_by"}

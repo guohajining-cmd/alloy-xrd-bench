@@ -1,0 +1,26 @@
+{
+  "artifacts": [
+    {
+      "path": "/home/GJM/runs/sitexrd_hea_validation_v1_1/paper_artifacts/hea_sro_results.csv",
+      "sha256": "06dac8940caeb550af07497780a8bdc6f41c8434083c4eae716a902d26d12b89"
+    },
+    {
+      "path": "/home/GJM/runs/sitexrd_hea_validation_v1_1/paper_artifacts/hea_sro_results.tex",
+      "sha256": "82bbcd5721ec6db5455a49a88c2fa4bb3e91725e07583e7fc457f3ab899c07e2"
+    },
+    {
+      "path": "/home/GJM/runs/sitexrd_hea_validation_v1_1/paper_artifacts/hea_occupancy_signal_noise.png",
+      "sha256": "e3322a2f9e05b7f98c907c631eec2e45186bd9763ce9187d5a54792957a451f3"
+    },
+    {
+      "path": "/home/GJM/runs/sitexrd_hea_validation_v1_1/paper_artifacts/hea_perturbation_severity.png",
+      "sha256": "fa1be66dc8f157266429fdd9f3422b932f658513ecab47df61ca6d5aab190fca"
+    }
+  ],
+  "schema_version": "sitexrd-hea-paper-artifacts-v1.1",
+  "sources": [
+    "/home/GJM/runs/sitexrd_hea_validation_v1_1/validation_summary.json",
+    "/home/GJM/data/hea/benchmark_v1_1/manifests/occupancy_pairs_calibrated.parquet",
+    "/home/GJM/runs/sitexrd_hea_validation_v1_1/perturbation"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "exact_latent_truth_claimed": false,
+  "schema_version": "sitexrd-external-sanity-status-v1",
+  "status": "pass",
+  "tracks": {
+    "gamma_decomp": {
+      "report": "gamma_v1/sanity_report.json",
+      "sample_count": 2,
+      "status": "pass"
+    },
+    "hea_sro": {
+      "report": "hea_v1/sanity_report.json",
+      "sample_count": 2,
+      "status": "pass"
+    }
+  }
+}

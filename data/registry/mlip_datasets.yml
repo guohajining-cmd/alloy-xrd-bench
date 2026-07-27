@@ -1,0 +1,336 @@
+datasets:
+- dataset_id: ds_hea_dft_li_hattrick_simpers_2024
+  source_url: https://zenodo.org/records/10854500
+  doi: 10.5281/zenodo.10854500
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  target_systems:
+  - Al-Co-Cr-Cu-Fe-Mn-Ni-Si high-entropy materials
+  - Ni-Al ordered prototypes
+  formats:
+  - csv
+  - pymatgen_structure_dict
+  - parquet
+  - hdf5
+  local_paths:
+    existing_cache: local_dataset_cache/ds_hea_dft_li_hattrick_simpers_2024
+  related_potential_ids: []
+  status: occupancy_benchmark_pilot_generated
+  phase_hint: mixed
+  raw_files:
+  - filename: hea.2023-04-06.csv
+    url: https://zenodo.org/api/records/10854500/files/hea.2023-04-06.csv/content
+    role: final_and_initial_relaxed_structure_table
+    expected_bytes: 452858376
+    expected_md5: 4754d35ac163bb8804ef2f24ace659f7
+    expected_sha256: 42722654902f03efde4e1d53284741033f4c43b77d7ba5ced29e4cf873c455fe
+  - filename: explore_data.py
+    url: https://zenodo.org/api/records/10854500/files/explore_data.py/content
+    role: upstream_data_overview_script
+    expected_bytes: 19917
+    expected_md5: 703a813deafd82a995812a3ca214a33f
+    expected_sha256: e396904369cf49f7a20467300636660922b18f041413732a897e8cfce49d4913
+- dataset_id: ds_wtacrv_tabgap_byggmastar_2025
+  source_url: https://zenodo.org/records/15063031
+  doi: 10.5281/zenodo.15063031
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  target_systems:
+  - W-Ta-Cr-V
+  - WTaCrV
+  formats:
+  - extxyz
+  - zip
+  - vasp_input
+  local_paths: {}
+  related_potential_ids:
+  - pot_wtacrv_tabgap_byggmastar_2025
+  status: ingested_structures
+  phase_hint: bcc
+  raw_files:
+  - filename: db_WTaCrV.xyz
+    url: https://zenodo.org/api/records/15063031/files/db_WTaCrV.xyz/content
+    role: training_data_structures
+    expected_bytes: 19784515
+    expected_md5: 6f4a91f7220beaa271f5308a80bd9a35
+  - filename: testset.xyz
+    url: https://zenodo.org/api/records/15063031/files/testset.xyz/content
+    role: test_set
+    expected_bytes: 2825913
+    expected_md5: 3cd1651ef5e244a54bf52e0b97550d15
+  - filename: INCAR
+    url: https://zenodo.org/api/records/15063031/files/INCAR/content
+    role: VASP_input
+    expected_bytes: 242
+    expected_md5: 9d4fc0858d9adaae97d278beaf1c471c
+  - filename: train_in_out.zip
+    url: https://zenodo.org/api/records/15063031/files/train_in_out.zip/content
+    role: gap_fit_training_input_output
+    expected_bytes: 34402685
+    expected_md5: a0428b2bf97f82ab5c9619d71904655c
+- dataset_id: ds_ni3al_mtp_yield_darus_4480
+  source_url: https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/DARUS-4480
+  doi: 10.18419/DARUS-4480
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  target_systems:
+  - Ni3Al
+  - Ni-Al
+  formats:
+  - mtp_cfg
+  local_paths:
+    existing_cache: local_potential_cache/pot_ni3al_mtp_darus_yield_anomaly_2024/downloads
+  related_potential_ids:
+  - pot_ni3al_mtp_darus_yield_anomaly_2024
+  status: ingested_structures
+  phase_hint: l12
+  type_map:
+    '0': Al
+    '1': Ni
+  raw_files:
+  - filename: train.cfg
+    local_path: local_potential_cache/pot_ni3al_mtp_darus_yield_anomaly_2024/downloads/train.cfg
+    role: DFT_training_dataset
+    expected_bytes: 14639583
+    expected_sha256: 23ba91ad36196caf937d6f7dc008c40ee7b45601806e7677b5a4ae2cf0d5e864
+- dataset_id: ds_mncofenicu_nep_unimi_2026
+  source_url: https://dataverse.unimi.it/dataset.xhtml?persistentId=doi:10.13130/RD_UNIMI/UOVZ9H
+  doi: 10.13130/RD_UNIMI/UOVZ9H
+  license: CC0-1.0
+  redistribution_policy: redistributable_public_domain
+  target_systems:
+  - Mn-Co-Fe-Ni-Cu
+  - HEA_related
+  formats:
+  - tar.bz2
+  - nep_input_output
+  local_paths:
+    existing_cache: local_potential_cache/pot_mncofenicu_nep_unimi_2026/downloads
+  related_potential_ids:
+  - pot_mncofenicu_nep_unimi_2026
+  status: ingested_archive_inventory_only
+  phase_hint: fcc
+  raw_files:
+  - filename: NEP_Jan08_maxF10_80percent.tar.bz2
+    local_path: local_potential_cache/pot_mncofenicu_nep_unimi_2026/downloads/NEP_Jan08_maxF10_80percent.tar.bz2
+    role: NEP_input_output_80_percent_training
+    expected_bytes: 10582645
+    expected_sha256: e2285129195e987ef5894e07a4115db0f2022524755616479696f882376bef99
+  - filename: NEP_Jan08_maxF10_alltrain.tar.bz2
+    local_path: local_potential_cache/pot_mncofenicu_nep_unimi_2026/downloads/NEP_Jan08_maxF10_alltrain.tar.bz2
+    role: NEP_input_output_all_training
+    expected_bytes: 11651814
+    expected_sha256: 6972a83553fc2ad643cf8c3677d3a798af85167c37eadd4b7ceabaf22c6dc554
+  - filename: NEP_Jan08_maxF10_alltrain_alt.tar.bz2
+    local_path: local_potential_cache/pot_mncofenicu_nep_unimi_2026/downloads/NEP_Jan08_maxF10_alltrain_alt.tar.bz2
+    role: NEP_input_output_all_training_alt_params
+    expected_bytes: 11637368
+    expected_sha256: 3ab5a13c5a8060faef07395b7c78810b3cac72663874c25121653f42341be0f7
+  - filename: README
+    local_path: local_potential_cache/pot_mncofenicu_nep_unimi_2026/downloads/README
+    role: README
+- dataset_id: ds_lightpfp_hea_2025
+  source_url: https://github.com/pfnet-research/light-pfp
+  doi: none
+  license: MIT
+  redistribution_policy: redistributable_with_license_notice_for_repository_files
+  target_systems:
+  - Al-Co-Cr-Fe-Ni
+  - HEA_related
+  formats:
+  - hdf5
+  - json
+  local_paths: {}
+  related_potential_ids:
+  - pot_alcocrfeni_lightpfp_2025_lead
+  status: ingested_structures
+  phase_hint: mixed
+  raw_files:
+  - filename: HEA_boundary.h5
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/HEA/datasets/LightPFP/HEA_boundary.h5
+    role: HEA_boundary_dataset
+    expected_bytes: 85785320
+  - filename: HEA_crystal.h5
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/HEA/datasets/LightPFP/HEA_crystal.h5
+    role: HEA_crystal_dataset
+    expected_bytes: 19652472
+  - filename: HEA_slab.h5
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/HEA/datasets/LightPFP/HEA_slab.h5
+    role: HEA_slab_dataset
+    expected_bytes: 9257998
+  - filename: light-pfp.json
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/HEA/model_training/light-pfp.json
+    role: training_config
+    expected_bytes: 138
+  - filename: mtp-dft.json
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/HEA/model_training/mtp-dft.json
+    role: training_config
+    expected_bytes: 167
+- dataset_id: ds_lightpfp_ni3al_pretrained_students_2025
+  source_url: https://github.com/pfnet-research/light-pfp/tree/master/examples/maintext/pretrained-students
+  doi: none
+  license: MIT
+  redistribution_policy: redistributable_with_license_notice_for_repository_files
+  target_systems:
+  - Ni3Al
+  - Ni-Al
+  formats:
+  - hdf5
+  local_paths: {}
+  related_potential_ids:
+  - pot_ni3al_lightpfp_research_lead_2025
+  status: ingested_structures
+  phase_hint: l12
+  raw_files:
+  - filename: AlNi3.h5
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/pretrained-students/AlNi3.h5
+    role: Ni3Al_example_dataset
+    expected_bytes: 8406440
+  - filename: AlNi3_yb.h5
+    url: https://raw.githubusercontent.com/pfnet-research/light-pfp/master/examples/maintext/pretrained-students/AlNi3_yb.h5
+    role: Ni3Al_example_dataset_variant
+    expected_bytes: 8406440
+- dataset_id: ds_nial_hdnnp_sandberg_2024
+  source_url: https://archive.materialscloud.org/records/wejc0-9tz40
+  doi: 10.24435/materialscloud:dq-ax
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  target_systems:
+  - Al-Ni
+  - Ni-Al
+  formats:
+  - tgz
+  - n2p2
+  local_paths:
+    existing_cache: local_potential_cache/pot_nial_hdnnp_sandberg_2024/downloads
+  related_potential_ids:
+  - pot_nial_hdnnp_sandberg_2024
+  status: ingested_archive_inventory_only
+  phase_hint: mixed
+  raw_files:
+  - filename: dataset-AlNi.tgz
+    url: https://archive.materialscloud.org/api/records/wejc0-9tz40/files/dataset-AlNi.tgz/content
+    role: training_or_simulation_dataset
+    expected_bytes: 369256120
+    expected_md5: 4a80a5116b55deabbcee67c9e1b250d6
+  - filename: nnp-data.AlNi.tgz
+    url: https://archive.materialscloud.org/api/records/wejc0-9tz40/files/nnp-data.AlNi.tgz/content
+    role: n2p2_potential_package
+    expected_bytes: 117231
+    expected_md5: 396254658109de25364cac74cae63ecd
+  - filename: files_description.md
+    url: https://archive.materialscloud.org/api/records/wejc0-9tz40/files/files_description.md/content
+    role: file_description
+    expected_bytes: 246
+    expected_md5: 3dcb2e4419c3b44c26c72cfdc2dec093
+- dataset_id: ds_nial_mtp_wang_2025
+  source_url: https://github.com/wftao1995/MTP_dataset
+  doi: none
+  license: unknown
+  redistribution_policy: metadata_only_until_license_resolved
+  target_systems:
+  - Ni-Al
+  formats:
+  - extxyz
+  local_paths:
+    existing_cache: local_potential_cache/pot_nial_mtp_wang_2025_candidate/downloads
+  related_potential_ids:
+  - pot_nial_mtp_wang_2025_candidate
+  status: local_cache_ingested_structures
+  phase_hint: mixed
+  raw_files:
+  - filename: train.1.xyz
+    url: https://raw.githubusercontent.com/wftao1995/MTP_dataset/main/train.1.xyz
+    role: training_split_part_1
+    expected_bytes: 60028955
+  - filename: train.2.xyz
+    url: https://raw.githubusercontent.com/wftao1995/MTP_dataset/main/train.2.xyz
+    role: training_split_part_2
+    expected_bytes: 60742855
+  - filename: valid.xyz
+    url: https://raw.githubusercontent.com/wftao1995/MTP_dataset/main/valid.xyz
+    role: validation_split
+    expected_bytes: 9522719
+- dataset_id: ds_monbtavw_tabgap_byggmastar_v2
+  source_url: https://etsin.fairdata.fi/dataset/2498ae37-7325-4e51-aed2-473b12ebae69
+  fairdata_dataset_id: 2498ae37-7325-4e51-aed2-473b12ebae69
+  doi: 10.23729/1e6d0215-d26b-4f5f-8f5b-df575efa6594
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  target_systems:
+  - Mo-Nb-Ta-V-W
+  - MoNbTaVW
+  formats:
+  - extxyz
+  - gap_fit_input
+  - tabgap
+  local_paths:
+    existing_cache: local_potential_cache/pot_monbtavw_tabgap_byggmastar/downloads
+  related_potential_ids:
+  - pot_monbtavw_tabgap_byggmastar
+  status: ingested_structures
+  phase_hint: bcc
+  raw_files: []
+- dataset_id: ds_ni3al_mtp_spin_darus_3579
+  source_url: https://darus.uni-stuttgart.de/dataset.xhtml?persistentId=doi:10.18419/DARUS-3579
+  doi: 10.18419/DARUS-3579
+  license: CC-BY-4.0
+  redistribution_policy: redistributable_with_attribution
+  target_systems:
+  - Ni3Al
+  - Ni-Al
+  formats:
+  - tar.gz
+  - mtp_cfg
+  local_paths:
+    existing_cache: local_potential_cache/pot_ni3al_mtp_darus_spin_fluctuations_2023/downloads
+  related_potential_ids:
+  - pot_ni3al_mtp_darus_spin_fluctuations_2023
+  status: partial_download_needs_resume
+  phase_hint: l12
+  raw_files: []
+- dataset_id: ds_lam_dpa_fcc_l12_config_2026
+  source_url: https://github.com/JiangXiaoMingSan/LAM-DPA-Train-Script/tree/main/complex-structures/dpa3-FCC%2BL12
+  doi: none
+  license: unknown
+  redistribution_policy: metadata_only_until_license_resolved
+  target_systems:
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  - Ni-Al-Ti-Ta
+  - Ni-Co-Fe-Cr-Al-Ti-Ta
+  formats:
+  - json_config
+  local_paths:
+    existing_cache: local_potential_cache/pot_nicofecraltita_dpa3_lam_jiang_2026_lead/downloads
+  related_potential_ids:
+  - pot_nicofecraltita_dpa3_lam_jiang_2026_lead
+  status: local_cache_config_only_ingested_metadata
+  phase_hint: fcc_l12
+  raw_files:
+  - filename: input_dpa3ft.json
+    local_path: local_potential_cache/pot_nicofecraltita_dpa3_lam_jiang_2026_lead/downloads/input_dpa3ft.json
+    role: training_config_only
+    expected_bytes: 66876
+- dataset_id: ds_monbtavw_mtp_wang_2024_quinary
+  source_url: https://github.com/ucsdlxg/MoNbTaVW-ML-interatomic-potential-and-CRSS-ML-model
+  doi: none
+  license: unknown
+  redistribution_policy: metadata_only_until_license_resolved
+  target_systems:
+  - Mo-Nb-Ta-V-W
+  - MoNbTaVW
+  formats:
+  - json
+  local_paths:
+    existing_cache: local_potential_cache/pot_monbtavw_mtp_wang_2024/downloads/potential
+  related_potential_ids:
+  - pot_monbtavw_mtp_wang_2024
+  status: local_cache_ingested_metadata_schema_revalidation_needed
+  phase_hint: bcc
+  raw_files:
+  - filename: quinary.json
+    local_path: local_potential_cache/pot_monbtavw_mtp_wang_2024/downloads/potential/quinary.json
+    role: schema_unknown_large_json
+    expected_bytes: 78117426
+    expected_sha256: 64bdbad2cadd31e68d453e830e591762140c5ce5c831eb9f8c47580a15a769bc

@@ -1,0 +1,11 @@
+{
+  "name": "provenance_edges",
+  "id_field": "",
+  "fields": [
+    {"name": "source_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "source_type", "dtype": "string", "required": true, "description": ""},
+    {"name": "target_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "target_type", "dtype": "string", "required": true, "description": ""},
+    {"name": "relation_type", "dtype": "string", "required": true, "description": ""}
+  ]
+}

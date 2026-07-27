@@ -1,0 +1,73 @@
+{
+  "gamma_decomp": {
+    "full_source_sample_ids": {
+      "resolved": "nial_mix_0226_013",
+      "severe": "nial_mix_0042_023"
+    },
+    "parent_pair_id": "parent_pair_0226",
+    "parent_structure_ids": {
+      "gamma": "gamma_parent_0096",
+      "gamma_prime": "gamma_prime_darus4480_001029"
+    },
+    "resolved": {
+      "component_count": 2,
+      "context_component_ids_json": "[]",
+      "difficulty": "resolved",
+      "manifest_component_row_count": 2,
+      "minimum_separation_ratio": 6.853714244721321,
+      "pattern_path": "window/patterns/window_nial_mix_0226_013_004.npz",
+      "phase_weight": 0.42972485241310787,
+      "sample_id": "window_nial_mix_0226_013_004",
+      "scored_component_count": 2,
+      "selection_distance": 0.06920264668845186,
+      "snr": 8.67052475360161,
+      "split": "train"
+    },
+    "selection_rule": "train, nearest to difficulty medians for component count, SNR, and phase weight",
+    "severe": {
+      "component_count": 2,
+      "context_component_ids_json": "[]",
+      "difficulty": "severe",
+      "manifest_component_row_count": 2,
+      "minimum_separation_ratio": 6.017530123218113e-14,
+      "pattern_path": "window/patterns/window_nial_mix_0042_023_006.npz",
+      "phase_weight": 0.4418246561029662,
+      "sample_id": "window_nial_mix_0042_023_006",
+      "scored_component_count": 2,
+      "selection_distance": 0.020337227212424605,
+      "snr": 8.183388775886957,
+      "split": "train"
+    },
+    "structure_paths": {
+      "gamma": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\structures\\gamma\\gamma_parent_0096.json",
+      "gamma_prime": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\structures\\gamma_prime\\gamma_prime_darus4480_001029.json"
+    }
+  },
+  "hea_sro": {
+    "candidate_fidelity": "source_relaxed_dft",
+    "composition_key": "Al:0.00000000|Co:0.25000000|Cr:0.25000000|Cu:0.00000000|Fe:0.25000000|Mn:0.00000000|Ni:0.25000000|Si:0.00000000",
+    "cosine_similarity": 0.9966580707110698,
+    "left_sample_id": "xrd_occstr_gra62126339_clean",
+    "left_structure_state_id": "occstr_gra62126339",
+    "parent_topology": "fcc",
+    "right_sample_id": "xrd_occstr_gra62557950_clean",
+    "right_structure_state_id": "occstr_gra62557950",
+    "selection_rule": "source relaxed DFT train, same composition/topology, cosine >= 0.995, maximum SRO L1",
+    "spectrum_sha256": {
+      "xrd_occstr_gra62126339_clean": "95bbb497b1380f02ab6af978001d973f25338fb49db09f629dab8a22daed4c8c",
+      "xrd_occstr_gra62557950_clean": "9b5ec73bef0f3ca5839d7eab102b046aa2858b2daa69e917ecb2842b6650a5cf"
+    },
+    "split": "train",
+    "sro_l1_distance": 13.333333373069763,
+    "structure_paths": {
+      "occstr_gra62126339": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\structure_payloads.parquet",
+      "occstr_gra62557950": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\structure_payloads.parquet"
+    },
+    "structure_source_rows": {
+      "occstr_gra62126339": 25354,
+      "occstr_gra62557950": 54447
+    }
+  },
+  "schema_version": "sitexrd-dataset-visual-examples-v1.1",
+  "seed": 2027
+}

@@ -1,0 +1,332 @@
+schema_version: 1
+last_reviewed: 2026-07-23
+scope:
+  material_family: nickel_superalloy
+  benchmark_roles:
+  - gamma_fcc_parent
+  - gamma_prime_l12_parent
+  - occupancy_parameter_anchor
+  - experimental_validation_anchor
+
+admission_policy:
+  required_fields:
+  - source_id
+  - source_type
+  - source_url
+  - citation
+  - structure_identity
+  - benchmark_role
+  - redistribution_policy
+  notes:
+  - A prototype or relaxed structure is not an experimental site-occupancy label.
+  - Partial occupancies are admitted as measured truth only when the source reports a refinement method and uncertainty.
+  - Source structures and benchmark-generated occupancy variants must have separate identifiers and provenance edges.
+
+confirmed_sources:
+- source_id: darus_4480_ni3al_dft_training
+  source_type: dft_training_configurations
+  database: DaRUS
+  source_url: https://doi.org/10.18419/DARUS-4480
+  citation: "Xu et al., Acta Materialia (2024), doi:10.1016/j.actamat.2024.120423"
+  license: CC-BY-4.0
+  local_artifact: local_potential_cache/pot_ni3al_mtp_darus_yield_anomaly_2024/downloads/train.cfg
+  artifact_sha256: 23ba91ad36196caf937d6f7dc008c40ee7b45601806e7677b5a4ae2cf0d5e864
+  structure_identity:
+    material: Ni3Al
+    phase: L12
+    configuration_count: 1162
+    atom_count_distribution:
+      96: 121
+      107: 176
+      108: 398
+      144: 467
+    composition_count_distribution:
+      Al24_Ni72: 121
+      Al26_Ni81: 89
+      Al27_Ni80: 87
+      Al27_Ni81: 398
+      Al36_Ni108: 467
+    labels:
+    - total_energy
+    - atomic_forces
+    - stress
+  benchmark_role:
+  - gamma_prime_l12_dft_corpus
+  - vacancy_and_distortion_variants
+  - simulation_source_ood
+  unavailable_truth:
+  - experimentally_refined_partial_occupancy
+  - measured_xrd
+  admission_note: Locally downloaded and hash-verified; conversion, structural deduplication, and grouped leakage audit are still required.
+  redistribution_policy: redistributable_with_attribution
+  status: ready_for_ingestion_audit
+
+- source_id: aflow_l12_ab3_cp4_221_a_c_001
+  source_type: crystallographic_prototype
+  database: AFLOW Prototype Encyclopedia
+  source_url: https://aflow.org/p/AB3_cP4_221_a_c-001
+  citation: "Mehl et al., Computational Materials Science 136 (2017), doi:10.1016/j.commatsci.2017.01.017"
+  structure_identity:
+    prototype: Cu3Au_L12
+    aflow_label: AB3_cP4_221_a_c-001
+    pearson_symbol: cP4
+    space_group_symbol: Pm-3m
+    space_group_number: 221
+    wyckoff_sites:
+      minority_sublattice: 1a
+      majority_sublattice: 3c
+    listed_nickel_compounds:
+    - Ni3Al
+  benchmark_role:
+  - gamma_prime_l12_parent
+  available_truth:
+  - lattice_topology
+  - wyckoff_sites
+  - ideal_sublattice_assignment
+  unavailable_truth:
+  - alloy_specific_partial_occupancy
+  - antisite_concentration
+  - refinement_uncertainty
+  redistribution_policy: reference_only_pending_license_audit
+  status: confirmed_reference
+
+- source_id: oqmd_alni3_entry_17890
+  source_type: computed_relaxed_structure_with_experimental_cross_reference
+  database: Open Quantum Materials Database
+  source_url: https://oqmd.org/oqmdapi/formationenergy?composition=AlNi3
+  record_url: https://oqmd.org/materials/entry/17890
+  citation: "Saal et al., JOM 65 (2013), doi:10.1007/s11837-013-0755-4"
+  structure_identity:
+    formula: AlNi3
+    oqmd_entry_id: 17890
+    icsd_id: 105529
+    prototype: AuCu3
+    space_group_symbol: Pm-3m
+    lattice_parameter_a_angstrom: 3.55615
+    sites:
+    - "Al @ 0 0 0"
+    - "Ni @ 0.5 0.5 0"
+    - "Ni @ 0.5 0 0.5"
+    - "Ni @ 0 0.5 0.5"
+  benchmark_role:
+  - gamma_prime_l12_parent
+  - lattice_parameter_anchor
+  available_truth:
+  - relaxed_lattice
+  - ideal_ordered_sites
+  - formation_energy
+  unavailable_truth:
+  - experimental_partial_occupancy
+  - antisite_concentration
+  - refinement_uncertainty
+  redistribution_policy: metadata_only_pending_license_audit
+  status: confirmed_reference
+
+- source_id: oqmd_alni3_entry_343083
+  source_type: computed_relaxed_structure
+  database: Open Quantum Materials Database
+  source_url: https://oqmd.org/oqmdapi/formationenergy?composition=AlNi3
+  record_url: https://oqmd.org/materials/entry/343083
+  citation: "Saal et al., JOM 65 (2013), doi:10.1007/s11837-013-0755-4"
+  structure_identity:
+    formula: AlNi3
+    oqmd_entry_id: 343083
+    prototype: L1_2_Cu3Au
+    space_group_symbol: Pm-3m
+    lattice_parameter_a_angstrom: 3.526789
+    sites:
+    - "Al @ 0 0 0"
+    - "Ni @ 0 0.5 0.5"
+    - "Ni @ 0.5 0 0.5"
+    - "Ni @ 0.5 0.5 0"
+  benchmark_role:
+  - gamma_prime_l12_parent
+  - relaxation_ood_anchor
+  available_truth:
+  - relaxed_lattice
+  - ideal_ordered_sites
+  - formation_energy
+  unavailable_truth:
+  - experimental_partial_occupancy
+  - antisite_concentration
+  - refinement_uncertainty
+  redistribution_policy: metadata_only_pending_license_audit
+  status: confirmed_reference
+
+candidate_sources:
+- source_id: darus_3579_ni3al_spin_apb
+  database: DaRUS
+  source_url: https://doi.org/10.18419/DARUS-3579
+  citation: "Xu et al., Acta Materialia 255 (2023), doi:10.1016/j.actamat.2023.118986"
+  license: CC-BY-4.0
+  archive:
+    filename: MTP-training-set.tar.gz
+    bytes: 580894549
+    md5: 2179eeb854d0bcaf778578d24b2c5b60
+  target_content:
+  - bulk_Ni3Al_VASP_training_structures
+  - 100_APB_structures
+  - 111_APB_structures
+  benchmark_role:
+  - gamma_prime_defect_ood
+  - antiphase_boundary_ood
+  status: download_incomplete_and_archive_inventory_required
+
+- source_id: materials_cloud_alni_nucleation_2024
+  database: Materials Cloud
+  source_url: https://archive.materialscloud.org/records/wejc0-9tz40
+  doi: 10.24435/materialscloud:dq-ax
+  citation: "Sandberg et al., Homogeneous Nucleation of Undercooled Al-Ni Melts via a Machine-Learned Interaction Potential, arXiv:2410.07886"
+  license: CC-BY-4.0
+  archive:
+    filename: dataset-AlNi.tgz
+    bytes: 369256120
+    md5: 4a80a5116b55deabbcee67c9e1b250d6
+    content_url: https://archive.materialscloud.org/api/records/wejc0-9tz40/files/dataset-AlNi.tgz/content
+  target_content:
+  - Al_Ni_training_structures
+  - Al_Ni_test_structures
+  - liquid_and_nucleation_configurations
+  - pure_Ni_and_equiatomic_AlNi
+  benchmark_role:
+  - phase_ood
+  - temperature_ood
+  - non_L12_negative_controls
+  limitation: Primarily AlNi liquid, nucleation, FCC Ni, and B2 physics; not a gamma-prime occupancy corpus.
+  status: public_archive_not_yet_downloaded
+
+- source_id: oqmd_ni_subset
+  database: Open Quantum Materials Database
+  source_url: https://oqmd.org/optimade/structures?filter=elements%20HAS%20%22Ni%22
+  citation: "Saal et al., JOM 65 (2013), doi:10.1007/s11837-013-0755-4"
+  license: CC-BY-4.0
+  api_snapshot:
+    checked_on: 2026-07-23
+    ni_matching_calculations_reported: 91382
+  target_filters:
+  - chemical_system_in_Ni_Al_Ti_Ta_Co_Cr
+  - phase_in_fcc_l12
+  - remove_duplicate_entries
+  - retain_stable_and_near_stable_structures
+  benchmark_role:
+  - computed_prototype_expansion
+  - chemistry_ood
+  limitation: Broad computed compounds and duplicate calculations; does not provide alloy site-occupancy truth by itself.
+  status: queryable_requires_filtered_snapshot
+
+- source_id: cod_ni_al_family
+  database: Crystallography Open Database
+  source_url: https://www.crystallography.net/cod/
+  target_queries:
+  - Ni3Al
+  - AlNi3
+  - Ni3Ti
+  - Ni3Ta
+  benchmark_role:
+  - experimental_lattice_anchor
+  - occupancy_anchor_when_refined
+  status: query_and_manual_curation_required
+
+- source_id: materials_project_ni_al_ti_ta
+  database: Materials Project
+  source_url: https://materialsproject.org/
+  target_chemsys:
+  - Ni-Al
+  - Ni-Al-Ti
+  - Ni-Al-Ta
+  benchmark_role:
+  - computed_parent_structure
+  - relaxation_ood_anchor
+  status: api_key_and_license_review_required
+
+- source_id: nomad_nickel_superalloy
+  database: NOMAD
+  source_url: https://nomad-lab.eu/
+  target_content:
+  - DFT_supercells
+  - defect_structures
+  - finite_temperature_trajectories
+  benchmark_role:
+  - perturbation_source
+  - relaxation_ood_anchor
+  status: dataset_level_curation_required
+
+local_generated_seed_set:
+  provenance_class: benchmark_generated
+  external_structure_file_source: none
+  generator_implementation: alloy_xrd_bench/structures.py
+  recipe_source: configs/alloy_recipes_v0_1.yml
+  source_directory: data/shared/structures_initial
+  pair_manifest: data/shared/manifests/gamma_prime_pairs.parquet
+  pair_count: 8
+  structure_count: 16
+  alloy_systems:
+    Ni-Al: 2
+    Ni-Al-Ti: 2
+    Ni-Al-Ta: 2
+    Ni-Al-Ti-Ta: 2
+  generation_methods:
+    gamma: fcc_pair_balance_occupancy
+    gamma_prime: l12_sublattice_occupancy
+  crystallographic_basis:
+    implementation: hard_coded_canonical_fractional_coordinates
+    gamma_fcc:
+      conventional_sites:
+      - [0.0, 0.0, 0.0]
+      - [0.0, 0.5, 0.5]
+      - [0.5, 0.0, 0.5]
+      - [0.5, 0.5, 0.0]
+    gamma_prime_l12:
+      minority_corner_site: [0.0, 0.0, 0.0]
+      majority_face_sites:
+      - [0.0, 0.5, 0.5]
+      - [0.5, 0.0, 0.5]
+      - [0.5, 0.5, 0.0]
+    cross_checked_reference_ids:
+    - aflow_l12_ab3_cp4_221_a_c_001
+    - oqmd_alni3_entry_17890
+    derivation_note: The local files were not downloaded or converted from these references; the references independently confirm the canonical L12 topology.
+  parameter_provenance:
+    lattice_parameters_angstrom:
+      Ni-Al: 3.57
+      Ni-Al-Ti: 3.58
+      Ni-Al-Ta: 3.59
+      Ni-Al-Ti-Ta: 3.59
+    lattice_parameter_status: benchmark_configuration_not_yet_bound_to_a_specific_experimental_record
+    compositions_status: benchmark_design_heuristics_not_measured_phase_compositions
+    partitioning_rule_status: benchmark_design_assumption_not_experimental_partitioning_truth
+    seeds_status: deterministic_generator_seeds
+  relaxed_derivatives:
+  - potential_id: pot_chgnet_0p3p0
+    count: 16
+    source_doi: 10.1038/s42256-023-00716-3
+  - potential_id: pot_mace_mp_0b3_medium
+    count: 16
+    source_doi: 10.48550/arXiv.2401.00096
+  - potential_id: pot_matgl_m3gnet_matpes_pbe_2025_2
+    count: 16
+    source_doi: 10.48550/arXiv.2212.07687
+  - potential_id: pot_ni3al_mtp_darus_yield_anomaly_2024
+    count: 2
+    source_doi: 10.18419/DARUS-4480
+  intended_use:
+  - controlled_occupancy_variant_generation
+  - gamma_gamma_prime_peak_overlap_pilot
+  limitations:
+  - The structures are generated seeds, not downloaded experimental structures.
+  - The current seeds encode discrete occupations rather than refined partial occupancies.
+  - Literature-backed occupancy ranges and uncertainty are not yet attached.
+
+next_admission_targets:
+- priority: 1
+  target: experimental_Ni3Al_L12_CIF
+  requirement: open CIF with lattice parameters, measurement metadata, and a citable source
+- priority: 2
+  target: refined_Ni3Al_antisite_or_order_parameter
+  requirement: diffraction refinement with reported occupancy or long-range-order uncertainty
+- priority: 3
+  target: Ni3_Al_Ti_and_Ni3_Al_Ta_site_preference
+  requirement: published sublattice preference or occupancy ranges with composition and temperature
+- priority: 4
+  target: gamma_gamma_prime_experimental_pair
+  requirement: paired phase compositions, lattice parameters, phase fractions, and XRD measurement conditions

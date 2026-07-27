@@ -1,0 +1,14 @@
+{
+  "name": "relaxed_structures",
+  "id_field": "relaxed_structure_id",
+  "fields": [
+    {"name": "relaxed_structure_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "relaxation_run_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "structure_sha256", "dtype": "sha256", "required": true, "description": ""},
+    {"name": "artifact_json_file_sha256", "dtype": "sha256", "required": false, "description": ""},
+    {"name": "artifact_cif_file_sha256", "dtype": "sha256", "required": false, "description": ""},
+    {"name": "artifact_path_json", "dtype": "path", "required": true, "description": ""},
+    {"name": "artifact_path_cif", "dtype": "path", "required": true, "description": ""},
+    {"name": "quality_tier", "dtype": "string", "required": true, "description": ""}
+  ]
+}

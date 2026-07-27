@@ -1,0 +1,143 @@
+{
+  "artifacts": [
+    {
+      "key": "dataset_overview",
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\dataset_overview.png",
+      "sha256": "204e40045bc6b69f62932536e545203c046df0147563ca645af14592fc132596"
+    },
+    {
+      "key": "hea_sro_example",
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\hea_sro_example.png",
+      "sha256": "8b50495a24c97fd60765462b1c7adfce91aa5b4eaed4e3896b45cef5656029c3"
+    },
+    {
+      "key": "gamma_decomp_example",
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\gamma_decomp_example.png",
+      "sha256": "db9edbeefbf5c1e69bed88f0e9bc60483acd321f8140cb7646d2ef856ac875f0"
+    },
+    {
+      "key": "dataset_coverage",
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\dataset_coverage.png",
+      "sha256": "e4109338d19ccbeaa145282f7fd7f12961344b18948b91930ac73a4de1671bb9"
+    },
+    {
+      "key": "examples",
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\dataset_visual_examples.json",
+      "sha256": "3151cf84704b1ec5847f416fa86685f152b4326014bdea63045b7a2e9890e123"
+    },
+    {
+      "key": "compact_results",
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\compact_primary_results.tex",
+      "sha256": "792258f21347a45b503d23e99db6421790c1d7e48150a7a4f83b614db3574ef2"
+    }
+  ],
+  "configuration": {
+    "gamma_difficulties": [
+      "resolved",
+      "severe"
+    ],
+    "gamma_selection": "minimum_scaled_distance_to_group_medians_then_sample_id",
+    "hea_candidate_fidelity": "source_relaxed_dft",
+    "hea_min_cosine_similarity": 0.995,
+    "hea_pair_tiebreak": "descending_sro_l1_then_lexicographic_sample_ids",
+    "seed": 2027,
+    "structure_projection": "[001]"
+  },
+  "schema_version": "sitexrd-dataset-paper-visuals-v1.1",
+  "script_sha256": "470951a005a972e7baa3bb5319182d499c9b4e9ec21b583d0c78bcbcf7b66d94",
+  "seed": 2027,
+  "sources": [
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\grids\\grids_0107.h5",
+      "sha256": "17e613dc0af97b976dcccbb73033b919e2147c3e764b581667cc2a826e135678"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\grids\\grids_0221.h5",
+      "sha256": "a402a16e889ad087f90c66b3a7f51593619ac6a4c2aa8c38b1af316db59112d0"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\structure_payloads.parquet",
+      "sha256": "23a1ebaea3f484f5853ae3f08fe967f6632766075dae2ccef1436bf1c126e690"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1_1\\manifests\\composition_only_features.parquet",
+      "sha256": "17aaa0728a09cc28a6e7fe78a0e62e2fa6179655e6cd2a02b6cb0b5d76157f04"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1_1\\manifests\\structures.parquet",
+      "sha256": "302df876b7350459c8d2527a558289752641a30f05dd948b55e376f1af5d57f1"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1_1\\manifests\\task_samples.parquet",
+      "sha256": "5ca9854e7f409c527a85114c7fbb1f41a35601212d19f9ffc5d8e4fe565c611d"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\components.parquet",
+      "sha256": "78c65750593c17e3791e7dcc2b97d6114d868c1eee4b47cb09176e561f3531c0"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\patterns\\nial_mix_0042_023.npz",
+      "sha256": "88bfb1e34c1011ecdeb173dfc5edf72f60b5a4143100e8b92fc1740dcf9c6842"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\patterns\\nial_mix_0226_013.npz",
+      "sha256": "72c331f19e078a161a5692abd3ba82b91b3156773444fc73c90e05d6c82d5e6f"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\samples.parquet",
+      "sha256": "eeca2b9c93f89cf0f68db25555d9fd0953c8c67650f6c8e2d1ce22652760910a"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\slices\\overlap_slices.parquet",
+      "sha256": "33f0bf9078400eebabb577932cef21f3b97c432eea2475d3f9a2b78f59af2602"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\window\\components.parquet",
+      "sha256": "00b6561e930d170f8c17a8309b834cf2fd93408d54dee4c72c0ff4fb68c1c262"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\window\\evaluation_groups.parquet",
+      "sha256": "9a826320a568cee079ff59e258d3c4bf4ac6425644c3d705e32ae73f4f331690"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\window\\patterns\\window_nial_mix_0042_023_006.npz",
+      "sha256": "476112754a9bbec047ffed6a0fa342de34bcb2d1aa4939c6c5e95170f4d2762e"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\window\\patterns\\window_nial_mix_0226_013_004.npz",
+      "sha256": "7c4e1a04ba71476de4f8d8a91e725b4601ea3a70adfd3361aaa96353217300de"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\window\\samples.parquet",
+      "sha256": "b461dcfc28fa78d3d30923326edeca84193175e0b2f864e657a3c19d7bd93be7"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\parent_pairs.parquet",
+      "sha256": "9733d5d939601e5cb59b1ca6b43959e400e07fae0a08c9f4a7e3026206183496"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\parent_structures.parquet",
+      "sha256": "e6e3b40c95b3695b527e58ed313095476180ac635437a817b554409d3868e6b2"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\provenance_edges.parquet",
+      "sha256": "ccb267d9c5e0492efcc7387f48945a093076cfb15efce196fe8f18cbbe2cc1ee"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\structures\\gamma\\gamma_parent_0096.json",
+      "sha256": "f12adaf2c53eddd0b6c165fa3f8ab03297cc032535a74ad405a2c1796a6aef7b"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\data\\releases\\gamma-decomp-v1_1\\gamma-decomp-provenance-v1.1\\structures\\gamma_prime\\gamma_prime_darus4480_001029.json",
+      "sha256": "c6178285eb56919776cb32330be01530e6f1c7d16a658faafd50acfe9b049671"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\gamma_decomp_results.csv",
+      "sha256": "fe52032daed01dcee48f1c66634592e6001e52a810107313115e4b5966f6f7b5"
+    },
+    {
+      "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\hea_sro_results.csv",
+      "sha256": "06dac8940caeb550af07497780a8bdc6f41c8434083c4eae716a902d26d12b89"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "relax_config_id": "relax_fmax_0p05_maxsteps_1000_v1",
+  "fmax_eV_per_A": 0.05,
+  "max_steps": 1000,
+  "abnormal_volume_change_threshold": 0.2
+}

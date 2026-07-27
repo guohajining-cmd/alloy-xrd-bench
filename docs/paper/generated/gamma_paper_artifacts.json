@@ -1,0 +1,24 @@
+{
+  "artifacts": [
+    {
+      "path": "/home/GJM/runs/gamma_decomp_validation_v1_1/paper_artifacts/gamma_decomp_results.csv",
+      "sha256": "fe52032daed01dcee48f1c66634592e6001e52a810107313115e4b5966f6f7b5"
+    },
+    {
+      "path": "/home/GJM/runs/gamma_decomp_validation_v1_1/paper_artifacts/gamma_decomp_results.tex",
+      "sha256": "97aad461ba313b985854ad9b12301544cfca229dce798e30fa30715b833fe4da"
+    },
+    {
+      "path": "/home/GJM/runs/gamma_decomp_validation_v1_1/paper_artifacts/gamma_instrument_slices.png",
+      "sha256": "b745246499cdae19d2f7621f201e73138a785b9a898ca499a82fd6445218dfa2"
+    },
+    {
+      "path": "/home/GJM/runs/gamma_decomp_validation_v1_1/paper_artifacts/gamma_overlap_difficulty.png",
+      "sha256": "3ac2b3c7ce8da81586510a30284b7b0a7f1ce578d241a2432a658fd8d9e2b08e"
+    }
+  ],
+  "complete_experiment_matrix": true,
+  "missing_scorecards": [],
+  "schema_version": "gamma-decomp-paper-artifacts-v1.1",
+  "source_run_root": "/home/GJM/runs/gamma_decomp_validation_v1_1"
+}

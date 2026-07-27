@@ -1,0 +1,22 @@
+{
+  "allowed_claims": [
+    "composition consistency",
+    "mother-phase trend",
+    "simulation-to-experiment domain gap"
+  ],
+  "exact_latent_truth_claimed": false,
+  "license": "CC-BY-4.0",
+  "parser_commit": "5148e903fefd99c3f2ebb41a8aae82a7afce9da5",
+  "parser_license": "LGPL-2.1",
+  "parser_source": "https://github.com/eljackobrien/Binary_file_parsers/blob/5148e903fefd99c3f2ebb41a8aae82a7afce9da5/read_Bruker_raw.py",
+  "parser_used_for_conversion_only": true,
+  "prohibited_claims": [
+    "experimental SRO accuracy",
+    "site occupancy accuracy"
+  ],
+  "sample_count": 2,
+  "schema_version": "sitexrd-external-sanity-v1",
+  "source_doi": "10.5281/zenodo.4623002",
+  "status": "pass",
+  "track": "hea_sro"
+}

@@ -1,0 +1,23 @@
+{
+  "name": "mlip_candidates",
+  "id_field": "candidate_id",
+  "fields": [
+    {"name": "candidate_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "target_role", "dtype": "string", "required": true, "description": ""},
+    {"name": "family", "dtype": "string", "required": true, "description": ""},
+    {"name": "engine", "dtype": "string", "required": true, "description": ""},
+    {"name": "model_name", "dtype": "string", "required": true, "description": ""},
+    {"name": "source_url", "dtype": "string", "required": true, "description": ""},
+    {"name": "artifact_urls", "dtype": "list[string]", "required": false, "description": ""},
+    {"name": "doi", "dtype": "string", "required": true, "description": ""},
+    {"name": "license", "dtype": "string", "required": true, "description": ""},
+    {"name": "redistribution_policy", "dtype": "string", "required": true, "description": ""},
+    {"name": "elements", "dtype": "list[string]", "required": true, "description": ""},
+    {"name": "phases", "dtype": "list[string]", "required": true, "description": ""},
+    {"name": "target_systems", "dtype": "list[string]", "required": true, "description": ""},
+    {"name": "install_method", "dtype": "string", "required": true, "description": ""},
+    {"name": "artifact_kind", "dtype": "string", "required": true, "description": ""},
+    {"name": "acceptance_status", "dtype": "string", "required": true, "description": ""},
+    {"name": "rejection_reason", "dtype": "string", "required": false, "description": ""}
+  ]
+}

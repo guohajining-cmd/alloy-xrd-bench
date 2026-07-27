@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+.playwright-cli/
+dist/
+build/
+*.egg-info/
+data/releases/
+data/v0_real_mlip/
+data/v0_1_crconi/
+local_potential_cache/
+local_dataset_cache/
+output/
+tmp/

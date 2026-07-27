@@ -1,0 +1,22 @@
+{
+  "schema_version": "gamma-decomp-validation-v1.1",
+  "release_id": "gamma-decomp-v1.1",
+  "tasks": ["full", "window"],
+  "seeds": [2027, 2028, 2029],
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 2027,
+    "group": "parent_pair_id"
+  },
+  "learned_models": {
+    "peak-feature": {"n_estimators": 300},
+    "resnet-set": {"epochs": 50, "patience": 10, "reconstruction_weight": 0.0},
+    "transformer-set": {"epochs": 50, "patience": 10, "reconstruction_weight": 0.0},
+    "physics-constrained": {"epochs": 50, "patience": 10, "reconstruction_weight": 0.1},
+    "reconstruction-only": {"epochs": 50, "patience": 10, "reconstruction_weight": 1.0}
+  },
+  "result_gate": {
+    "minimum_component_f1_improvement_points": 5.0,
+    "bootstrap_lower_bound_must_exceed": 0.0
+  }
+}

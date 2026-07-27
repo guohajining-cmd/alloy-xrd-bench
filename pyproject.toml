@@ -1,0 +1,47 @@
+[project]
+name = "alloy-xrd-bench"
+version = "0.1.0"
+description = "Contract, schemas, and validation helpers for a two-line alloy XRD benchmark."
+requires-python = ">=3.10"
+dependencies = [
+  "pandas",
+  "pyarrow",
+  "PyYAML",
+  "pymatgen",
+  "numpy",
+  "scipy",
+  "ase",
+  "h5py",
+  "matplotlib",
+]
+
+[tool.setuptools]
+packages = ["alloy_xrd_bench"]
+
+[project.scripts]
+alloy-xrd-audit = "alloy_xrd_bench.audit:main"
+alloy-xrd-metadata = "alloy_xrd_bench.metadata:main"
+alloy-xrd-package = "alloy_xrd_bench.package:main"
+alloy-xrd-validate = "alloy_xrd_bench.validate:main"
+alloy-xrd-potentials = "alloy_xrd_bench.potentials:main"
+alloy-xrd-quality = "alloy_xrd_bench.quality:main"
+alloy-xrd-relax = "alloy_xrd_bench.relax:main"
+alloy-xrd-release-readiness = "alloy_xrd_bench.release_readiness:main"
+alloy-xrd-release = "alloy_xrd_bench.release:main"
+alloy-xrd-splits = "alloy_xrd_bench.splits:main"
+alloy-xrd-structures = "alloy_xrd_bench.structures:main"
+alloy-xrd-simulate = "alloy_xrd_bench.xrd:main"
+alloy-xrd-status = "alloy_xrd_bench.status:main"
+alloy-xrd-datasets = "alloy_xrd_bench.datasets:main"
+alloy-xrd-occupancy = "alloy_xrd_bench.occupancy_xrd:main"
+alloy-xrd-hea-validation = "alloy_xrd_bench.hea_validation:main"
+alloy-xrd-evaluate = "alloy_xrd_bench.evaluate:main"
+alloy-xrd-hea-readiness = "alloy_xrd_bench.hea_benchmark_readiness:main"
+alloy-xrd-hea-perturbation = "alloy_xrd_bench.hea_perturbation:main"
+alloy-xrd-hea-ood = "alloy_xrd_bench.hea_ood:main"
+alloy-xrd-hea-family-support = "alloy_xrd_bench.hea_family_tasks:main"
+alloy-xrd-gamma-overlap = "alloy_xrd_bench.gamma_overlap:main"
+alloy-xrd-gamma-paper = "alloy_xrd_bench.gamma_overlap_paper_artifacts:main"
+alloy-xrd-release-smoke = "alloy_xrd_bench.release_smoke:main"
+alloy-xrd-benchmark-readiness = "alloy_xrd_bench.benchmark_readiness:main"
+alloy-xrd-external-sanity = "alloy_xrd_bench.external_sanity:main"

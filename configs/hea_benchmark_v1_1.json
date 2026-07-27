@@ -1,0 +1,87 @@
+{
+  "schema_version": "hea-benchmark-v1.1",
+  "release_status": "pre-release",
+  "benchmark_ready": false,
+  "release_scope": "sro_core",
+  "primary_tasks": ["sro"],
+  "diagnostic_tasks": ["family", "occupancy_identifiability"],
+  "experimental_noise_calibrated": false,
+  "source_dataset_root": "/home/GJM/data/hea/benchmark_v1",
+  "output_dataset_root": "/home/GJM/data/hea/benchmark_v1_1",
+  "source_dataset_access": "read-only",
+  "source_dataset": {
+    "dataset_id": "ds_hea_dft_li_hattrick_simpers_2024",
+    "title": "DFT dataset for high entropy materials",
+    "source_url": "https://zenodo.org/records/10854500",
+    "doi": "10.5281/zenodo.10854500",
+    "license": "CC-BY-4.0",
+    "source_sha256": "42722654902f03efde4e1d53284741033f4c43b77d7ba5ced29e4cf873c455fe"
+  },
+  "seeds": [2027, 2028, 2029, 2030, 2031],
+  "split_values": ["train", "validation", "test"],
+  "evaluation_slices": [
+    "id_split",
+    "composition_ood_split",
+    "chemistry_ood_split",
+    "sro_ood_split",
+    "perturbation_evaluation"
+  ],
+  "family_tasks": {
+    "lattice_family": ["fcc", "bcc"],
+    "ordering_prototype": ["disordered", "l12", "b2"],
+    "rare_open_set": ["hcp", "complex", "unknown"]
+  },
+  "family_label_vocabulary": [
+    "fcc_like",
+    "l12_like",
+    "bcc_like",
+    "b2_like",
+    "hcp_like",
+    "complex",
+    "unknown"
+  ],
+  "noise_calibration": {
+    "quantile": 0.95,
+    "distance_metrics": ["l1", "cosine"],
+    "identifiable_min_effect_ratio": 1.0,
+    "minimum_denominator": 1e-12
+  },
+  "core_release_gates": {
+    "max_parent_group_leakage": 0,
+    "required_prediction_slices": [
+      "id_split",
+      "composition_ood_split",
+      "chemistry_ood_split",
+      "sro_ood_split",
+      "perturbation_evaluation"
+    ],
+    "require_exact_oracle_controls": true,
+    "require_degraded_seeded_shuffle_controls": true,
+    "require_parent_group_confidence_intervals": true,
+    "minimum_perturbation_seeds": 5,
+    "parent_bootstrap": {
+      "replicates": 2000,
+      "seed": 2027
+    },
+    "required_models": {
+      "composition_ridge": [2027],
+      "peak_xgboost": [2027, 2028, 2029, 2030, 2031],
+      "resnet1d": [2027, 2028, 2029, 2030, 2031],
+      "transformer": [2027, 2028, 2029, 2030, 2031],
+      "physics_transformer": [2027, 2028, 2029, 2030, 2031]
+    }
+  },
+  "diagnostic_protocols": {
+    "family": {
+      "release_gate": false,
+      "ground_truth_status": "automated_unadjudicated",
+      "pending_review_count": 80
+    },
+    "occupancy_identifiability": {
+      "release_gate": false,
+      "required_parent_count": 1000,
+      "minimum_views_per_parent": 5,
+      "ranking_enabled": false
+    }
+  }
+}

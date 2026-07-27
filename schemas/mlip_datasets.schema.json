@@ -1,0 +1,19 @@
+{
+  "name": "mlip_datasets",
+  "id_field": "dataset_id",
+  "fields": [
+    {"name": "dataset_id", "dtype": "string", "required": true},
+    {"name": "source_url", "dtype": "string", "required": true},
+    {"name": "doi", "dtype": "string", "required": true},
+    {"name": "license", "dtype": "string", "required": true},
+    {"name": "redistribution_policy", "dtype": "string", "required": true},
+    {"name": "target_systems", "dtype": "list[string]", "required": true},
+    {"name": "formats", "dtype": "list[string]", "required": true},
+    {"name": "local_paths", "dtype": "object", "required": true},
+    {"name": "related_potential_ids", "dtype": "list[string]", "required": true},
+    {"name": "status", "dtype": "string", "required": true},
+    {"name": "raw_files", "dtype": "list[object]", "required": false},
+    {"name": "type_map", "dtype": "object", "required": false},
+    {"name": "phase_hint", "dtype": "string", "required": false}
+  ]
+}

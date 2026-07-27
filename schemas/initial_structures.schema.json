@@ -1,0 +1,23 @@
+{
+  "name": "initial_structures",
+  "id_field": "initial_structure_id",
+  "fields": [
+    {"name": "initial_structure_id", "dtype": "string", "required": true, "description": ""},
+    {"name": "alloy_system", "dtype": "string", "required": true, "description": ""},
+    {"name": "phase", "dtype": "string", "required": true, "description": ""},
+    {"name": "composition", "dtype": "object", "required": true, "description": ""},
+    {"name": "supercell", "dtype": "string", "required": true, "description": ""},
+    {"name": "generation_method", "dtype": "string", "required": true, "description": ""},
+    {"name": "generation_score", "dtype": "number", "required": false, "description": ""},
+    {"name": "candidate_count", "dtype": "integer", "required": false, "description": ""},
+    {"name": "seed", "dtype": "integer", "required": true, "description": ""},
+    {"name": "structure_family", "dtype": "string", "required": false, "description": ""},
+    {"name": "phase_role", "dtype": "string", "required": false, "description": ""},
+    {"name": "pair_id", "dtype": "string", "required": false, "description": ""},
+    {"name": "nominal_alloy_system", "dtype": "string", "required": false, "description": ""},
+    {"name": "partitioning_rule", "dtype": "string", "required": false, "description": ""},
+    {"name": "structure_sha256", "dtype": "sha256", "required": true, "description": ""},
+    {"name": "artifact_file_sha256", "dtype": "sha256", "required": false, "description": ""},
+    {"name": "artifact_path", "dtype": "path", "required": true, "description": ""}
+  ]
+}

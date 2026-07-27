@@ -1,0 +1,7 @@
+archive: ""
+doi: ""
+dataset_url: ""
+release_date: ""
+code_repository_url: ""
+release_archive_sha256: ""
+notes: "Fill these fields after uploading the release archive to Zenodo, Hugging Face Dataset, Materials Cloud, or NOMAD."
