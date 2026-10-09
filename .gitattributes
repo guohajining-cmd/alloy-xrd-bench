@@ -1,0 +1,2 @@
+# Keep checksum-bound generated artifacts byte-identical across platforms.
+docs/paper/generated/revision_2026_10_06/* -text

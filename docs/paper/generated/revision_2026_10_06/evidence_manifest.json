@@ -1,0 +1,65 @@
+{
+  "sources": {
+    "docs\\paper\\manuscript_revision_2026_10_06\\build_assets.py": "a70e41734161cce4a69fe00ab1adeadb6f80ac96f769a897bc316f30b2f42562",
+    "alloy_xrd_bench/dataset_paper_visuals.py": "f6e8ec1bd5bbdd29276d1a72f7943536b59dcd1175c1b321cdd08c40a00b14a5",
+    "output/rebuttal_2026_10_02/full_ABC_summary/leaderboard.csv": "68da0c0e59015180d9e12d437178e13c729b0a38199dee184cb6f6f0d1fbf370",
+    "output/rebuttal_2026_10_02/signal_full_matrix_independent/comparisons.json": "0a1dad60e120a85eaa54587f673dbff9b5ab1f3c830b4ca26e96601f6ac4e648",
+    "output/rebuttal_2026_10_02/fixed_cell_full_matrix_independent/comparisons.json": "d909016dee90ea50dd00aac95e861241729ec811816150d17f5c6cacb772747f",
+    "output/rebuttal_2026_10_01/corrected_ID/config.json": "2774018306da734c3ce7c0bd1d06ade50db14a46eb9c4377bde673835481da4f",
+    "output/rebuttal_2026_10_02/signal_controls_20261002/protocol.json": "50055c32263a5ecb539700815d7f58440025aad6b0b4b43875560faaf8cdb7c6",
+    "output/rebuttal_2026_10_02/perturbation_controls_independent/comparisons.json": "daa70087600a0dcdb6ea619a6806d675e84646f317144f4a9ca4d35d54b82150",
+    "docs/paper/generated/dataset_visual_examples.json": "3151cf84704b1ec5847f416fa86685f152b4326014bdea63045b7a2e9890e123",
+    "data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\manifests\\task_samples.parquet": "5ca9854e7f409c527a85114c7fbb1f41a35601212d19f9ffc5d8e4fe565c611d",
+    "output/rebuttal_2026_10_01/label_revision/labels.parquet": "d75564942f94345b790119e9db35bb205031181c76cf6ce14156405718da4052",
+    "output/rebuttal_2026_10_01/label_revision/revision.json": "f236766e8f1c1b4dc25744f34417db257c49e8f926262127b2ab052e9708d00b",
+    "data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\structure_payloads.parquet": "23a1ebaea3f484f5853ae3f08fe967f6632766075dae2ccef1436bf1c126e690",
+    "data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\grids\\grids_0107.h5": "17e613dc0af97b976dcccbb73033b919e2147c3e764b581667cc2a826e135678",
+    "data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\grids\\grids_0221.h5": "a402a16e889ad087f90c66b3a7f51593619ac6a4c2aa8c38b1af316db59112d0",
+    "data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\window\\patterns\\window_nial_mix_0042_023_006.npz": "476112754a9bbec047ffed6a0fa342de34bcb2d1aa4939c6c5e95170f4d2762e",
+    "data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\samples.parquet": "eeca2b9c93f89cf0f68db25555d9fd0953c8c67650f6c8e2d1ce22652760910a",
+    "data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\patterns\\nial_mix_0042_023.npz": "88bfb1e34c1011ecdeb173dfc5edf72f60b5a4143100e8b92fc1740dcf9c6842",
+    "data\\releases\\gamma-decomp-v1_1\\gamma-decomp-core-v1.1\\full\\components.parquet": "78c65750593c17e3791e7dcc2b97d6114d868c1eee4b47cb09176e561f3531c0"
+  },
+  "products": {
+    "corrected_hea_results.csv": "47f5f663d6cdeed9aca8d15950023b07a52764cb8f00708e7cf924d081925c18",
+    "dataset_overview.png": "d489f6d036b14ee86ea1880225795b1a313405c5d7e92f593822058bf9c9ae6a",
+    "fixed_cell.tex": "4327ccf6fa449d1307c9f9c4e85e641d673b117d692e052a5c7837d35b47f6e3",
+    "hea_extended.tex": "eb63e3dd968ed9b806ff68a415219bf2ab0e08757f69acfe572582868bc6d59f",
+    "hea_primary.tex": "378862c09601b514746d41f4ee7dc881b89a24dc4469e5eb5584f60d56d53b19",
+    "hea_sro_example.png": "192acdb2b1bb000b043fa9430098ca4c648f9841bc2548708e55dadd82394892",
+    "signal_controls.json": "c36ce4fe3d93abf7c782e80e41033868eac04359bbfa4692852904b9b313e7c2",
+    "signal_controls.tex": "db8755025977ab7c55b36da364156a7317728db3bbef70c3f07dcc0ea0e0fcf8"
+  },
+  "figures": {
+    "pair": {
+      "candidate_fidelity": "source_relaxed_dft",
+      "composition_key": "Al:0.00000000|Co:0.25000000|Cr:0.25000000|Cu:0.00000000|Fe:0.25000000|Mn:0.00000000|Ni:0.25000000|Si:0.00000000",
+      "cosine_similarity": 0.9966580707110698,
+      "left_sample_id": "xrd_occstr_gra62126339_clean",
+      "left_structure_state_id": "occstr_gra62126339",
+      "parent_topology": "fcc",
+      "right_sample_id": "xrd_occstr_gra62557950_clean",
+      "right_structure_state_id": "occstr_gra62557950",
+      "selection_rule": "source relaxed DFT train, same composition/topology, cosine >= 0.995, maximum SRO L1",
+      "spectrum_sha256": {
+        "xrd_occstr_gra62126339_clean": "95bbb497b1380f02ab6af978001d973f25338fb49db09f629dab8a22daed4c8c",
+        "xrd_occstr_gra62557950_clean": "9b5ec73bef0f3ca5839d7eab102b046aa2858b2daa69e917ecb2842b6650a5cf"
+      },
+      "split": "train",
+      "sro_l1_distance": 13.333333373069763,
+      "structure_paths": {
+        "occstr_gra62126339": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\structure_payloads.parquet",
+        "occstr_gra62557950": "E:\\project\\xrd-benchmark\\data\\benchmarks\\siteXRD-bench-v1_1\\hea\\benchmark_v1\\xrd\\runs\\hea_relaxed_clean_xrd_v1\\structure_payloads.parquet"
+      },
+      "structure_source_rows": {
+        "occstr_gra62126339": 25354,
+        "occstr_gra62557950": 54447
+      }
+    },
+    "selection_policy": "Keep original released pair; do not reselect after correction.",
+    "corrected_sro_l1_distance": 26.666666666666664,
+    "cosine_similarity": 0.9966580707110698,
+    "common_defined_targets": 32,
+    "masked_targets": "gray, not zero-filled; symmetric color limits cover actual values"
+  }
+}

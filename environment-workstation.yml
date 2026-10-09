@@ -1,0 +1,16 @@
+name: sitexrd
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - pyarrow
+  - scipy
+  - pymatgen
+  - h5py
+  - ase
+  - matplotlib
+  - pyyaml
+  - pytest
+  - pip

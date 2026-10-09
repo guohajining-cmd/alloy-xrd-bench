@@ -15,3 +15,13 @@ local_potential_cache/
 local_dataset_cache/
 output/
 tmp/
+.env
+.env.*
+!.env.example
+/Alloy-XRD-Bench_*.zip
+/Alloy-XRD-Bench_*.verification.json
+/docs/paper/rebuttal_*/
+/docs/paper/*.aux
+/docs/paper/*.blg
+/docs/paper/*.log
+/docs/paper/*.out

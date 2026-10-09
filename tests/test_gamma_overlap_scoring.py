@@ -110,6 +110,54 @@ class GammaOverlapScoringTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "confidence"):
             score_component_predictions(self.truth, [prediction])
 
+    def test_tied_confidence_risk_is_invariant_to_component_ids(self):
+        from alloy_xrd_bench.gamma_overlap_scoring import score_component_predictions
+
+        truth = [self.truth[0]]
+        for true_id, false_id in (("a", "b"), ("b", "a")):
+            predictions = [dict(truth[0], component_id=true_id, confidence=1.0),
+                           dict(truth[0], component_id=false_id, center_deg=55.0, confidence=1.0)]
+            result = score_component_predictions(truth, predictions)
+            self.assertAlmostEqual(2 / 3, result["component_f1"])
+            self.assertAlmostEqual(0.5, result["aurc"])
+            self.assertAlmostEqual(0.5, result["risk_at_80_coverage"])
+
+    def test_risk_uses_expected_prefix_within_partial_confidence_tie(self):
+        from alloy_xrd_bench.gamma_overlap_scoring import score_component_predictions
+
+        truth = [self.truth[0]]
+        predictions = [dict(truth[0], component_id="a", confidence=0.5),
+                       dict(truth[0], component_id="b", center_deg=55.0, confidence=0.5),
+                       dict(truth[0], component_id="c", center_deg=56.0, confidence=1.0)]
+        result = score_component_predictions(truth, predictions)
+        # The high-confidence error comes first; expected risks are 1, 3/4, 2/3.
+        self.assertAlmostEqual(29 / 36, result["aurc"])
+        self.assertAlmostEqual(2 / 3, result["risk_at_80_coverage"])
+
+    def test_duplicate_geometry_matching_does_not_depend_on_component_id(self):
+        from alloy_xrd_bench.gamma_overlap_scoring import score_component_predictions
+
+        results = []
+        for high_id, low_id in (("a", "b"), ("b", "a")):
+            predictions = [dict(self.truth[0], component_id=high_id, confidence=1.0),
+                           dict(self.truth[0], component_id=low_id, confidence=0.1)]
+            results.append(score_component_predictions([self.truth[0]], predictions))
+        self.assertEqual(results[0]["aurc"], results[1]["aurc"])
+        self.assertEqual(results[0]["confidence_ece"], results[1]["confidence_ece"])
+
+    def test_target_difficulty_merges_degenerate_reflections_and_ignores_context(self):
+        from alloy_xrd_bench.gamma_overlap_scoring import target_overlap_difficulty
+
+        components = [dict(self.truth[1], component_id="221", h=2, k=2, l=1, center_deg=71.25),
+                      dict(self.truth[1], component_id="300", h=3, k=0, l=0, center_deg=71.25),
+                      dict(self.truth[0], component_id="context", center_deg=71.26, score_eligible=False)]
+        result = target_overlap_difficulty(components)
+        self.assertEqual("single", result["difficulty"])
+        self.assertIsNone(result["minimum_separation_ratio"])
+        self.assertEqual(1, result["scored_component_count"])
+        self.assertEqual("empty", target_overlap_difficulty([components[-1]])["difficulty"])
+        self.assertEqual("strong", target_overlap_difficulty(self.truth)["difficulty"])
+
     def test_overlap_region_metric_penalizes_wrong_location(self):
         from alloy_xrd_bench.gamma_overlap_scoring import score_component_predictions
 

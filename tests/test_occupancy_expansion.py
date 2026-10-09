@@ -119,6 +119,94 @@ class OccupancyExpansionPhysicsTests(unittest.TestCase):
         self.assertTrue(np.isfinite(values).all())
         self.assertAlmostEqual(100.0, float(values.max()), places=5)
 
+    def test_broadening_preserves_relative_reflection_areas(self):
+        from scipy.integrate import trapezoid
+
+        axis = np.linspace(35.0, 85.0, 50001)
+        peaks = pd.DataFrame({"two_theta": [40.0, 80.0], "intensity": [1.0, 2.0]})
+        for params in ({"microstrain_fraction": 0.002}, {"crystallite_size_nm": 20.0}):
+            with self.subTest(params=params):
+                values = render_observation(axis, peaks, params)
+                areas = [trapezoid(values[abs(axis - center) < 4], axis[abs(axis - center) < 4])
+                         for center in (40.0, 80.0)]
+                self.assertAlmostEqual(2.0, areas[1] / areas[0], places=5)
+
+    def test_legacy_peak_height_renderer_remains_explicitly_replayable(self):
+        from scipy.integrate import trapezoid
+
+        axis = np.linspace(35.0, 85.0, 50001)
+        peaks = pd.DataFrame({"two_theta": [40.0, 80.0], "intensity": [1.0, 1.0]})
+        values = render_observation(axis, peaks, {
+            "microstrain_fraction": 0.002, "renderer_version": "peak_height_v1",
+        })
+        areas = [trapezoid(values[abs(axis - center) < 4], axis[abs(axis - center) < 4])
+                 for center in (40.0, 80.0)]
+        self.assertAlmostEqual(2.0431309, areas[1] / areas[0], places=6)
+
+    def test_historical_nuisance_audit_explicitly_replays_legacy_renderer(self):
+        from scripts.audit_hea_nuisance_decomposition import _load_renderer
+
+        axis = np.linspace(30.0, 90.0, 6001)
+        peaks = pd.DataFrame({"two_theta": [40.0, 80.0], "intensity": [1.0, 1.0]})
+        params = {"microstrain_fraction": 0.002}
+        replay = _load_renderer()(axis, peaks, params)
+        legacy = render_observation(axis, peaks, dict(params, renderer_version="peak_height_v1"))
+        np.testing.assert_array_equal(legacy, replay)
+        self.assertNotIn("renderer_version", params)
+        self.assertFalse(np.allclose(replay, render_observation(axis, peaks, params)))
+
+    def test_renderer_rejects_unknown_version_and_invalid_width(self):
+        axis = np.linspace(35.0, 45.0, 1001)
+        peaks = pd.DataFrame({"two_theta": [40.0], "intensity": [1.0]})
+        for params in ({"renderer_version": "typo"}, {"instrument_fwhm_deg": -0.1},
+                       {"microstrain_fraction": float("nan")}):
+            with self.subTest(params=params), self.assertRaises(ValueError):
+                render_observation(axis, peaks, params)
+
+    def test_sampled_parameters_record_renderer_version(self):
+        from alloy_xrd_bench.occupancy_expansion import sample_observation_parameters
+
+        config = json.loads((Path(__file__).parents[1] / "configs/xrd_perturbation_v1.json").read_text())
+        result = sample_observation_parameters("a" * 64, 0, config)
+        self.assertEqual("integrated_area_v2", result["renderer_version"])
+        legacy = sample_observation_parameters("a" * 64, 0, dict(config, renderer_version="peak_height_v1"))
+        self.assertEqual("peak_height_v1", legacy["renderer_version"])
+        self.assertEqual(result["seed"], legacy["seed"])
+
+    def test_truncated_boundary_peak_is_not_renormalized_to_a_full_peak(self):
+        from scipy.integrate import trapezoid
+
+        axis = np.linspace(40.0, 85.0, 45001)
+        peaks = pd.DataFrame({"two_theta": [40.0, 80.0], "intensity": [1.0, 1.0]})
+        signal = render_observation(axis, peaks, {"microstrain_fraction": 0.002})
+        left = axis < 44.0
+        right = abs(axis - 80.0) < 4.0
+        self.assertAlmostEqual(0.5, trapezoid(signal[left], axis[left]) / trapezoid(signal[right], axis[right]), places=5)
+
+    def test_existing_legacy_run_cannot_be_reused_as_area_preserving(self):
+        import hashlib
+        from alloy_xrd_bench.occupancy_expansion import freeze_observations
+
+        with tempfile.TemporaryDirectory() as tempdir:
+            root = Path(tempdir)
+            (root / "manifests").mkdir()
+            task = root / "manifests/task_samples.parquet"
+            pd.DataFrame([dict(structure_state_id="one", id_split="test")]).to_parquet(task)
+            config = Path(__file__).parents[1] / "configs/xrd_perturbation_v1.json"
+            run = root / "xrd/runs/legacy"
+            run.mkdir(parents=True)
+            summary = dict(source_task_manifest_sha256=hashlib.sha256(task.read_bytes()).hexdigest(),
+                           config_sha256=hashlib.sha256(config.read_bytes()).hexdigest(),
+                           variants_per_structure=1, splits=["test"], structure_state_count=1,
+                           shard_count=1, shard_size=256, status="pass")
+            path = run / "run_summary.json"
+            path.write_text(json.dumps(summary))
+            before = path.read_bytes()
+            result = freeze_observations(dataset_dir=root, run_id="legacy", config_path=config,
+                                         variants=1, splits=("test",))
+            self.assertEqual("observation_run_incompatible", result["reason"])
+            self.assertEqual(before, path.read_bytes())
+
     def test_group_split_assignment_keeps_parent_and_variants_together(self):
         states = pd.DataFrame(
             [
@@ -278,6 +366,17 @@ class OccupancyExpansionCliTests(unittest.TestCase):
                 dataset / "xrd" / "runs" / "obs_test" / "xrd_samples.parquet"
             )
             self.assertTrue(observations["perturbation_json"].str.len().gt(2).all())
+
+            changed_config = root / "changed_perturbation.json"
+            changed_values = json.loads(perturbation.read_text())
+            changed_values["instrument_fwhm_deg"] = [0.4, 0.5]
+            changed_config.write_text(json.dumps(changed_values))
+            rejected = _run_expansion_cli(
+                "observations-freeze", "--dataset", str(dataset), "--run-id", "obs_test",
+                "--config", str(changed_config), "--variants", "2",
+                "--splits", "train,validation,test",
+            )
+            self.assertEqual("observation_run_incompatible", rejected["reason"])
 
             observation_root = dataset / "xrd" / "runs" / "obs_test"
             last_shard = frozen["shard_count"] - 1

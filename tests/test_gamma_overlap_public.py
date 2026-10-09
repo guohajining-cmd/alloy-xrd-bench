@@ -11,6 +11,30 @@ import torch
 
 
 class GammaOverlapPublicTests(unittest.TestCase):
+    def test_evaluation_separates_target_difficulty_and_preserves_legacy_slices(self):
+        from alloy_xrd_bench.gamma_overlap_public import (
+            evaluate_public_submission, export_public_release, make_oracle_submission,
+        )
+
+        with tempfile.TemporaryDirectory() as tempdir:
+            root = Path(tempdir)
+            _write_internal_release(root / "source")
+            core = Path(export_public_release(root / "source", root / "release")["core_dir"])
+            slices_path = core / "slices/overlap_slices.parquet"
+            slices = pd.read_parquet(slices_path)
+            slices.loc[slices["split"].eq("validation"), "difficulty"] = "severe"
+            slices.to_parquet(slices_path, index=False)
+            before = slices_path.read_bytes()
+            make_oracle_submission(core, task="window", split="validation", output_dir=root / "submission")
+            score = evaluate_public_submission(core, "window", "validation", root / "submission", root / "score")
+            target = pd.read_parquet(root / "score/per_target_difficulty.parquet")
+            legacy = pd.read_parquet(root / "score/per_difficulty.parquet")
+            self.assertEqual(["single"], target["difficulty"].tolist())
+            self.assertEqual(["severe"], legacy["difficulty"].tolist())
+            self.assertEqual(before, slices_path.read_bytes())
+            self.assertEqual("nickel-gamma-overlap-score-v2", score["schema_version"])
+            self.assertEqual("expected_uniform_tie_order", score["confidence_tie_policy"])
+
     def test_instrument_ood_requires_two_train_quantile_violations(self):
         from alloy_xrd_bench.gamma_overlap_public import _write_instrument_slices
 
@@ -316,6 +340,39 @@ class GammaOverlapPublicTests(unittest.TestCase):
             self.assertEqual(1, report["sample_count"])
             self.assertTrue((root / "baseline/submission/submission_samples.parquet").exists())
             self.assertTrue((root / "baseline/score/scorecard.json").exists())
+
+    def test_background_only_baseline_exports_evaluable_empty_predictions(self):
+        from alloy_xrd_bench.gamma_overlap_baseline import run_public_window_baseline
+        from alloy_xrd_bench.gamma_overlap_public import export_public_release
+
+        with tempfile.TemporaryDirectory() as tempdir:
+            root = Path(tempdir)
+            source = root / "source"
+            _write_internal_release(source)
+            core = Path(export_public_release(source, root / "release")["core_dir"])
+            samples = pd.read_parquet(core / "window/samples.parquet")
+            validation = samples.loc[samples["split"].eq("validation")].iloc[0]
+            artifact_path = core / validation["pattern_path"]
+            with np.load(artifact_path) as artifact:
+                arrays = {name: artifact[name] for name in artifact.files}
+            arrays["observed"] = np.zeros_like(arrays["observed"])
+            np.savez_compressed(artifact_path, **arrays)
+            samples.loc[samples["sample_id"].eq(validation["sample_id"]), "artifact_sha256"] = _sha256(artifact_path)
+            samples.to_parquet(core / "window/samples.parquet", index=False)
+
+            report = run_public_window_baseline(
+                release_dir=core, output_dir=root / "baseline", split="validation", baseline_kind="bic",
+            )
+            predictions = pd.read_parquet(root / "baseline/submission/submission_components.parquet")
+            diagnostics = pd.read_parquet(root / "baseline/fit_diagnostics.parquet")
+            score = json.loads((root / "baseline/score/scorecard.json").read_text())
+            self.assertEqual(0, report["prediction_count"])
+            self.assertEqual(0, report["failed_window_count"])
+            self.assertTrue(predictions.empty)
+            self.assertIn("confidence", predictions.columns)
+            self.assertEqual("selected", diagnostics.iloc[0]["status"])
+            self.assertEqual(0, diagnostics.iloc[0]["selected_component_count"])
+            self.assertEqual(0, score["metrics"]["component_recall"])
 
     def test_neural_set_baseline_runs_public_training_smoke(self):
         from alloy_xrd_bench.gamma_overlap_public import export_public_release

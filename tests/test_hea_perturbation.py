@@ -48,7 +48,7 @@ class HeaPerturbationTests(unittest.TestCase):
             (source / "manifests").mkdir(parents=True)
             (run / "grids").mkdir(parents=True)
             targets = json.loads(Path("configs/hea_validation_v1.json").read_text())["sro_targets"]
-            pd.DataFrame([{"structure_state_id": "state-0", "parent_group_id": "parent-0", "sro_shell1_json": json.dumps({"Al->Al": 0.0}), "sro_shell2_json": "{}"}]).to_parquet(source / "manifests" / "task_samples.parquet")
+            pd.DataFrame([{"structure_state_id": "state-0", "parent_group_id": "parent-0", "id_split": "test", "sro_shell1_json": json.dumps({"Al->Al": 0.0}), "sro_shell2_json": "{}"}]).to_parquet(source / "manifests" / "task_samples.parquet")
             pd.DataFrame([{"xrd_sample_id": "obs-0", "structure_state_id": "state-0", "parent_group_id": "parent-0", "grid_shard_path": "xrd/runs/observations/grids/grid.h5", "grid_row_index": 0}]).to_parquet(run / "xrd_samples.parquet")
             with h5py.File(run / "grids" / "grid.h5", "w") as handle:
                 handle.create_dataset("intensity", data=np.ones((1, 4001), dtype=np.float32))
@@ -79,6 +79,8 @@ class HeaPerturbationTests(unittest.TestCase):
                     json.dumps(
                         {
                             "status": "pass",
+                            "evaluation_scope": "held_out_test",
+                            "clean_reference_scope": "identical_structure_states",
                             "seed": seed,
                             "perturbed_parent_macro_mae": mae,
                             "clean_to_perturbed_retention": 0.8,
@@ -98,22 +100,23 @@ class HeaPerturbationTests(unittest.TestCase):
                     path = root / model / str(seed)
                     path.mkdir(parents=True)
                     (path / "perturbation_summary.json").write_text(
-                        json.dumps({"status": "pass", "model": model, "seed": seed, "perturbed_parent_macro_mae": 0.4, "clean_to_perturbed_retention": 0.8})
+                        json.dumps({"status": "pass", "evaluation_scope": "held_out_test", "clean_reference_scope": "identical_structure_states", "model": model, "seed": seed, "perturbed_parent_macro_mae": 0.4, "clean_to_perturbed_retention": 0.8})
                     )
             ridge_metrics = root / "ridge.metrics.json"
             ridge_metrics.write_text(json.dumps({"sro": {"masked_parent_macro_mae": 0.45}}))
 
-            report = aggregate_perturbation_reports(
+            unmatched = aggregate_perturbation_reports(
                 root,
                 minimum_seeds=5,
                 required_models=["peak-xgboost", "resnet1d", "transformer"],
                 composition_ridge_metrics=ridge_metrics,
             )
+            self.assertEqual("unmatched_composition_reference", unmatched["reason"])
+            report = aggregate_perturbation_reports(root, minimum_seeds=5,
+                required_models=["peak-xgboost", "resnet1d", "transformer"])
             self.assertEqual("pass", report["status"])
             self.assertEqual(5, report["seed_count"])
             self.assertEqual(3, len(report["metrics_by_model"]))
-            self.assertEqual(1.0, report["composition_ridge_negative_control"]["retention"])
-            self.assertEqual(0.45, report["composition_ridge_negative_control"]["clean_parent_macro_mae"])
 
             (root / "transformer" / "2031" / "perturbation_summary.json").unlink()
             failed = aggregate_perturbation_reports(
@@ -137,6 +140,7 @@ class HeaPerturbationTests(unittest.TestCase):
                     {
                         "structure_state_id": f"state-{index}",
                         "parent_group_id": f"parent-{index}",
+                        "id_split": "test",
                         "sro_shell1_json": json.dumps({"Al->Co": 0.1 * index}),
                         "sro_shell2_json": "{}",
                     }
@@ -166,7 +170,6 @@ class HeaPerturbationTests(unittest.TestCase):
                 checkpoint,
                 Path("configs/hea_validation_v1.json"),
                 root / "result",
-                clean_metrics_path=clean_score,
                 batch_size=2,
             )
 
@@ -174,7 +177,8 @@ class HeaPerturbationTests(unittest.TestCase):
             self.assertEqual(3, report["observation_count"])
             self.assertEqual(2, report["structure_state_count"])
             self.assertEqual(2, report["parent_group_count"])
-            self.assertIn("clean_to_perturbed_retention", report)
+            self.assertNotIn("clean_to_perturbed_retention", report)
+            self.assertEqual("held_out_test", report["evaluation_scope"])
             self.assertGreaterEqual(len(report["severity_curve"]), 2)
             predictions = pd.read_parquet(root / "result" / "perturbation_predictions.parquet")
             self.assertEqual(3, len(predictions))
@@ -191,7 +195,7 @@ class HeaPerturbationTests(unittest.TestCase):
             truth = np.zeros((2, len(targets)), dtype=float)
             truth[:, 0] = [0.0, 0.1]
             task_rows = [
-                {"structure_state_id": f"state-{index}", "parent_group_id": f"parent-{index}", "sro_shell1_json": json.dumps({"Al->Al": float(truth[index, 0])}), "sro_shell2_json": "{}"}
+                {"structure_state_id": f"state-{index}", "parent_group_id": f"parent-{index}", "id_split": "test", "sro_shell1_json": json.dumps({"Al->Al": float(truth[index, 0])}), "sro_shell2_json": "{}"}
                 for index in range(2)
             ]
             pd.DataFrame(task_rows).to_parquet(root / "manifests" / "task_samples.parquet")
@@ -226,7 +230,6 @@ class HeaPerturbationTests(unittest.TestCase):
                 checkpoint,
                 Path("configs/hea_validation_v1.json"),
                 root / "result",
-                clean_metrics_path=clean_score,
             )
             self.assertEqual("peak-xgboost", report["model"])
             self.assertEqual(2, report["observation_count"])

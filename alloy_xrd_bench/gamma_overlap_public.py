@@ -14,9 +14,12 @@ import pandas as pd
 
 from .gamma_overlap_physics import canonical_cubic_hkl
 from .gamma_overlap_scoring import (
+    CONFIDENCE_TIE_POLICY,
+    SCORING_VERSION,
     build_scoring_components,
     hkl_group_id,
     score_component_predictions,
+    target_overlap_difficulty,
 )
 from .gamma_overlap_baseline import build_training_candidate_catalog
 
@@ -574,6 +577,7 @@ def evaluate_public_submission(
     output.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(per_parent).to_parquet(output / "per_parent_pair.parquet", index=False)
     per_difficulty = []
+    per_target_difficulty = []
     if task == "window":
         overlap_slices_path = root / "slices" / "overlap_slices.parquet"
         if not overlap_slices_path.exists():
@@ -595,8 +599,31 @@ def evaluate_public_submission(
                 expected_parent_ids={sample_id: parents[sample_id] for sample_id in ids},
             )
             per_difficulty.append({"difficulty": str(difficulty), **result})
+        truth_by_sample = {
+            str(sample_id): rows.to_dict(orient="records")
+            for sample_id, rows in truth.groupby("sample_id")
+        }
+        target_slices = pd.DataFrame([
+            {"sample_id": sample_id, **target_overlap_difficulty(truth_by_sample.get(sample_id, []))}
+            for sample_id in expected
+        ])
+        legacy = overlap_slices.set_index("sample_id")["difficulty"]
+        target_slices["legacy_difficulty"] = target_slices["sample_id"].map(legacy)
+        target_slices.to_parquet(output / "evaluation_target_slices.parquet", index=False)
+        for difficulty, samples in target_slices.groupby("difficulty"):
+            ids = samples["sample_id"].tolist()
+            result = score_component_predictions(
+                truth.loc[truth["sample_id"].astype(str).isin(ids)].to_dict(orient="records"),
+                predictions.loc[predictions["sample_id"].astype(str).isin(ids)].to_dict(orient="records"),
+                expected_sample_ids=ids,
+                expected_parent_ids={sample_id: parents[sample_id] for sample_id in ids},
+            )
+            per_target_difficulty.append({"difficulty": str(difficulty), "sample_count": len(ids), **result})
     pd.DataFrame(per_difficulty or [{"difficulty": "not_applicable"}]).to_parquet(
         output / "per_difficulty.parquet", index=False
+    )
+    pd.DataFrame(per_target_difficulty or [{"difficulty": "not_applicable"}]).to_parquet(
+        output / "per_target_difficulty.parquet", index=False
     )
     instrument_slices_path = root / "slices" / "instrument_slices.parquet"
     if not instrument_slices_path.exists():
@@ -625,7 +652,16 @@ def evaluate_public_submission(
     pd.DataFrame(per_instrument_slice).to_parquet(
         output / "per_instrument_slice.parquet", index=False
     )
-    scorecard = {"schema_version": "nickel-gamma-overlap-score-v1", "task": task, "split": split, "sample_count": len(expected), "metrics": metrics}
+    scorecard = {
+        "schema_version": SCORING_VERSION,
+        "confidence_tie_policy": CONFIDENCE_TIE_POLICY,
+        "difficulty_definitions": {
+            "per_difficulty": "release_context_legacy",
+            "per_target_difficulty": "eligible_merged_targets_v2",
+        },
+        "reconstruction_target": "eligible_component_curves_not_observed_full_pattern",
+        "task": task, "split": split, "sample_count": len(expected), "metrics": metrics,
+    }
     (output / "scorecard.json").write_text(
         json.dumps(_json_compatible(scorecard), indent=2, sort_keys=True, allow_nan=False)
     )

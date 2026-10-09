@@ -814,9 +814,11 @@ def _warren_cowley(structure: Structure, rmin: float, rmax: float) -> dict[str, 
             pair_counts[(center, other)] += 1
             center_counts[center] += 1
     values = {}
-    for (center, other), count in pair_counts.items():
-        probability = count / max(center_counts[center], 1)
-        values[f"{center}->{other}"] = 1.0 - probability / concentrations.get(other, 1.0)
+    # Zero observed pairs are valid alpha=1 labels; empty central shells are undefined.
+    for center, total in center_counts.items():
+        for other, concentration in concentrations.items():
+            probability = pair_counts[(center, other)] / total
+            values[f"{center}->{other}"] = 1.0 - probability / concentration
     return values
 
 

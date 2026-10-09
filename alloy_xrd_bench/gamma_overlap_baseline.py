@@ -15,6 +15,13 @@ from .gamma_overlap_physics import pseudo_voigt_profile
 from .gamma_overlap_scoring import hkl_group_id, score_component_predictions, window_component_truth
 
 
+WINDOW_BASELINE_VERSION = "bic-background-null-v2"
+BASELINE_COMPONENT_COLUMNS = [
+    "sample_id", "component_id", "phase", "h", "k", "l", "hkl_group_id",
+    "center_deg", "fwhm_deg", "integrated_intensity", "eta", "confidence",
+]
+
+
 def build_training_candidate_catalog(
     phase_reflection_rows: Sequence[Mapping[str, Any]],
     split_rows: Sequence[Mapping[str, Any]],
@@ -56,31 +63,43 @@ def fit_window_baseline(
     observed: np.ndarray,
     candidate_catalog: Sequence[Mapping[str, Any]],
     max_components: int = 2,
+    diagnostics: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
-    """Choose a constrained one- or two-component pseudo-Voigt model by BIC."""
+    """Choose background-only or up to max_components profiles by BIC."""
 
     grid = np.asarray(two_theta, dtype=float)
     signal = np.asarray(observed, dtype=float)
     if grid.ndim != 1 or signal.shape != grid.shape or len(grid) < 10:
         raise ValueError("window arrays must be aligned one-dimensional vectors")
+    if not np.isfinite(grid).all() or not np.isfinite(signal).all() or not np.all(np.diff(grid) > 0):
+        raise ValueError("window arrays must be finite with an increasing grid")
+    if int(max_components) != max_components or max_components < 0:
+        raise ValueError("max_components must be a non-negative integer")
     candidates = [
         dict(row)
         for row in candidate_catalog
         if float(grid.min()) - 0.25 <= float(row["center_deg"]) <= float(grid.max()) + 0.25
     ]
-    if not candidates:
-        return []
+    diagnostics = {} if diagnostics is None else diagnostics
+    diagnostics.update({
+        "sample_id": window_id, "baseline_version": WINDOW_BASELINE_VERSION,
+        "status": "all_fits_failed", "attempted_fit_count": 0, "failed_fit_count": 0,
+        "selected_component_count": None, "selected_bic": None,
+    })
     best: tuple[float, list[dict[str, Any]]] | None = None
-    for count in range(1, min(int(max_components), len(candidates)) + 1):
+    for count in range(0, min(int(max_components), len(candidates)) + 1):
         for selected in combinations(candidates, count):
+            diagnostics["attempted_fit_count"] += 1
             fitted = _fit_candidate_set(grid, signal, selected)
             if fitted is None:
+                diagnostics["failed_fit_count"] += 1
                 continue
             bic, predictions = fitted
             if best is None or bic < best[0]:
                 best = bic, predictions
     if best is None:
         return []
+    diagnostics.update(status="selected", selected_component_count=len(best[1]), selected_bic=best[0])
     return [
         {
             "sample_id": window_id,
@@ -108,7 +127,9 @@ def run_window_baseline(
     if max_windows is not None:
         windows = windows.head(int(max_windows))
     predictions: list[dict[str, Any]] = []
+    fit_diagnostics: list[dict[str, Any]] = []
     for row in windows.to_dict(orient="records"):
+        diagnostic: dict[str, Any] = {}
         with np.load(release / str(row["window_path"])) as artifact:
             predictions.extend(
                 fit_window_baseline(
@@ -116,16 +137,22 @@ def run_window_baseline(
                     two_theta=artifact["two_theta"],
                     observed=artifact["observed"],
                     candidate_catalog=catalog,
+                    diagnostics=diagnostic,
                 )
             )
+        fit_diagnostics.append(diagnostic)
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
-    pd.DataFrame(predictions).to_parquet(output, index=False)
+    pd.DataFrame(predictions).reindex(columns=BASELINE_COMPONENT_COLUMNS).to_parquet(output, index=False)
+    pd.DataFrame(fit_diagnostics).to_parquet(output.with_name(f"{output.stem}_fit_diagnostics.parquet"), index=False)
     report: dict[str, Any] = {
+        "baseline_version": WINDOW_BASELINE_VERSION,
         "split": split,
         "window_count": len(windows),
         "prediction_count": len(predictions),
         "candidate_count": len(catalog),
+        "failed_window_count": sum(row["status"] == "all_fits_failed" for row in fit_diagnostics),
+        "failed_candidate_fit_count": sum(row["failed_fit_count"] for row in fit_diagnostics),
         "output_path": str(output.resolve()),
     }
     if split != "private_test":
@@ -182,7 +209,9 @@ def run_public_window_baseline(
     if max_windows is not None:
         samples = samples.head(int(max_windows))
     predictions: list[dict[str, Any]] = []
+    fit_diagnostics: list[dict[str, Any]] = []
     for row in samples.to_dict(orient="records"):
+        diagnostic: dict[str, Any] = {}
         with np.load(release / str(row["pattern_path"])) as artifact:
             predictions.extend(
                 fit_window_baseline(
@@ -191,14 +220,13 @@ def run_public_window_baseline(
                     observed=artifact["observed"],
                     candidate_catalog=catalog,
                     max_components=1 if baseline_kind == "single" else 2,
+                    diagnostics=diagnostic,
                 )
             )
+        fit_diagnostics.append(diagnostic)
     prediction_frame = pd.DataFrame(predictions)
-    required = [
-        "sample_id", "component_id", "phase", "h", "k", "l", "hkl_group_id", "center_deg",
-        "fwhm_deg", "integrated_intensity", "eta", "confidence",
-    ]
-    prediction_frame = prediction_frame.reindex(columns=required)
+    prediction_frame = prediction_frame.reindex(columns=BASELINE_COMPONENT_COLUMNS)
+    pd.DataFrame(fit_diagnostics).to_parquet(output / "fit_diagnostics.parquet", index=False)
     prediction_frame.to_parquet(submission / "submission_components.parquet", index=False)
     count_by_sample = prediction_frame.groupby("sample_id").size() if len(prediction_frame) else {}
     pd.DataFrame({
@@ -211,6 +239,9 @@ def run_public_window_baseline(
     return {
         "status": "pass",
         "baseline_kind": baseline_kind,
+        "baseline_version": WINDOW_BASELINE_VERSION,
+        "failed_window_count": sum(row["status"] == "all_fits_failed" for row in fit_diagnostics),
+        "failed_candidate_fit_count": sum(row["failed_fit_count"] for row in fit_diagnostics),
         "sample_count": len(samples),
         "prediction_count": len(prediction_frame),
         "candidate_count": len(catalog),
@@ -529,7 +560,11 @@ def _fit_candidate_set(
         )
     except (ValueError, FloatingPointError):
         return None
+    if not result.success or not np.isfinite(result.x).all():
+        return None
     residual = model(result.x) - observed
+    if not np.isfinite(residual).all():
+        return None
     rss = max(float(np.dot(residual, residual)), np.finfo(float).tiny)
     parameter_count = len(result.x)
     bic = len(grid) * np.log(rss / len(grid)) + parameter_count * np.log(len(grid))

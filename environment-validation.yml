@@ -1,0 +1,19 @@
+name: sitexrd-validate
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pytorch>=2.4
+  - pytorch-cuda=12.4
+  - numpy
+  - scipy
+  - pandas
+  - pyarrow
+  - h5py
+  - scikit-learn
+  - xgboost
+  - pyyaml
+  - matplotlib
+  - pymatgen

@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{25}
+\begin{thebibliography}{52}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -36,6 +36,34 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
+\bibitem[Belsky et~al\mbox{.}(2002)]%
+        {belsky2002icsd}
+\bibfield{author}{\bibinfo{person}{Alec Belsky}, \bibinfo{person}{Mariette
+  Hellenbrandt}, \bibinfo{person}{Vicky~Lynn Karen}, {and}
+  \bibinfo{person}{Peter Luksch}.} \bibinfo{year}{2002}\natexlab{}.
+\newblock \showarticletitle{New Developments in the Inorganic Crystal Structure
+  Database ({ICSD}): Accessibility in Support of Materials Research and
+  Design}.
+\newblock \bibinfo{journal}{\emph{Acta Crystallographica Section B: Structural
+  Science}} \bibinfo{volume}{58}, \bibinfo{number}{3} (\bibinfo{year}{2002}),
+  \bibinfo{pages}{364--369}.
+\newblock
+\href{https://doi.org/10.1107/S0108768102006948}{doi:\nolinkurl{10.1107/S0108768102006948}}
+
+
+\bibitem[Cantor et~al\mbox{.}(2004)]%
+        {cantor2004multicomponent}
+\bibfield{author}{\bibinfo{person}{B. Cantor}, \bibinfo{person}{I.~T.~H.
+  Chang}, \bibinfo{person}{P. Knight}, {and} \bibinfo{person}{A.~J.~B.
+  Vincent}.} \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Microstructural Development in Equiatomic
+  Multicomponent Alloys}.
+\newblock \bibinfo{journal}{\emph{Materials Science and Engineering: A}}
+  \bibinfo{volume}{375--377} (\bibinfo{year}{2004}), \bibinfo{pages}{213--218}.
+\newblock
+\href{https://doi.org/10.1016/j.msea.2003.10.257}{doi:\nolinkurl{10.1016/j.msea.2003.10.257}}
+
+
 \bibitem[Carion et~al\mbox{.}(2020)]%
         {carion2020detr}
 \bibfield{author}{\bibinfo{person}{Nicolas Carion}, \bibinfo{person}{Francisco
@@ -43,11 +71,38 @@
   Usunier}, \bibinfo{person}{Alexander Kirillov}, {and} \bibinfo{person}{Sergey
   Zagoruyko}.} \bibinfo{year}{2020}\natexlab{}.
 \newblock \showarticletitle{End-to-End Object Detection with Transformers}. In
-  \bibinfo{booktitle}{\emph{Computer Vision -- ECCV 2020}}.
-  \bibinfo{publisher}{Springer}, \bibinfo{address}{Cham, Switzerland},
-  \bibinfo{pages}{213--229}.
+  \bibinfo{booktitle}{\emph{Computer Vision -- ECCV 2020}}
+  \emph{(\bibinfo{series}{Lecture Notes in Computer Science},
+  Vol.~\bibinfo{volume}{12346})}. \bibinfo{publisher}{Springer},
+  \bibinfo{address}{Cham, Switzerland}, \bibinfo{pages}{213--229}.
 \newblock
 \href{https://doi.org/10.1007/978-3-030-58452-8_13}{doi:\nolinkurl{10.1007/978-3-030-58452-8_13}}
+
+
+\bibitem[Choudhary et~al\mbox{.}(2020)]%
+        {choudhary2020jarvis}
+\bibfield{author}{\bibinfo{person}{Kamal Choudhary}, \bibinfo{person}{Kevin~F.
+  Garrity}, \bibinfo{person}{Andrew C.~E. Reid}, \bibinfo{person}{Brian
+  DeCost}, \bibinfo{person}{Adam~J. Biacchi}, \bibinfo{person}{Angela~R.
+  Hight~Walker}, \bibinfo{person}{Zachary Trautt}, \bibinfo{person}{Jason
+  Hattrick-Simpers}, \bibinfo{person}{A.~Gilad Kusne}, \bibinfo{person}{Andrea
+  Centrone}, \bibinfo{person}{Albert Davydov}, \bibinfo{person}{Jie Jiang},
+  \bibinfo{person}{Ruth Pachter}, \bibinfo{person}{Gowoon Cheon},
+  \bibinfo{person}{Evan Reed}, \bibinfo{person}{Ankit Agrawal},
+  \bibinfo{person}{Xiaofeng Qian}, \bibinfo{person}{Vinit Sharma},
+  \bibinfo{person}{Houlong Zhuang}, \bibinfo{person}{Sergei~V. Kalinin},
+  \bibinfo{person}{Bobby~G. Sumpter}, \bibinfo{person}{Ghanshyam Pilania},
+  \bibinfo{person}{Pinar Acar}, \bibinfo{person}{Subhasish Mandal},
+  \bibinfo{person}{Kristjan Haule}, \bibinfo{person}{David Vanderbilt},
+  \bibinfo{person}{Karin Rabe}, {and} \bibinfo{person}{Francesca Tavazza}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \showarticletitle{The Joint Automated Repository for Various
+  Integrated Simulations ({JARVIS}) for Data-Driven Materials Design}.
+\newblock \bibinfo{journal}{\emph{npj Computational Materials}}
+  \bibinfo{volume}{6}, \bibinfo{number}{1} (\bibinfo{year}{2020}),
+  \bibinfo{pages}{173}.
+\newblock
+\href{https://doi.org/10.1038/s41524-020-00440-1}{doi:\nolinkurl{10.1038/s41524-020-00440-1}}
 
 
 \bibitem[Cowley(1950)]%
@@ -59,6 +114,24 @@
   \bibinfo{number}{5} (\bibinfo{year}{1950}), \bibinfo{pages}{669--675}.
 \newblock
 \href{https://doi.org/10.1103/PhysRev.77.669}{doi:\nolinkurl{10.1103/PhysRev.77.669}}
+
+
+\bibitem[Curtarolo et~al\mbox{.}(2012)]%
+        {curtarolo2012aflowlib}
+\bibfield{author}{\bibinfo{person}{Stefano Curtarolo}, \bibinfo{person}{Wahyu
+  Setyawan}, \bibinfo{person}{Gus L.~W. Hart}, \bibinfo{person}{Michal
+  Jahnatek}, \bibinfo{person}{Roman~V. Chepulskii}, \bibinfo{person}{Richard~H.
+  Taylor}, \bibinfo{person}{Shidong Wang}, \bibinfo{person}{Junkai Xue},
+  \bibinfo{person}{Kesong Yang}, \bibinfo{person}{Ohad Levy},
+  \bibinfo{person}{Michael~J. Mehl}, \bibinfo{person}{Harold~T. Stokes},
+  \bibinfo{person}{Denis~O. Demchenko}, {and} \bibinfo{person}{Dane Morgan}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{{AFLOW}: An Automatic Framework for High-Throughput
+  Materials Discovery}.
+\newblock \bibinfo{journal}{\emph{Computational Materials Science}}
+  \bibinfo{volume}{58} (\bibinfo{year}{2012}), \bibinfo{pages}{218--226}.
+\newblock
+\href{https://doi.org/10.1016/j.commatsci.2012.02.005}{doi:\nolinkurl{10.1016/j.commatsci.2012.02.005}}
 
 
 \bibitem[Devaux et~al\mbox{.}(2008)]%
@@ -77,6 +150,53 @@
 \href{https://doi.org/10.1016/j.msea.2007.08.046}{doi:\nolinkurl{10.1016/j.msea.2007.08.046}}
 
 
+\bibitem[Draxl and Scheffler(2018)]%
+        {draxl2019nomad}
+\bibfield{author}{\bibinfo{person}{Claudia Draxl} {and}
+  \bibinfo{person}{Matthias Scheffler}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{{NOMAD}: The {FAIR} Concept for Big Data-Driven
+  Materials Science}.
+\newblock \bibinfo{journal}{\emph{MRS Bulletin}} \bibinfo{volume}{43},
+  \bibinfo{number}{9} (\bibinfo{year}{2018}), \bibinfo{pages}{676--682}.
+\newblock
+\href{https://doi.org/10.1557/mrs.2018.208}{doi:\nolinkurl{10.1557/mrs.2018.208}}
+
+
+\bibitem[Durand-Charre(1997)]%
+        {durand1997superalloys}
+\bibfield{author}{\bibinfo{person}{Madeleine Durand-Charre}.}
+  \bibinfo{year}{1997}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The Microstructure of Superalloys}}.
+\newblock \bibinfo{publisher}{CRC Press}, \bibinfo{address}{Boca Raton, FL,
+  USA}.
+\newblock
+
+
+\bibitem[Efron and Tibshirani(1994)]%
+        {efron1994bootstrap}
+\bibfield{author}{\bibinfo{person}{Bradley Efron} {and}
+  \bibinfo{person}{Robert~J. Tibshirani}.} \bibinfo{year}{1994}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{An Introduction to the Bootstrap}}.
+\newblock \bibinfo{publisher}{Chapman and Hall/CRC}, \bibinfo{address}{New
+  York, NY, USA}.
+\newblock
+\href{https://doi.org/10.1201/9780429246593}{doi:\nolinkurl{10.1201/9780429246593}}
+
+
+\bibitem[Gebru et~al\mbox{.}(2021)]%
+        {gebru2021datasheets}
+\bibfield{author}{\bibinfo{person}{Timnit Gebru}, \bibinfo{person}{Jamie
+  Morgenstern}, \bibinfo{person}{Briana Vecchione},
+  \bibinfo{person}{Jennifer~Wortman Vaughan}, \bibinfo{person}{Hanna Wallach},
+  \bibinfo{person}{Hal Daum{\'e}, III}, {and} \bibinfo{person}{Kate Crawford}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Datasheets for Datasets}.
+\newblock \bibinfo{journal}{\emph{Commun. ACM}} \bibinfo{volume}{64},
+  \bibinfo{number}{12} (\bibinfo{year}{2021}), \bibinfo{pages}{86--92}.
+\newblock
+\href{https://doi.org/10.1145/3458723}{doi:\nolinkurl{10.1145/3458723}}
+
+
 \bibitem[George et~al\mbox{.}(2019)]%
         {george2019hea}
 \bibfield{author}{\bibinfo{person}{Easo~P. George}, \bibinfo{person}{Dierk
@@ -90,14 +210,40 @@
 \href{https://doi.org/10.1038/s41578-019-0121-4}{doi:\nolinkurl{10.1038/s41578-019-0121-4}}
 
 
+\bibitem[Gneiting and Raftery(2007)]%
+        {gneiting2007proper}
+\bibfield{author}{\bibinfo{person}{Tilmann Gneiting} {and}
+  \bibinfo{person}{Adrian~E. Raftery}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Strictly Proper Scoring Rules, Prediction, and
+  Estimation}.
+\newblock \bibinfo{journal}{\emph{J. Amer. Statist. Assoc.}}
+  \bibinfo{volume}{102}, \bibinfo{number}{477} (\bibinfo{year}{2007}),
+  \bibinfo{pages}{359--378}.
+\newblock
+\href{https://doi.org/10.1198/016214506000001437}{doi:\nolinkurl{10.1198/016214506000001437}}
+
+
+\bibitem[Gorsse et~al\mbox{.}(2017)]%
+        {gorsse2018hea}
+\bibfield{author}{\bibinfo{person}{St{\'e}phane Gorsse},
+  \bibinfo{person}{Daniel~B. Miracle}, {and} \bibinfo{person}{Oleg~N. Senkov}.}
+  \bibinfo{year}{2017}\natexlab{}.
+\newblock \showarticletitle{Mapping the World of Complex Concentrated Alloys}.
+\newblock \bibinfo{journal}{\emph{Acta Materialia}}  \bibinfo{volume}{135}
+  (\bibinfo{year}{2017}), \bibinfo{pages}{177--187}.
+\newblock
+\href{https://doi.org/10.1016/j.actamat.2017.06.027}{doi:\nolinkurl{10.1016/j.actamat.2017.06.027}}
+
+
 \bibitem[Gra\v{z}ulis et~al\mbox{.}(2012)]%
         {grazulis2012cod}
 \bibfield{author}{\bibinfo{person}{Saulius Gra\v{z}ulis},
   \bibinfo{person}{Adriana Da\v{s}kevi\v{c}}, \bibinfo{person}{Andrius Merkys},
   \bibinfo{person}{Daniel Chateigner}, \bibinfo{person}{Luca Lutterotti},
-  \bibinfo{person}{Miguel Quir\'os}, \bibinfo{person}{Natalia~R. Serebryanaya},
-  \bibinfo{person}{Peter Moeck}, \bibinfo{person}{Robert~T. Downs}, {and}
-  \bibinfo{person}{Armel Le~Bail}.} \bibinfo{year}{2012}\natexlab{}.
+  \bibinfo{person}{Miguel Quir\'os}, \bibinfo{person}{Nadezhda~R.
+  Serebryanaya}, \bibinfo{person}{Peter Moeck}, \bibinfo{person}{Robert~T.
+  Downs}, {and} \bibinfo{person}{Armel Le~Bail}.}
+  \bibinfo{year}{2012}\natexlab{}.
 \newblock \showarticletitle{Crystallography Open Database ({COD}): An
   Open-Access Collection of Crystal Structures and Platform for World-Wide
   Collaboration}.
@@ -139,8 +285,23 @@
   \bibinfo{year}{2017}\natexlab{}.
 \newblock \showarticletitle{On Calibration of Modern Neural Networks}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 34th International Conference on
-  Machine Learning}}. \bibinfo{publisher}{PMLR}, \bibinfo{pages}{1321--1330}.
+  Machine Learning}} \emph{(\bibinfo{series}{Proceedings of Machine Learning
+  Research}, Vol.~\bibinfo{volume}{70})}. \bibinfo{publisher}{PMLR},
+  \bibinfo{pages}{1321--1330}.
 \newblock
+
+
+\bibitem[He et~al\mbox{.}(2024)]%
+        {he2024apt}
+\bibfield{author}{\bibinfo{person}{Mengwei He}, \bibinfo{person}{William~J.
+  Davids}, \bibinfo{person}{Andrew~J. Breen}, {and} \bibinfo{person}{Simon~P.
+  Ringer}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{Quantifying Short-Range Order Using Atom Probe
+  Tomography}.
+\newblock \bibinfo{journal}{\emph{Nature Materials}}  \bibinfo{volume}{23}
+  (\bibinfo{year}{2024}), \bibinfo{pages}{1200--1207}.
+\newblock
+\href{https://doi.org/10.1038/s41563-024-01912-1}{doi:\nolinkurl{10.1038/s41563-024-01912-1}}
 
 
 \bibitem[Jain et~al\mbox{.}(2013)]%
@@ -151,12 +312,44 @@
   \bibinfo{person}{Shreyas Cholia}, \bibinfo{person}{Dan Gunter},
   \bibinfo{person}{David Skinner}, \bibinfo{person}{Gerbrand Ceder}, {and}
   \bibinfo{person}{Kristin~A. Persson}.} \bibinfo{year}{2013}\natexlab{}.
-\newblock \showarticletitle{Commentary: The Materials Project: A Materials
+\newblock \showarticletitle{Commentary: The {Materials Project}: A Materials
   Genome Approach to Accelerating Materials Innovation}.
 \newblock \bibinfo{journal}{\emph{APL Materials}} \bibinfo{volume}{1},
   \bibinfo{number}{1} (\bibinfo{year}{2013}), \bibinfo{pages}{011002}.
 \newblock
 \href{https://doi.org/10.1063/1.4812323}{doi:\nolinkurl{10.1063/1.4812323}}
+
+
+\bibitem[Klug and Alexander(1974)]%
+        {klug1974xray}
+\bibfield{author}{\bibinfo{person}{Harold~P. Klug} {and}
+  \bibinfo{person}{Leroy~E. Alexander}.} \bibinfo{year}{1974}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{X-Ray Diffraction Procedures: For
+  Polycrystalline and Amorphous Materials} (\bibinfo{edition}{2} ed.)}.
+\newblock \bibinfo{publisher}{Wiley}, \bibinfo{address}{New York, NY, USA}.
+\newblock
+
+
+\bibitem[Koh et~al\mbox{.}(2021)]%
+        {koh2021wilds}
+\bibfield{author}{\bibinfo{person}{Pang~Wei Koh}, \bibinfo{person}{Shiori
+  Sagawa}, \bibinfo{person}{Henrik Marklund}, \bibinfo{person}{Sang~Michael
+  Xie}, \bibinfo{person}{Marvin Zhang}, \bibinfo{person}{Akshay Balsubramani},
+  \bibinfo{person}{Weihua Hu}, \bibinfo{person}{Michihiro Yasunaga},
+  \bibinfo{person}{Richard~Lanas Phillips}, \bibinfo{person}{Irena Gao},
+  \bibinfo{person}{Tony Lee}, \bibinfo{person}{Etienne David},
+  \bibinfo{person}{Ian Stavness}, \bibinfo{person}{Wei Guo},
+  \bibinfo{person}{Berton Earnshaw}, \bibinfo{person}{Imran Haque},
+  \bibinfo{person}{Sara~M Beery}, \bibinfo{person}{Jure Leskovec},
+  \bibinfo{person}{Anshul Kundaje}, \bibinfo{person}{Emma Pierson},
+  \bibinfo{person}{Sergey Levine}, \bibinfo{person}{Chelsea Finn}, {and}
+  \bibinfo{person}{Percy Liang}.} \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{{WILDS}: A Benchmark of In-the-Wild Distribution
+  Shifts}. In \bibinfo{booktitle}{\emph{Proceedings of the 38th International
+  Conference on Machine Learning}} \emph{(\bibinfo{series}{Proceedings of
+  Machine Learning Research}, Vol.~\bibinfo{volume}{139})}.
+  \bibinfo{publisher}{PMLR}, \bibinfo{pages}{5637--5664}.
+\newblock
 
 
 \bibitem[Lafuente et~al\mbox{.}(2015)]%
@@ -176,13 +369,15 @@
 \bibitem[Lee et~al\mbox{.}(2019)]%
         {lee2019settransformer}
 \bibfield{author}{\bibinfo{person}{Juho Lee}, \bibinfo{person}{Yoonho Lee},
-  \bibinfo{person}{Jungtaek Kim}, \bibinfo{person}{Adam Kosiorek},
+  \bibinfo{person}{Jungtaek Kim}, \bibinfo{person}{Adam~R. Kosiorek},
   \bibinfo{person}{Seungjin Choi}, {and} \bibinfo{person}{Yee~Whye Teh}.}
   \bibinfo{year}{2019}\natexlab{}.
-\newblock \showarticletitle{Set Transformer: A Framework for Attention-based
+\newblock \showarticletitle{{Set Transformer}: A Framework for Attention-based
   Permutation-Invariant Neural Networks}. In
   \bibinfo{booktitle}{\emph{Proceedings of the 36th International Conference on
-  Machine Learning}}. \bibinfo{publisher}{PMLR}, \bibinfo{pages}{3744--3753}.
+  Machine Learning}} \emph{(\bibinfo{series}{Proceedings of Machine Learning
+  Research}, Vol.~\bibinfo{volume}{97})}. \bibinfo{publisher}{PMLR},
+  \bibinfo{pages}{3744--3753}.
 \newblock
 
 
@@ -223,14 +418,29 @@
 \href{https://doi.org/10.5281/zenodo.10854500}{doi:\nolinkurl{10.5281/zenodo.10854500}}
 
 
-\bibitem[Markanday et~al\mbox{.}(2022a)]%
+\bibitem[Lutterotti(2010)]%
+        {lutterotti2010maud}
+\bibfield{author}{\bibinfo{person}{Luca Lutterotti}.}
+  \bibinfo{year}{2010}\natexlab{}.
+\newblock \showarticletitle{Total Pattern Fitting for the Combined
+  Size-Strain-Stress-Texture Determination in Thin Film Diffraction}.
+\newblock \bibinfo{journal}{\emph{Nuclear Instruments and Methods in Physics
+  Research Section B: Beam Interactions with Materials and Atoms}}
+  \bibinfo{volume}{268}, \bibinfo{number}{3--4} (\bibinfo{year}{2010}),
+  \bibinfo{pages}{334--340}.
+\newblock
+\href{https://doi.org/10.1016/j.nimb.2009.09.053}{doi:\nolinkurl{10.1016/j.nimb.2009.09.053}}
+
+
+\bibitem[Markanday et~al\mbox{.}(2022)]%
         {markanday2022repair}
 \bibfield{author}{\bibinfo{person}{Freddie Markanday}, \bibinfo{person}{Gareth
-  Conduit}, \bibinfo{person}{Bryce Conduit}, \bibinfo{person}{Julia Purstl},
-  \bibinfo{person}{Katerina Christofidou}, \bibinfo{person}{Lova Chechik},
-  \bibinfo{person}{Gavin Baxter}, \bibinfo{person}{Christopher Heason}, {and}
-  \bibinfo{person}{Howard Stone}.} \bibinfo{year}{2022}\natexlab{a}.
-\newblock \showarticletitle{Design of a Ni-Based Superalloy for Laser Repair
+  Conduit}, \bibinfo{person}{Bryce Conduit}, \bibinfo{person}{Julia
+  P{\"u}rstl}, \bibinfo{person}{Katerina Christofidou}, \bibinfo{person}{Lova
+  Chechik}, \bibinfo{person}{Gavin Baxter}, \bibinfo{person}{Christopher
+  Heason}, {and} \bibinfo{person}{Howard Stone}.}
+  \bibinfo{year}{2022}\natexlab{}.
+\newblock \showarticletitle{Design of a {Ni}-Based Superalloy for Laser Repair
   Applications Using Probabilistic Neural Network Identification}.
 \newblock \bibinfo{journal}{\emph{Data-Centric Engineering}}
   \bibinfo{volume}{3} (\bibinfo{year}{2022}), \bibinfo{pages}{e30}.
@@ -238,13 +448,14 @@
 \href{https://doi.org/10.1017/dce.2022.31}{doi:\nolinkurl{10.1017/dce.2022.31}}
 
 
-\bibitem[Markanday et~al\mbox{.}(2022b)]%
+\bibitem[Markanday et~al\mbox{.}(2023)]%
         {markanday2022repairdata}
 \bibfield{author}{\bibinfo{person}{Jonathon Markanday}, \bibinfo{person}{Gareth
-  Conduit}, \bibinfo{person}{Bryce Conduit}, \bibinfo{person}{Julia Purstl},
-  \bibinfo{person}{Katerina Christofidou}, \bibinfo{person}{Lova Chechik},
-  \bibinfo{person}{Gavin Baxter}, \bibinfo{person}{Christopher Heason}, {and}
-  \bibinfo{person}{Howard Stone}.} \bibinfo{year}{2022}\natexlab{b}.
+  Conduit}, \bibinfo{person}{Bryce Conduit}, \bibinfo{person}{Julia
+  P{\"u}rstl}, \bibinfo{person}{Katerina Christofidou}, \bibinfo{person}{Lova
+  Chechik}, \bibinfo{person}{Gavin Baxter}, \bibinfo{person}{Christopher
+  Heason}, {and} \bibinfo{person}{Howard Stone}.}
+  \bibinfo{year}{2023}\natexlab{}.
 \newblock \bibinfo{booktitle}{\emph{{Research Data Supporting Design of a
   Ni-Based Superalloy for Laser Repair Applications Using Probabilistic Neural
   Network Identification}}}.
@@ -278,6 +489,41 @@
 \href{https://doi.org/10.1016/j.actamat.2016.08.081}{doi:\nolinkurl{10.1016/j.actamat.2016.08.081}}
 
 
+\bibitem[Mitchell et~al\mbox{.}(2019)]%
+        {mitchell2019modelcards}
+\bibfield{author}{\bibinfo{person}{Margaret Mitchell}, \bibinfo{person}{Simone
+  Wu}, \bibinfo{person}{Andrew Zaldivar}, \bibinfo{person}{Parker Barnes},
+  \bibinfo{person}{Lucy Vasserman}, \bibinfo{person}{Ben Hutchinson},
+  \bibinfo{person}{Elena Spitzer}, \bibinfo{person}{Inioluwa~Deborah Raji},
+  {and} \bibinfo{person}{Timnit Gebru}.} \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Model Cards for Model Reporting}. In
+  \bibinfo{booktitle}{\emph{Proceedings of the Conference on Fairness,
+  Accountability, and Transparency}}. \bibinfo{publisher}{ACM},
+  \bibinfo{pages}{220--229}.
+\newblock
+\href{https://doi.org/10.1145/3287560.3287596}{doi:\nolinkurl{10.1145/3287560.3287596}}
+
+
+\bibitem[Ovadia et~al\mbox{.}(2019)]%
+        {ovadia2019uncertainty}
+\bibfield{author}{\bibinfo{person}{Yaniv Ovadia}, \bibinfo{person}{Emily
+  Fertig}, \bibinfo{person}{Jie Ren}, \bibinfo{person}{Zachary Nado},
+  \bibinfo{person}{D. Sculley}, \bibinfo{person}{Sebastian Nowozin},
+  \bibinfo{person}{Joshua~V. Dillon}, \bibinfo{person}{Balaji
+  Lakshminarayanan}, {and} \bibinfo{person}{Jasper Snoek}.}
+  \bibinfo{year}{2019}\natexlab{}.
+\newblock \showarticletitle{Can You Trust Your Model's Uncertainty? Evaluating
+  Predictive Uncertainty under Dataset Shift}. In
+  \bibinfo{booktitle}{\emph{Advances in Neural Information Processing
+  Systems}}, Vol.~\bibinfo{volume}{32}. \bibinfo{publisher}{Curran Associates,
+  Inc.}
+\newblock
+\urldef\tempurl%
+\url{https://proceedings.neurips.cc/paper/2019/hash/8558cb408c1d76621371888657d2eb1d-Abstract.html}
+\showURL{%
+\tempurl}
+
+
 \bibitem[Oviedo et~al\mbox{.}(2019)]%
         {oviedo2019xrd}
 \bibfield{author}{\bibinfo{person}{Felipe Oviedo}, \bibinfo{person}{Zekun Ren},
@@ -285,7 +531,7 @@
   \bibinfo{person}{Zhe Liu}, \bibinfo{person}{Noor Titan~Putri Hartono},
   \bibinfo{person}{Savitha Ramasamy}, \bibinfo{person}{Brian~L. DeCost},
   \bibinfo{person}{Siyu I.~P. Tian}, \bibinfo{person}{Giuseppe Romano},
-  \bibinfo{person}{Aaron Gilad~Kusne}, {and} \bibinfo{person}{Tonio
+  \bibinfo{person}{Aaron~Gilad Kusne}, {and} \bibinfo{person}{Tonio
   Buonassisi}.} \bibinfo{year}{2019}\natexlab{}.
 \newblock \showarticletitle{Fast and Interpretable Classification of Small
   X-Ray Diffraction Datasets Using Data Augmentation and Deep Neural Networks}.
@@ -294,6 +540,32 @@
   \bibinfo{pages}{60}.
 \newblock
 \href{https://doi.org/10.1038/s41524-019-0196-x}{doi:\nolinkurl{10.1038/s41524-019-0196-x}}
+
+
+\bibitem[Pickering and Jones(2016)]%
+        {pickering2016hea}
+\bibfield{author}{\bibinfo{person}{E.~J. Pickering} {and}
+  \bibinfo{person}{N.~G. Jones}.} \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{High-Entropy Alloys: A Critical Assessment of Their
+  Founding Principles and Future Prospects}.
+\newblock \bibinfo{journal}{\emph{International Materials Reviews}}
+  \bibinfo{volume}{61}, \bibinfo{number}{3} (\bibinfo{year}{2016}),
+  \bibinfo{pages}{183--202}.
+\newblock
+\href{https://doi.org/10.1080/09506608.2016.1180020}{doi:\nolinkurl{10.1080/09506608.2016.1180020}}
+
+
+\bibitem[Pollock and Tin(2006)]%
+        {pollock2006superalloys}
+\bibfield{author}{\bibinfo{person}{Tresa~M. Pollock} {and}
+  \bibinfo{person}{Sammy Tin}.} \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{Nickel-Based Superalloys for Advanced Turbine
+  Engines: Chemistry, Microstructure and Properties}.
+\newblock \bibinfo{journal}{\emph{Journal of Propulsion and Power}}
+  \bibinfo{volume}{22}, \bibinfo{number}{2} (\bibinfo{year}{2006}),
+  \bibinfo{pages}{361--374}.
+\newblock
+\href{https://doi.org/10.2514/1.18239}{doi:\nolinkurl{10.2514/1.18239}}
 
 
 \bibitem[Reed(2006)]%
@@ -321,6 +593,45 @@
 \href{https://doi.org/10.1107/S0021889869006558}{doi:\nolinkurl{10.1107/S0021889869006558}}
 
 
+\bibitem[Saal et~al\mbox{.}(2013)]%
+        {saal2013oqmd}
+\bibfield{author}{\bibinfo{person}{James~E. Saal}, \bibinfo{person}{Scott
+  Kirklin}, \bibinfo{person}{Muratahan Aykol}, \bibinfo{person}{Bryce Meredig},
+  {and} \bibinfo{person}{Chris Wolverton}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Materials Design and Discovery with High-Throughput
+  Density Functional Theory: The Open Quantum Materials Database ({OQMD})}.
+\newblock \bibinfo{journal}{\emph{JOM}} \bibinfo{volume}{65},
+  \bibinfo{number}{11} (\bibinfo{year}{2013}), \bibinfo{pages}{1501--1509}.
+\newblock
+\href{https://doi.org/10.1007/s11837-013-0755-4}{doi:\nolinkurl{10.1007/s11837-013-0755-4}}
+
+
+\bibitem[Sims et~al\mbox{.}(1987)]%
+        {sims1987superalloys}
+\bibfield{editor}{\bibinfo{person}{Chester~T. Sims}, \bibinfo{person}{Norman~S.
+  Stoloff}, {and} \bibinfo{person}{William~C. Hagel}} (Eds.).
+  \bibinfo{year}{1987}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Superalloys II}}.
+\newblock \bibinfo{publisher}{John Wiley \& Sons}, \bibinfo{address}{New York,
+  NY, USA}.
+\newblock
+
+
+\bibitem[Szymanski et~al\mbox{.}(2021)]%
+        {szymanski2021crabnet}
+\bibfield{author}{\bibinfo{person}{Nathan~J. Szymanski},
+  \bibinfo{person}{Christopher~J. Bartel}, \bibinfo{person}{Yan Zeng},
+  \bibinfo{person}{Qingsong Tu}, {and} \bibinfo{person}{Gerbrand Ceder}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \showarticletitle{Probabilistic Deep Learning Approach to Automate
+  the Interpretation of Multi-Phase Diffraction Spectra}.
+\newblock \bibinfo{journal}{\emph{Chemistry of Materials}}
+  \bibinfo{volume}{33}, \bibinfo{number}{11} (\bibinfo{year}{2021}),
+  \bibinfo{pages}{4204--4215}.
+\newblock
+\href{https://doi.org/10.1021/acs.chemmater.1c01071}{doi:\nolinkurl{10.1021/acs.chemmater.1c01071}}
+
+
 \bibitem[Thompson et~al\mbox{.}(1987)]%
         {thompson1987tch}
 \bibfield{author}{\bibinfo{person}{P. Thompson}, \bibinfo{person}{D.~E. Cox},
@@ -332,6 +643,31 @@
   \bibinfo{pages}{79--83}.
 \newblock
 \href{https://doi.org/10.1107/S0021889887087090}{doi:\nolinkurl{10.1107/S0021889887087090}}
+
+
+\bibitem[Toby(2006)]%
+        {toby2006rvalues}
+\bibfield{author}{\bibinfo{person}{Brian~H. Toby}.}
+  \bibinfo{year}{2006}\natexlab{}.
+\newblock \showarticletitle{{R} Factors in {Rietveld} Analysis: How Good Is
+  Good Enough?}
+\newblock \bibinfo{journal}{\emph{Powder Diffraction}} \bibinfo{volume}{21},
+  \bibinfo{number}{1} (\bibinfo{year}{2006}), \bibinfo{pages}{67--70}.
+\newblock
+\href{https://doi.org/10.1154/1.2179804}{doi:\nolinkurl{10.1154/1.2179804}}
+
+
+\bibitem[Toby and Von~Dreele(2013)]%
+        {toby2013gsasii}
+\bibfield{author}{\bibinfo{person}{Brian~H. Toby} {and}
+  \bibinfo{person}{Robert~B. Von~Dreele}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{{GSAS-II}: The Genesis of a Modern Open-Source All
+  Purpose Crystallography Software Package}.
+\newblock \bibinfo{journal}{\emph{Journal of Applied Crystallography}}
+  \bibinfo{volume}{46}, \bibinfo{number}{2} (\bibinfo{year}{2013}),
+  \bibinfo{pages}{544--549}.
+\newblock
+\href{https://doi.org/10.1107/S0021889813003531}{doi:\nolinkurl{10.1107/S0021889813003531}}
 
 
 \bibitem[Vecsei et~al\mbox{.}(2019)]%
@@ -361,6 +697,85 @@
   Reactive Ni/Al Multilayer as Heat Source}}}.
 \newblock
 \href{https://doi.org/10.5281/zenodo.4623002}{doi:\nolinkurl{10.5281/zenodo.4623002}}
+
+
+\bibitem[Widom(2016)]%
+        {widom2014hea}
+\bibfield{author}{\bibinfo{person}{Michael Widom}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{Prediction of Structure and Phase Transformations}.
+\newblock In \bibinfo{booktitle}{\emph{High-Entropy Alloys}},
+  \bibfield{editor}{\bibinfo{person}{Michael~C. Gao}, \bibinfo{person}{Jien-Wei
+  Yeh}, \bibinfo{person}{Peter~K. Liaw}, {and} \bibinfo{person}{Yong Zhang}}
+  (Eds.). \bibinfo{publisher}{Springer International Publishing},
+  \bibinfo{address}{Cham, Switzerland}, \bibinfo{pages}{267--298}.
+\newblock
+\href{https://doi.org/10.1007/978-3-319-27013-5_8}{doi:\nolinkurl{10.1007/978-3-319-27013-5_8}}
+
+
+\bibitem[Wilkinson et~al\mbox{.}(2016)]%
+        {wilkinson2016fair}
+\bibfield{author}{\bibinfo{person}{Mark~D. Wilkinson}, \bibinfo{person}{Michel
+  Dumontier}, \bibinfo{person}{IJsbrand~Jan Aalbersberg},
+  \bibinfo{person}{Gabrielle Appleton}, \bibinfo{person}{Myles Axton},
+  \bibinfo{person}{Arie Baak}, \bibinfo{person}{Niklas Blomberg},
+  \bibinfo{person}{Jan-Willem Boiten}, \bibinfo{person}{Luiz~Bonino da
+  Silva~Santos}, \bibinfo{person}{Philip~E. Bourne}, \bibinfo{person}{Jildau
+  Bouwman}, \bibinfo{person}{Anthony~J. Brookes}, \bibinfo{person}{Tim Clark},
+  \bibinfo{person}{Merc{\`e} Crosas}, \bibinfo{person}{Ingrid Dillo},
+  \bibinfo{person}{Olivier Dumon}, \bibinfo{person}{Scott Edmunds},
+  \bibinfo{person}{Chris~T. Evelo}, \bibinfo{person}{Richard Finkers},
+  \bibinfo{person}{Alejandra Gonzalez-Beltran}, \bibinfo{person}{Alasdair J.~G.
+  Gray}, \bibinfo{person}{Paul Groth}, \bibinfo{person}{Carole Goble},
+  \bibinfo{person}{Jeffrey~S. Grethe}, \bibinfo{person}{Jaap Heringa},
+  \bibinfo{person}{Peter A.~C. {'t Hoen}}, \bibinfo{person}{Rob Hooft},
+  \bibinfo{person}{Tobias Kuhn}, \bibinfo{person}{Ruben Kok},
+  \bibinfo{person}{Joost Kok}, \bibinfo{person}{Scott~J. Lusher},
+  \bibinfo{person}{Maryann~E. Martone}, \bibinfo{person}{Albert Mons},
+  \bibinfo{person}{Abel~L. Packer}, \bibinfo{person}{Bengt Persson},
+  \bibinfo{person}{Philippe Rocca-Serra}, \bibinfo{person}{Marco Roos},
+  \bibinfo{person}{Rene van Schaik}, \bibinfo{person}{Susanna-Assunta Sansone},
+  \bibinfo{person}{Erik Schultes}, \bibinfo{person}{Thierry Sengstag},
+  \bibinfo{person}{Ted Slater}, \bibinfo{person}{George Strawn},
+  \bibinfo{person}{Morris~A. Swertz}, \bibinfo{person}{Mark Thompson},
+  \bibinfo{person}{Johan van~der Lei}, \bibinfo{person}{Erik van Mulligen},
+  \bibinfo{person}{Jan Velterop}, \bibinfo{person}{Andra Waagmeester},
+  \bibinfo{person}{Peter Wittenburg}, \bibinfo{person}{Katherine Wolstencroft},
+  \bibinfo{person}{Jun Zhao}, {and} \bibinfo{person}{Barend Mons}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{The {FAIR} Guiding Principles for Scientific Data
+  Management and Stewardship}.
+\newblock \bibinfo{journal}{\emph{Scientific Data}}  \bibinfo{volume}{3}
+  (\bibinfo{year}{2016}), \bibinfo{pages}{160018}.
+\newblock
+\href{https://doi.org/10.1038/sdata.2016.18}{doi:\nolinkurl{10.1038/sdata.2016.18}}
+
+
+\bibitem[Yeh et~al\mbox{.}(2004)]%
+        {yeh2004hea}
+\bibfield{author}{\bibinfo{person}{Jien-Wei Yeh}, \bibinfo{person}{Swe-Kai
+  Chen}, \bibinfo{person}{Su-Jien Lin}, \bibinfo{person}{Jon-Yiew Gan},
+  \bibinfo{person}{Tsung-Shune Chin}, \bibinfo{person}{Tao-Tsung Shun},
+  \bibinfo{person}{Chun-Huei Tsau}, {and} \bibinfo{person}{Shou-Yi Chang}.}
+  \bibinfo{year}{2004}\natexlab{}.
+\newblock \showarticletitle{Nanostructured High-Entropy Alloys with Multiple
+  Principal Elements: Novel Alloy Design Concepts and Outcomes}.
+\newblock \bibinfo{journal}{\emph{Advanced Engineering Materials}}
+  \bibinfo{volume}{6}, \bibinfo{number}{5} (\bibinfo{year}{2004}),
+  \bibinfo{pages}{299--303}.
+\newblock
+\href{https://doi.org/10.1002/adem.200300567}{doi:\nolinkurl{10.1002/adem.200300567}}
+
+
+\bibitem[Young(1993)]%
+        {young1993rietveld}
+\bibfield{editor}{\bibinfo{person}{R.~A. Young}} (Ed.).
+  \bibinfo{year}{1993}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The Rietveld Method}}.
+\newblock \bibinfo{publisher}{Oxford University Press},
+  \bibinfo{address}{Oxford, UK}.
+\newblock
+\href{https://doi.org/10.1093/oso/9780198555773.001.0001}{doi:\nolinkurl{10.1093/oso/9780198555773.001.0001}}
 
 
 \bibitem[Zhang et~al\mbox{.}(2020)]%

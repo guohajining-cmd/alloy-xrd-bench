@@ -1,9 +1,32 @@
 # Alloy-XRD-Bench
 
-Alloy-XRD-Bench is a two-line benchmark contract for simulated alloy XRD data.
-The structure line produces auditable relaxed structures, and the XRD line uses
-those relaxed structures as the direct source for standardized diffraction
-samples.
+Alloy-XRD-Bench is a first-stage benchmark for future alloy powder-XRD
+refinement models. HEA-SRO and Gamma-Decomp are complementary local-order and
+component-decomposition subproblems with separate evaluation metrics. The
+benchmark is not a completed joint refinement pipeline.
+
+## Current correction: v1.1.2
+
+The 2026-10-09 correction updates zero-count SRO labels and masks, evaluation
+code, result summaries, and the manuscript. It preserves original data and
+frozen split membership. New evaluations must explicitly use the corrected
+label overlay; the historical masks and scores are not interchangeable with it.
+
+- [Release notes and remaining validation gaps](docs/releases/v1.1.2.md)
+- [Versioned dataset and correction downloads](https://huggingface.co/datasets/jimi7771/alloy-xrd-bench/tree/v1.1.2)
+- [Code release and packaged assets](https://github.com/guohajining-cmd/alloy-xrd-bench/releases/tag/v1.1.2)
+- [Revised manuscript](docs/paper/sitexrd_bench_kdd2027.pdf) and [LaTeX source](docs/paper/sitexrd_bench_kdd2027.tex)
+- [Original v1.1.1 archive](https://doi.org/10.5281/zenodo.21620650)
+
+This correction does not assert that the full benchmark-readiness gates pass.
+The complete corrected Gamma matrix, broader traditional/privileged baselines,
+finite-size/configuration-sampling uncertainty, and experimental latent-target,
+noise, and diffuse-scattering validation remain open. The sections below retain
+the v1.1 contracts and workstation workflows; the correction notes take
+precedence where target masks or renderer interpretation changed.
+
+The structure line produces auditable relaxed structures, and the XRD line
+uses those structures as the direct source for standardized diffraction samples.
 
 The public wording is:
 
@@ -119,15 +142,22 @@ not outputs of a specific potential.
 
 ## Verification
 
-Run the contract test suite:
+Run the self-contained public contract suite (requires `pytest`):
 
 ```powershell
-python -m unittest discover -s tests
+python -m pytest tests --ignore=tests/test_mlip_admission_cli.py
 ```
 
 The tests cover required manifest fields, schema file synchronization, default
 simulation thresholds, canonical structure hashing, provenance reachability,
 private split isolation, and potential redistribution policy.
+
+`tests/test_mlip_admission_cli.py` additionally contains historical workstation
+admission tests that require optional local `audits/` and potential-cache
+fixtures, not distributed with this correction release. Run that module only
+with its original fixtures; the public-release test result does not certify
+those historical admission records. No scientific evaluation or experimental
+validation gap is closed merely by passing these contract tests.
 
 Validate a workspace or release:
 

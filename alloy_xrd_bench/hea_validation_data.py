@@ -104,7 +104,14 @@ def load_validation_rows(
 ) -> list[ValidationRow]:
     """Load the frozen clean-spectrum manifest and composition features."""
     root = Path(dataset_root).resolve()
-    manifest = pd.read_parquet(root / "manifests" / "task_samples.parquet")
+    manifest_path = root / "manifests" / "task_samples.parquet"
+    manifest = pd.read_parquet(manifest_path)
+    if config.get("sro_label_revision"):
+        from .sro_revision import apply_label_revision
+
+        manifest = apply_label_revision(
+            manifest, manifest_path, config["sro_label_revision"], config["sro_targets"]
+        )
     composition = pd.read_parquet(
         root / "manifests" / "composition_only_features.parquet"
     )

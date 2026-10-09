@@ -1,0 +1,76 @@
+{
+  "version": "1.1.2",
+  "date": "2026-10-09",
+  "base_version": "v1.1",
+  "github": "guohajining-cmd/alloy-xrd-bench",
+  "huggingface": "jimi7771/alloy-xrd-bench",
+  "source_manifest_sha256": "5ca9854e7f409c527a85114c7fbb1f41a35601212d19f9ffc5d8e4fe565c611d",
+  "files": {
+    "CITATION.cff": {
+      "bytes": 932,
+      "sha256": "c4a70de0d985e7405be62d580ed9b3715c3f27cd787d747eeaf1d2fbb85ded86"
+    },
+    "label_changes.csv": {
+      "bytes": 6009610,
+      "sha256": "c627a07a28732b4818fa9425347813d9b3423ce767f60a27349392bb48f7ae31"
+    },
+    "labels.parquet": {
+      "bytes": 24233145,
+      "sha256": "d75564942f94345b790119e9db35bb205031181c76cf6ce14156405718da4052"
+    },
+    "LICENSE": {
+      "bytes": 168,
+      "sha256": "2c156c0d349e2d511cd30e4459d6ae9d9d9a144735db837ac68d81bc6e3bf7fd"
+    },
+    "paper/Alloy-XRD-Bench.pdf": {
+      "bytes": 1882915,
+      "sha256": "7c413cd02beb143862ba5cea3b47e3c33013fce012bfa7b5b78005a3bbd76ea0"
+    },
+    "RELEASE_NOTES.md": {
+      "bytes": 5551,
+      "sha256": "c4fb73193ad4281b7e02c30aff8f5c3330ae1e93c56e1eba5fcea33469f347ab"
+    },
+    "results/corrected_hea_results.csv": {
+      "bytes": 3395,
+      "sha256": "47f5f663d6cdeed9aca8d15950023b07a52764cb8f00708e7cf924d081925c18"
+    },
+    "results/fixed_cell_comparisons.json": {
+      "bytes": 46908,
+      "sha256": "d909016dee90ea50dd00aac95e861241729ec811816150d17f5c6cacb772747f"
+    },
+    "results/legacy_perturbation_comparisons.json": {
+      "bytes": 108007,
+      "sha256": "daa70087600a0dcdb6ea619a6806d675e84646f317144f4a9ca4d35d54b82150"
+    },
+    "results/signal_comparisons.json": {
+      "bytes": 98615,
+      "sha256": "0a1dad60e120a85eaa54587f673dbff9b5ab1f3c830b4ca26e96601f6ac4e648"
+    },
+    "revision.json": {
+      "bytes": 5148,
+      "sha256": "e308d3e6031bcc39132faf470d3a4c40ec8f5a51d6bb45174441e2054fe57a97"
+    },
+    "sro_ood_audit.csv": {
+      "bytes": 6008913,
+      "sha256": "da25ed156bb7567bb3edb63a4bcede705dd95608f92b80a398953656249058c4"
+    },
+    "verification/independent_sample.parquet": {
+      "bytes": 1183683,
+      "sha256": "4d3700982639426dafb0d7836a061e37897f4d49484611a1d45621948f163ffd"
+    },
+    "verification/independent_sample_summary.json": {
+      "bytes": 871,
+      "sha256": "3857cb1f9a2f137b40145129d9aa63449383ec2ad658aec1cab18510f7cc63ff"
+    },
+    "verification/overlay_checks.json": {
+      "bytes": 450,
+      "sha256": "f556d1fc79d6320ba3a16a1c0bb3e494ae3083c8fad9a7f4245c172e8a319289"
+    }
+  },
+  "excluded": [
+    "reviewer reports",
+    "response letters",
+    "internal review records",
+    "raw experimental additions"
+  ]
+}

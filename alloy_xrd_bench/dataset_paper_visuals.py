@@ -1,4 +1,4 @@
-"""Generate traceable dataset-first figures for the SiteXRD-Bench paper."""
+"""Generate traceable dataset-first figures for the Alloy-XRD-Bench paper."""
 
 from __future__ import annotations
 
@@ -15,6 +15,8 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+from matplotlib.ticker import FuncFormatter
 import numpy as np
 import pandas as pd
 from PIL import Image
@@ -615,15 +617,146 @@ def _style_axis(axis: plt.Axes) -> None:
 def _plot_structure(axis: plt.Axes, structure: Structure, title: str) -> None:
     fractional = np.mod(np.asarray(structure.frac_coords, dtype=float), 1.0)
     order = np.argsort(fractional[:, 2])
-    axis.plot([0, 1, 1, 0, 0], [0, 0, 1, 1, 0], color="#334155", linewidth=1.0)
-    for index in order:
-        symbol = structure[index].specie.symbol
-        axis.scatter(
-            fractional[index, 0], fractional[index, 1], s=38 + 28 * fractional[index, 2],
-            color=ELEMENT_COLORS.get(symbol, "#64748B"), edgecolor="white", linewidth=0.45,
-            alpha=0.72 + 0.28 * fractional[index, 2], zorder=2 + fractional[index, 2],
+    depth_dx, depth_dy = 0.22, 0.16
+    for shift in (0.0, 1.0):
+        style = "-" if shift == 0.0 else ":"
+        alpha = 0.42 if shift == 0.0 else 0.28
+        for value in range(3):
+            axis.plot(
+                [value + depth_dx * shift, value + depth_dx * shift],
+                [0 + depth_dy * shift, 2 + depth_dy * shift],
+                color="#334155", linewidth=0.75, alpha=alpha, linestyle=style, zorder=0,
+            )
+            axis.plot(
+                [0 + depth_dx * shift, 2 + depth_dx * shift],
+                [value + depth_dy * shift, value + depth_dy * shift],
+                color="#334155", linewidth=0.75, alpha=alpha, linestyle=style, zorder=0,
+            )
+        for corner_x, corner_y in [(0, 0), (2, 0), (2, 2), (0, 2)]:
+            axis.plot(
+                [corner_x, corner_x + depth_dx],
+                [corner_y, corner_y + depth_dy],
+                color="#334155", linewidth=0.55, alpha=0.24, zorder=0,
+            )
+
+    seen: set[str] = set()
+    for tile_x in range(2):
+        for tile_y in range(2):
+            for index in order:
+                symbol = structure[index].specie.symbol
+                depth = fractional[index, 2]
+                label = symbol if symbol not in seen else None
+                seen.add(symbol)
+                axis.scatter(
+                    fractional[index, 0] + tile_x + depth_dx * depth,
+                    fractional[index, 1] + tile_y + depth_dy * depth,
+                    s=24 + 30 * depth,
+                    color=ELEMENT_COLORS.get(symbol, "#64748B"), edgecolor="white", linewidth=0.38,
+                    alpha=0.65 + 0.32 * depth, zorder=2 + depth, label=label,
+                )
+    symbols = sorted({site.specie.symbol for site in structure})
+    legend_columns = min(4, max(1, len(symbols)))
+    if symbols:
+        axis.legend(
+            frameon=False, fontsize=6, ncol=legend_columns, loc="upper center",
+            bbox_to_anchor=(0.5, -0.02), handletextpad=0.25, columnspacing=0.55,
         )
-    axis.set(xlim=(-0.08, 1.08), ylim=(-0.08, 1.08), aspect="equal", title=title)
+    axis.set(xlim=(-0.12, 2.36), ylim=(-0.12, 2.28), aspect="equal", title=title)
+    axis.set_xticks([])
+    axis.set_yticks([])
+    for spine in axis.spines.values():
+        spine.set_visible(False)
+
+
+def _plot_gamma_prototype(axis: plt.Axes, phase: str, title: str) -> None:
+    """Render compact prototype guides for gamma and gamma-prime phases."""
+
+    depth_dx, depth_dy = 0.18, 0.13
+    for shift in (0.0, 1.0):
+        style = "-" if shift == 0.0 else ":"
+        alpha = 0.42 if shift == 0.0 else 0.26
+        for value in range(3):
+            axis.plot(
+                [value + depth_dx * shift, value + depth_dx * shift],
+                [0 + depth_dy * shift, 2 + depth_dy * shift],
+                color="#334155", linewidth=0.8, alpha=alpha, linestyle=style, zorder=0,
+            )
+            axis.plot(
+                [0 + depth_dx * shift, 2 + depth_dx * shift],
+                [value + depth_dy * shift, value + depth_dy * shift],
+                color="#334155", linewidth=0.8, alpha=alpha, linestyle=style, zorder=0,
+            )
+        for corner_x, corner_y in [(0, 0), (2, 0), (2, 2), (0, 2)]:
+            axis.plot(
+                [corner_x, corner_x + depth_dx],
+                [corner_y, corner_y + depth_dy],
+                color="#334155", linewidth=0.55, alpha=0.23, zorder=0,
+            )
+
+    if phase == "gamma_prime":
+        sites = [
+            ("Al", (0.0, 0.0, 0.0), 56),
+            ("Al", (1.0, 0.0, 0.0), 56),
+            ("Al", (0.0, 1.0, 0.0), 56),
+            ("Al", (1.0, 1.0, 0.0), 56),
+            ("Al", (0.0, 0.0, 1.0), 42),
+            ("Al", (1.0, 0.0, 1.0), 42),
+            ("Al", (0.0, 1.0, 1.0), 42),
+            ("Al", (1.0, 1.0, 1.0), 42),
+            ("Ni", (0.5, 0.5, 0.0), 64),
+            ("Ni", (0.5, 0.0, 0.5), 60),
+            ("Ni", (0.0, 0.5, 0.5), 60),
+            ("Ni", (0.5, 1.0, 0.5), 60),
+            ("Ni", (1.0, 0.5, 0.5), 60),
+            ("Ni", (0.5, 0.5, 1.0), 50),
+        ]
+        note = r"L1$_2$: Al corner sublattice, Ni face centers"
+    else:
+        fcc_basis = [
+            (0.0, 0.0, 0.0),
+            (0.5, 0.5, 0.0),
+            (0.5, 0.0, 0.5),
+            (0.0, 0.5, 0.5),
+            (1.0, 0.0, 0.0),
+            (0.0, 1.0, 0.0),
+            (1.0, 1.0, 0.0),
+            (0.5, 0.5, 1.0),
+        ]
+        sites = []
+        for index, coord in enumerate(fcc_basis):
+            symbol = "Al" if index in {2} else "Ni"
+            sites.append((symbol, coord, 56 if coord[2] < 0.5 else 48))
+        note = r"FCC $\gamma$: Ni-rich solid solution"
+
+    seen: set[str] = set()
+    for tile_x in range(2):
+        for tile_y in range(2):
+            for symbol, (x, y, z), size in sites:
+                if x >= 1.0 and tile_x == 1:
+                    continue
+                if y >= 1.0 and tile_y == 1:
+                    continue
+                label = symbol if symbol not in seen else None
+                seen.add(symbol)
+                axis.scatter(
+                    x + tile_x + depth_dx * z,
+                    y + tile_y + depth_dy * z,
+                    s=size,
+                    color=ELEMENT_COLORS.get(symbol, "#64748B"),
+                    edgecolor="white", linewidth=0.45,
+                    alpha=0.66 + 0.28 * min(float(z), 1.0),
+                    zorder=2 + float(z),
+                    label=label,
+                )
+    axis.text(
+        0.5, -0.17, note, transform=axis.transAxes,
+        ha="center", va="top", fontsize=6.5, color="#334155",
+    )
+    axis.legend(
+        frameon=False, fontsize=6, ncol=2, loc="upper center",
+        bbox_to_anchor=(0.5, -0.28), handletextpad=0.25, columnspacing=0.65,
+    )
+    axis.set(xlim=(-0.12, 2.32), ylim=(-0.12, 2.25), aspect="equal", title=title)
     axis.set_xticks([])
     axis.set_yticks([])
     for spine in axis.spines.values():
@@ -699,7 +832,7 @@ def _plot_gamma_components(
 def _save_figure(figure: plt.Figure, path: Path) -> None:
     figure.savefig(
         path, dpi=240, facecolor="white", bbox_inches="tight",
-        metadata={"Software": "SiteXRD-Bench"},
+        metadata={"Software": "Alloy-XRD-Bench"},
     )
     plt.close(figure)
     # Some submission-site PDF previewers mishandle PNG alpha masks embedded by
@@ -731,12 +864,12 @@ def _write_dataset_overview(hea: Mapping[str, Any], gamma: Mapping[str, Any], pa
     sro_axis.imshow(np.nan_to_num(sro).reshape(2, -1), aspect="auto", cmap="coolwarm", vmin=-1, vmax=1)
     sro_axis.set(title="First/second-shell SRO label", xlabel="Species-pair target", ylabel="Shell")
     sro_axis.set_yticks([0, 1], ["1", "2"])
-    _plot_structure(figure.add_subplot(grid[:, 2]), gamma["structures"]["gamma_prime"], "Gamma-prime structure truth")
+    _plot_gamma_prototype(figure.add_subplot(grid[:, 2]), "gamma_prime", r"L1$_2$ gamma-prime prototype")
     _plot_gamma_components(
         figure.add_subplot(grid[:, 3]), gamma["selected_patterns"]["severe"],
         gamma["selected_components"]["severe"], "Phase/HKL components to observed XRD",
     )
-    figure.suptitle("SiteXRD-Bench preserves the path from atomic structure to latent labels and observed XRD", fontsize=13)
+    figure.suptitle("Alloy-XRD-Bench preserves the path from atomic structure to latent labels and observed XRD", fontsize=13)
     _save_figure(figure, path)
 
 
@@ -781,8 +914,8 @@ def _write_hea_example(hea: Mapping[str, Any], path: Path) -> None:
 def _write_gamma_example(gamma: Mapping[str, Any], path: Path) -> None:
     figure = plt.figure(figsize=(12.8, 7.0), constrained_layout=True)
     grid = figure.add_gridspec(2, 3, width_ratios=(0.72, 1.4, 1.4))
-    _plot_structure(figure.add_subplot(grid[0, 0]), gamma["structures"]["gamma"], "FCC Gamma")
-    _plot_structure(figure.add_subplot(grid[1, 0]), gamma["structures"]["gamma_prime"], "L1_2 Gamma-prime")
+    _plot_gamma_prototype(figure.add_subplot(grid[0, 0]), "gamma", r"FCC $\gamma$ prototype")
+    _plot_gamma_prototype(figure.add_subplot(grid[1, 0]), "gamma_prime", r"L1$_2$ $\gamma^\prime$ prototype")
     _plot_gamma_components(
         figure.add_subplot(grid[:, 1]), gamma["selected_patterns"]["resolved"],
         gamma["selected_components"]["resolved"], "Representative resolved window",
@@ -796,52 +929,178 @@ def _write_gamma_example(gamma: Mapping[str, Any], path: Path) -> None:
 
 
 def _write_dataset_coverage(hea: Mapping[str, Any], gamma: Mapping[str, Any], path: Path) -> None:
-    figure, axes = plt.subplots(2, 2, figsize=(12.5, 8.0), constrained_layout=True)
+    def _thousands(value: float, _position: int) -> str:
+        if abs(value) >= 1000:
+            scaled = value / 1000
+            return f"{scaled:.0f}k" if float(scaled).is_integer() else f"{scaled:.1f}k"
+        return f"{value:.0f}"
+
+    figure = plt.figure(figsize=(12.9, 7.2), constrained_layout=False)
+    grid = figure.add_gridspec(
+        2, 2,
+        width_ratios=(1.0, 1.08),
+        height_ratios=(1.0, 1.0),
+        hspace=0.44,
+        wspace=0.30,
+    )
+    chemistry_grid = grid[0, 0].subgridspec(
+        2, 1,
+        height_ratios=(0.12, 0.88),
+        hspace=0.02,
+    )
+    chemistry_title = figure.add_subplot(chemistry_grid[0, 0])
+    chemistry_title.set_axis_off()
+    chemistry_title.text(
+        0.0, 0.45, "(a) HEA chemistry coverage",
+        ha="left", va="center", fontweight="bold", transform=chemistry_title.transAxes,
+    )
+    gamma_grid = grid[1, 0].subgridspec(
+        3, 1,
+        height_ratios=(0.14, 0.12, 0.74),
+        hspace=0.02,
+    )
+    gamma_title = figure.add_subplot(gamma_grid[0, 0])
+    gamma_title.set_axis_off()
+    gamma_title.text(
+        0.0, 0.55, "(c) Gamma overlap windows",
+        ha="left", va="center", fontweight="bold", transform=gamma_title.transAxes,
+    )
+    gamma_legend_axis = figure.add_subplot(gamma_grid[1, 0])
+    gamma_legend_axis.set_axis_off()
+    axes = np.asarray([
+        [figure.add_subplot(chemistry_grid[1, 0]), figure.add_subplot(grid[0, 1])],
+        [figure.add_subplot(gamma_grid[2, 0]), figure.add_subplot(grid[1, 1])],
+    ])
     compositions = np.vstack(hea["candidate_frame"]["composition"].to_numpy())
     presence = compositions > 0
     cooccurrence = presence.astype(int).T @ presence.astype(int)
-    image = axes[0, 0].imshow(cooccurrence, cmap="Blues")
+    image = axes[0, 0].imshow(cooccurrence, cmap="Blues", aspect="equal")
+    axes[0, 0].set_anchor("C")
     axes[0, 0].set_xticks(range(len(ELEMENTS)), ELEMENTS)
     axes[0, 0].set_yticks(range(len(ELEMENTS)), ELEMENTS)
-    axes[0, 0].set_title("HEA element co-occurrence (train)")
-    figure.colorbar(image, ax=axes[0, 0], fraction=0.04, pad=0.02)
+    axes[0, 0].tick_params(axis="both", labelsize=8)
+    for spine in axes[0, 0].spines.values():
+        spine.set_visible(False)
+    axes[0, 0].set_xticks(np.arange(-0.5, len(ELEMENTS), 1), minor=True)
+    axes[0, 0].set_yticks(np.arange(-0.5, len(ELEMENTS), 1), minor=True)
+    axes[0, 0].grid(which="minor", color="white", linewidth=1.0)
+    axes[0, 0].tick_params(which="minor", bottom=False, left=False)
+    chemistry_divider = make_axes_locatable(axes[0, 0])
+    chemistry_colorbar_axis = chemistry_divider.append_axes("right", size="5%", pad=0.08)
+    colorbar = figure.colorbar(image, cax=chemistry_colorbar_axis)
+    colorbar.ax.tick_params(labelsize=7)
+    colorbar.set_label("samples", fontsize=8)
+
     task = hea["task_frame"]
     split_columns = ["id_split", "composition_ood_split", "chemistry_ood_split", "sro_ood_split"]
-    labels = ["FCC", "BCC", "ID test", "Composition OOD", "Chemistry OOD", "SRO OOD"]
+    labels = ["FCC", "BCC", "ID", "Composition", "Chemistry", "SRO"]
     counts = [
         int(task["structure_family"].astype(str).eq("fcc_like").sum()),
         int(task["structure_family"].astype(str).eq("bcc_like").sum()),
         *[int(task[column].astype(str).eq("test").sum()) for column in split_columns],
     ]
     colors = ["#2563EB", "#2563EB", "#D97706", "#D97706", "#D97706", "#D97706"]
-    x = np.arange(len(labels))
-    axes[0, 1].bar(x, counts, color=colors)
-    axes[0, 1].set_xticks(x, labels, rotation=20, ha="right")
-    axes[0, 1].set_title("HEA topology and frozen holdouts")
+    y = np.arange(len(labels))[::-1]
+    axes[0, 1].barh(y, counts, color=colors, height=0.62)
+    axes[0, 1].set_yticks(y, labels)
+    axes[0, 1].set_title("(b) HEA topology and held-out tests", loc="left", fontweight="bold", pad=12)
+    axes[0, 1].set_xlabel("structure-XRD pairs")
+    axes[0, 1].xaxis.set_major_formatter(FuncFormatter(_thousands))
+    axes[0, 1].tick_params(axis="both", labelsize=8)
+    max_count = max(counts) if counts else 1
+    axes[0, 1].set_xlim(0, max_count * 1.18)
+    for yy, count in zip(y, counts):
+        axes[0, 1].text(
+            count + max_count * 0.02, yy, f"{count / 1000:.1f}k",
+            va="center", ha="left", fontsize=7, color="#334155",
+        )
     _style_axis(axes[0, 1])
+
     gamma_counts = pd.crosstab(
         gamma["candidate_frame"]["difficulty"], gamma["candidate_frame"]["component_count"]
-    ).reindex(["single", "resolved", "partial", "strong", "severe"], fill_value=0)
-    gamma_counts.plot(kind="bar", stacked=True, ax=axes[1, 0], colormap="viridis")
-    axes[1, 0].set(title="Gamma overlap difficulty and component count", xlabel="", ylabel="Window count")
+    ).reindex(["single", "resolved", "partial", "strong", "severe"], fill_value=0).sort_index(axis=1)
+    gamma_counts = gamma_counts.rename(
+        columns=lambda value: f"{int(value)} comp" if int(value) == 1 else f"{int(value)} comps"
+    )
+    component_colors = ["#94A3B8", "#0891B2", "#F59E0B", "#7C3AED"]
+    gamma_counts.plot(
+        kind="bar", stacked=True, ax=axes[1, 0],
+        color=component_colors[: len(gamma_counts.columns)], width=0.72,
+    )
+    axes[1, 0].set_xlabel("")
+    axes[1, 0].set_ylabel("window count")
     axes[1, 0].tick_params(axis="x", rotation=0)
-    axes[1, 0].legend(title="components", frameon=False, fontsize=7)
+    axes[1, 0].tick_params(axis="both", labelsize=8)
+    axes[1, 0].yaxis.set_major_formatter(FuncFormatter(_thousands))
+    handles, labels = axes[1, 0].get_legend_handles_labels()
+    if axes[1, 0].legend_ is not None:
+        axes[1, 0].legend_.remove()
+    gamma_legend_axis.legend(
+        handles, labels,
+        title=None, frameon=False, fontsize=9,
+        ncol=min(3, len(labels)), loc="center left",
+        bbox_to_anchor=(0.0, 0.5), borderaxespad=0.0,
+        handlelength=1.4, columnspacing=1.2,
+    )
     _style_axis(axes[1, 0])
+
     occupancy_path = Path(hea["task_path"]).parent / "occupancy_pairs_calibrated.parquet"
     ratios = pd.read_parquet(occupancy_path)["identifiability_ratio"].astype(float) if occupancy_path.exists() else pd.Series(dtype=float)
-    axes[1, 1].hist(ratios, bins=36, color="#2563EB", alpha=0.85)
-    axes[1, 1].axvline(1.0, color="#B91C1C", linestyle="--", label="ranking threshold")
-    axes[1, 1].set(title="Occupancy signal / simulated-noise floor", xlabel="Identifiability ratio", ylabel="Pair count")
-    axes[1, 1].legend(frameon=False)
+    bins = np.linspace(0, 1.0, 45)
+    axes[1, 1].hist(ratios.clip(lower=0, upper=1.0), bins=bins, color="#2563EB", alpha=0.88)
+    axes[1, 1].axvspan(0, 1.0, color="#2563EB", alpha=0.05, linewidth=0)
+    axes[1, 1].axvline(1.0, color="#B91C1C", linestyle="--", linewidth=1.2)
+    axes[1, 1].set_yscale("log")
+    axes[1, 1].set_title("(d) Occupancy identifiability diagnostic", loc="left", fontweight="bold", pad=12)
+    axes[1, 1].set_xlabel("signal / parent-specific simulated-noise floor")
+    axes[1, 1].set_ylabel("pair count (log)")
+    axes[1, 1].tick_params(axis="both", labelsize=8)
+    above_threshold = int((ratios >= 1.0).sum())
+    total_pairs = int(len(ratios))
+    axes[1, 1].text(
+        0.97, 0.88, f"{above_threshold:,} / {total_pairs:,}\nabove threshold",
+        transform=axes[1, 1].transAxes, ha="right", va="top",
+        fontsize=8, color="#334155",
+        bbox={"facecolor": "white", "edgecolor": "#CBD5E1", "alpha": 0.92, "pad": 3},
+    )
+    axes[1, 1].text(
+        1.0, 0.05, "threshold = 1.0", transform=axes[1, 1].get_xaxis_transform(),
+        ha="right", va="bottom", fontsize=7, color="#B91C1C",
+    )
     _style_axis(axes[1, 1])
-    figure.suptitle("Coverage and difficulty are explicit parts of the benchmark contract", fontsize=13)
+    figure.subplots_adjust(left=0.07, right=0.98, top=0.94, bottom=0.10)
     _save_figure(figure, path)
+
+
+def _displayed_metric_ranks(
+    frame: pd.DataFrame, group: str, metric: str, digits: int, *, ascending: bool
+) -> pd.Series:
+    # Rank at the printed precision so visually identical results share a rank.
+    displayed = frame[metric].map(
+        lambda value: float(f"{value:.{digits}f}") if np.isfinite(value) else np.nan
+    )
+    return displayed.groupby(frame[group]).rank(method="dense", ascending=ascending)
+
+
+def _format_ranked_result(label: str, value: float, rank: float, digits: int) -> tuple[str, str]:
+    metric = f"{value:.{digits}f}" if np.isfinite(value) else "--"
+    if rank == 1:
+        return f"\\textbf{{{label}}}", f"\\textbf{{{metric}}}"
+    if rank == 2:
+        metric = f"\\underline{{{metric}}}"
+    return label, metric
 
 
 def _write_compact_results(hea_path: Path, gamma_path: Path, output: Path) -> None:
     hea = pd.read_csv(_required_file(hea_path, "HEA paper results"))
     gamma = pd.read_csv(_required_file(gamma_path, "Gamma paper results"))
     hea = hea.loc[hea["model"].isin(MODEL_LABELS)].copy()
+    hea["display_rank"] = _displayed_metric_ranks(
+        hea, "split_column", "parent_macro_mae_mean", 4, ascending=True
+    )
+    gamma["display_rank"] = _displayed_metric_ranks(
+        gamma, "task", "component_f1_mean", 3, ascending=False
+    )
     lines = [
         "% Generated by alloy_xrd_bench.dataset_paper_visuals; do not edit.",
         "\\begin{minipage}[t]{0.48\\textwidth}",
@@ -853,9 +1112,14 @@ def _write_compact_results(hea_path: Path, gamma_path: Path, output: Path) -> No
     ]
     for row in hea.to_dict(orient="records"):
         split = str(row["split_column"]).replace("_split", "").replace("_", "\\_")
+        label, metric = _format_ranked_result(
+            MODEL_LABELS[str(row["model"])], float(row["parent_macro_mae_mean"]),
+            row["display_rank"], 4,
+        )
+        standard_deviation = float(row["random_seed_std"])
+        deviation_text = f"{standard_deviation:.4f}" if np.isfinite(standard_deviation) else "--"
         lines.append(
-            f"{split} & {MODEL_LABELS[str(row['model'])]} & "
-            f"{float(row['parent_macro_mae_mean']):.4f} & {float(row['random_seed_std']):.4f} \\\\"
+            f"{split} & {label} & {metric} & {deviation_text} \\\\"
         )
     lines.extend([
         "\\bottomrule", "\\end{tabular}", "\\end{minipage}\\hfill",
@@ -866,12 +1130,15 @@ def _write_compact_results(hea_path: Path, gamma_path: Path, output: Path) -> No
     ])
     for row in gamma.to_dict(orient="records"):
         label = str(row.get("model_label", row["model"])).replace("Physics-constrained", "Physics-constr.")
+        label, metric = _format_ranked_result(
+            label, float(row["component_f1_mean"]), row["display_rank"], 3
+        )
         standard_deviation = float(row.get("component_f1_std", float("nan")))
         standard_deviation_text = (
             f"{standard_deviation:.3f}" if np.isfinite(standard_deviation) else "--"
         )
         lines.append(
-            f"{str(row['task']).title()} & {label} & {float(row['component_f1_mean']):.3f} & "
+            f"{str(row['task']).title()} & {label} & {metric} & "
             f"{standard_deviation_text} \\\\"
         )
     lines.extend(["\\bottomrule", "\\end{tabular}", "\\end{minipage}"])
@@ -960,6 +1227,7 @@ def generate_dataset_paper_visuals(
             "gamma_selection": "minimum_scaled_distance_to_group_medians_then_sample_id",
             "gamma_difficulties": ["resolved", "severe"],
             "structure_projection": "[001]",
+            "structure_projection_description": "projected 2x2 cells; Gamma panels use FCC and L1_2 prototype guides",
             "seed": int(seed),
         },
         "sources": [{"path": str(path), "sha256": _sha256(path)} for path in sources],

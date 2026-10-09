@@ -9,12 +9,13 @@ from alloy_xrd_bench.hea_paper_artifacts import generate_paper_artifacts
 
 
 class HeaPaperArtifactTests(unittest.TestCase):
-    def test_paper_consumes_generated_v1_1_results(self):
+    def test_paper_consumes_corrected_results_not_historical_scores(self):
         paper = Path("docs/paper/sitexrd_bench_kdd2027.tex").read_text(encoding="utf-8")
-        self.assertIn(r"\input{generated/compact_primary_results.tex}", paper)
-        self.assertIn("generated/hea_sro_results.tex", paper)
-        self.assertIn("generated/hea_occupancy_signal_noise.png", paper)
-        self.assertIn("generated/hea_perturbation_severity.png", paper)
+        self.assertIn(r"\input{generated/revision_2026_10_06/hea_primary.tex}", paper)
+        self.assertIn("generated/revision_2026_10_06/hea_extended.tex", paper)
+        self.assertIn("generated/revision_2026_10_06/fixed_cell.tex", paper)
+        self.assertNotIn(r"\input{generated/compact_primary_results.tex}", paper)
+        self.assertIn("old perturbation generator", paper)
 
     def test_generates_tables_and_figures_from_frozen_artifacts(self):
         with tempfile.TemporaryDirectory() as tempdir:

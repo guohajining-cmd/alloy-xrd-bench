@@ -1,0 +1,178 @@
+[
+  {
+    "split": "chemistry_ood_split",
+    "candidate": "control-xgboost-CX",
+    "reference": "control-xgboost-C",
+    "candidate_mae": 0.3975758299993032,
+    "reference_mae": 0.5048783979575617,
+    "delta_mae": -0.10730256795825857,
+    "delta_ci95_parent": [
+      -0.11046333893538421,
+      -0.10418340824001188
+    ],
+    "delta_ci95_seed_parent": [
+      -0.11046333893538421,
+      -0.10418340824001188
+    ],
+    "relative_reduction_percent": 21.253150935421484,
+    "relative_ci95_parent": [
+      20.71105561279496,
+      21.78505090247429
+    ],
+    "relative_ci95_seed_parent": [
+      20.71105561279496,
+      21.78505090247429
+    ],
+    "delta_ci98_75_parent": [
+      -0.11130178064171026,
+      -0.10329319835819872
+    ],
+    "delta_ci98_75_seed_parent": [
+      -0.11130178064171026,
+      -0.10329319835819872
+    ],
+    "four_split_interval_policy": "98.75% percentile intervals apply a Bonferroni allocation over four frozen splits for this one contrast, not over all exploratory model comparisons; bootstrap approximation, not preregistered confirmation.",
+    "per_seed_delta": [
+      -0.10730256795825857
+    ],
+    "seed_delta_sd": 0.0,
+    "parent_count": 9790,
+    "fitted_seed_count": 1,
+    "repeats": 10000,
+    "bootstrap_seed": 20261002,
+    "direction": "Candidate minus reference; negative favors candidate",
+    "uncertainty": "Parent-only interval conditions on fitted seeds. Crossed seed/parent interval resamples the observed seed IDs and held-out parent IDs; five seeds do not characterize all possible training randomness. Exploratory pointwise intervals, no multiplicity correction."
+  },
+  {
+    "split": "composition_ood_split",
+    "candidate": "control-xgboost-CX",
+    "reference": "control-xgboost-C",
+    "candidate_mae": 0.4028819438825006,
+    "reference_mae": 0.520230615535953,
+    "delta_mae": -0.1173486716534524,
+    "delta_ci95_parent": [
+      -0.1200001021640993,
+      -0.11472486905643048
+    ],
+    "delta_ci95_seed_parent": [
+      -0.1200001021640993,
+      -0.11472486905643048
+    ],
+    "relative_reduction_percent": 22.557048383735967,
+    "relative_ci95_parent": [
+      22.12799984362618,
+      22.986320256391004
+    ],
+    "relative_ci95_seed_parent": [
+      22.12799984362618,
+      22.986320256391004
+    ],
+    "delta_ci98_75_parent": [
+      -0.12076606838941704,
+      -0.11405374764695386
+    ],
+    "delta_ci98_75_seed_parent": [
+      -0.12076606838941704,
+      -0.11405374764695386
+    ],
+    "four_split_interval_policy": "98.75% percentile intervals apply a Bonferroni allocation over four frozen splits for this one contrast, not over all exploratory model comparisons; bootstrap approximation, not preregistered confirmation.",
+    "per_seed_delta": [
+      -0.1173486716534524
+    ],
+    "seed_delta_sd": 0.0,
+    "parent_count": 13274,
+    "fitted_seed_count": 1,
+    "repeats": 10000,
+    "bootstrap_seed": 20261002,
+    "direction": "Candidate minus reference; negative favors candidate",
+    "uncertainty": "Parent-only interval conditions on fitted seeds. Crossed seed/parent interval resamples the observed seed IDs and held-out parent IDs; five seeds do not characterize all possible training randomness. Exploratory pointwise intervals, no multiplicity correction."
+  },
+  {
+    "split": "id_split",
+    "candidate": "control-xgboost-CX",
+    "reference": "control-xgboost-C",
+    "candidate_mae": 0.4077430821195838,
+    "reference_mae": 0.5230176051301378,
+    "delta_mae": -0.11527452301055413,
+    "delta_ci95_parent": [
+      -0.11796417758159589,
+      -0.1125266423767241
+    ],
+    "delta_ci95_seed_parent": [
+      -0.11796417758159589,
+      -0.1125266423767241
+    ],
+    "relative_reduction_percent": 22.040275868318293,
+    "relative_ci95_parent": [
+      21.587133213412685,
+      22.47189071362639
+    ],
+    "relative_ci95_seed_parent": [
+      21.587133213412685,
+      22.47189071362639
+    ],
+    "delta_ci98_75_parent": [
+      -0.11867420421985202,
+      -0.11180434436628164
+    ],
+    "delta_ci98_75_seed_parent": [
+      -0.11867420421985202,
+      -0.11180434436628164
+    ],
+    "four_split_interval_policy": "98.75% percentile intervals apply a Bonferroni allocation over four frozen splits for this one contrast, not over all exploratory model comparisons; bootstrap approximation, not preregistered confirmation.",
+    "per_seed_delta": [
+      -0.11527452301055413
+    ],
+    "seed_delta_sd": 0.0,
+    "parent_count": 12556,
+    "fitted_seed_count": 1,
+    "repeats": 10000,
+    "bootstrap_seed": 20261002,
+    "direction": "Candidate minus reference; negative favors candidate",
+    "uncertainty": "Parent-only interval conditions on fitted seeds. Crossed seed/parent interval resamples the observed seed IDs and held-out parent IDs; five seeds do not characterize all possible training randomness. Exploratory pointwise intervals, no multiplicity correction."
+  },
+  {
+    "split": "sro_ood_split",
+    "candidate": "control-xgboost-CX",
+    "reference": "control-xgboost-C",
+    "candidate_mae": 0.48101331155301413,
+    "reference_mae": 0.6004930709042039,
+    "delta_mae": -0.11947975935118971,
+    "delta_ci95_parent": [
+      -0.1213067595662735,
+      -0.11767631005415674
+    ],
+    "delta_ci95_seed_parent": [
+      -0.1213067595662735,
+      -0.11767631005415674
+    ],
+    "relative_reduction_percent": 19.896942219713022,
+    "relative_ci95_parent": [
+      19.628285836322714,
+      20.168231479120294
+    ],
+    "relative_ci95_seed_parent": [
+      19.628285836322714,
+      20.168231479120294
+    ],
+    "delta_ci98_75_parent": [
+      -0.12176492054155257,
+      -0.1172186709986242
+    ],
+    "delta_ci98_75_seed_parent": [
+      -0.12176492054155257,
+      -0.1172186709986242
+    ],
+    "four_split_interval_policy": "98.75% percentile intervals apply a Bonferroni allocation over four frozen splits for this one contrast, not over all exploratory model comparisons; bootstrap approximation, not preregistered confirmation.",
+    "per_seed_delta": [
+      -0.11947975935118971
+    ],
+    "seed_delta_sd": 0.0,
+    "parent_count": 25798,
+    "fitted_seed_count": 1,
+    "repeats": 10000,
+    "bootstrap_seed": 20261002,
+    "direction": "Candidate minus reference; negative favors candidate",
+    "uncertainty": "Parent-only interval conditions on fitted seeds. Crossed seed/parent interval resamples the observed seed IDs and held-out parent IDs; five seeds do not characterize all possible training randomness. Exploratory pointwise intervals, no multiplicity correction."
+  }
+]

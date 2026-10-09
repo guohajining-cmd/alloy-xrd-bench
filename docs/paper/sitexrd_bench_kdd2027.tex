@@ -1,4 +1,8 @@
+\ifdefined\anonymouscopy
 \documentclass[sigconf,review,anonymous]{acmart}
+\else
+\documentclass[sigconf,review]{acmart}
+\fi
 
 \usepackage{amsmath}
 \usepackage{booktabs}
@@ -7,6 +11,9 @@
 \usepackage{placeins}
 \usepackage{xcolor}
 
+\makeatletter
+\@ACM@reviewfalse
+\makeatother
 \setcopyright{none}
 \settopmatter{printacmref=true, printccs=true, printfolios=true}
 \renewcommand\footnotetextcopyrightpermission[1]{}
@@ -18,44 +25,85 @@
 \acmYear{2027}
 \copyrightyear{2027}
 
-\newcommand{\dataset}{\textsc{SiteXRD-Bench}}
+\newcommand{\dataset}{\textsc{Alloy-XRD-Bench}}
 \newcommand{\gphase}{$\gamma$}
 \newcommand{\gp}{\ensuremath{\gamma^{\prime}}}
 \newcommand{\lone}{$\mathrm{L1_2}$}
-\title[SiteXRD-Bench]{SiteXRD-Bench: A Hierarchical Benchmark for Chemical-Order Inference and Overlapping-Peak Decomposition in Structural Alloys}
+% Marked copies compare with the local pre-integration baseline, not the submission.
+\newenvironment{revision}{\ifdefined\markedcopy\color{red!70!black}\else\color{black}\fi}{}
+\title[Alloy-XRD-Bench]{Alloy-XRD-Bench: A Hierarchical Benchmark for Site Occupancy, Chemical Ordering, and Overlapping-Peak Decomposition}
 
-% KDD Datasets and Benchmarks is single blind. Replace this block only with
-% verified author metadata before submission; do not invent review identities.
+\ifdefined\anonymouscopy
 \author{Anonymous Author(s)}
-\affiliation{\institution{Anonymous Institution}\country{Anonymous}}
+\affiliation{
+  \institution{Anonymous Institution}
+  \country{Anonymous}
+}
+\else
+\author{Jingmin Guo}
+\affiliation{
+  \institution{Shanghai University}
+  \city{Shanghai}
+  \country{China}
+}
+
+\author{Jie Xiong}
+\authornote{Corresponding authors: Jie Xiong and Tongyi Zhang.}
+\email{xiongjie@shu.edu.cn}
+\affiliation{
+  \institution{Shanghai University}
+  \city{Shanghai}
+  \country{China}
+}
+
+\author{Tongyi Zhang}
+\authornotemark[1]
+\email{zhangty@shu.edu.cn}
+\affiliation{
+  \institution{Shanghai University}
+  \city{Shanghai}
+  \country{China}
+}
+\fi
 
 \begin{abstract}
-Powder X-ray diffraction (XRD) is a central materials characterization signal,
-but it is also a lossy inverse problem: many three-dimensional atomic states can
-map to nearly the same one-dimensional pattern. Existing XRD machine-learning
-benchmarks largely reward phase labels or whole-pattern reconstruction, leaving
-open a harder question: did the model recover the latent physical state that
-generated the observation?
-
-We introduce \dataset{}, one benchmark with two independent task tracks for
-latent-state recovery from powder XRD. HEA-SRO provides 84,019
-quality-controlled high-entropy-alloy structure--XRD pairs with
-permutation-invariant first- and second-shell Warren--Cowley short-range order
-targets under ID, composition OOD, chemistry OOD, SRO OOD, and matched simulated
-perturbations. Gamma-Decomp (gamma/gamma-prime decomposition) provides 10,000
-\gphase{}/\gp{} mixture patterns and 21,116 overlap windows with pre-mixing
-phase/HKL component truth, peak centers, widths, and areas.
-
-The benchmark exposes both learnable structure and principled non-identifiability.
-On ID HEA-SRO, Spectrum Transformer improves SRO MAE over Composition Ridge by
-24.4\% (95\% group-bootstrap interval 23.8--24.9\%). On Gamma-Decomp, Peak
-Feature improves component F1 over a no-spectrum prior by 0.260 (0.207--0.313)
-on full patterns and 0.740 (0.717--0.762) on overlap windows. Yet none of 4,000
-same-composition occupancy pairs exceeds the frozen simulated-perturbation
-identifiability threshold. Thus \dataset{} evaluates not only accuracy, but also
-shortcut use, OOD behavior, component ambiguity, and abstention. Because no
-repeated experimental spectra have exact SRO or component truth, v1.1 makes no
-claim of experimental-noise calibration or unique occupancy recovery.
+\begin{revision}
+Accurate reconstruction of a powder X-ray diffraction (XRD) pattern does not
+by itself establish correct recovery of its latent structure. We present
+\dataset{}, a first-stage benchmark toward alloy powder-XRD refinement.
+Its two complementary subproblems are HEA-SRO for short-range chemical-order
+regression in high-entropy alloys, and
+Gamma-Decomp (gamma/gamma-prime decomposition) for recovering unordered,
+phase- and reflection-specific components from overlapping peaks. The release
+contains 84,019 structure--XRD pairs, 10,000 mixtures, and 21,116 overlap
+windows, with traceable structure--reflection--component--observation
+provenance. Same-composition controls and grouped in-distribution (ID) and
+out-of-distribution (OOD) splits test shortcut use and generalization.
+Task-specific metrics evaluate parent-macro SRO error and matched component
+recovery separately from whole-pattern reconstruction; no cross-track score
+is used. Composition-only, peak-feature, and neural baselines provide
+complementary reference points rather than assuming that a more complex
+model must perform better. After correcting zero-count SRO targets and
+retraining, the Spectrum Transformer achieves an in-distribution
+parent-macro mean absolute error (MAE) of 0.4156 versus 0.5310 for Composition
+Ridge. A same-learner feature ablation reduces error by 19.90--22.56\%
+when adding peak descriptors to composition across four frozen splits.
+These clean-simulation gains do not establish direct experimental SRO
+observability; fixed-cell and perturbation diagnostics expose important
+limitations. The revised Gamma evaluation contract is documented, but its
+complete corrected result matrix remains pending.
+The current release provides computational latent labels; paired experimental
+SRO and independently annotated component targets are not included.
+Its experimental patterns support phase-level and whole-pattern checks.
+These resources prepare data and evaluation protocols for future refinement
+models, rather than demonstrating a complete refinement pipeline.
+\ifdefined\anonymouscopy
+Code and benchmark artifacts are described in the availability statement.
+\else
+Code and benchmark protocols are available at
+\url{https://github.com/guohajining-cmd/alloy-xrd-bench}.
+\fi
+\end{revision}
 \end{abstract}
 
 \begin{CCSXML}
@@ -80,59 +128,94 @@ one-dimensional pattern aggregates many reflections and can be compatible with
 multiple latent structures. This matters when the target is local chemical
 order or phase-resolved components rather than a coarse phase label.
 
-The motivating failure case is concrete. In the public HEA training split, two
-Co$_{0.25}$Cr$_{0.25}$Fe$_{0.25}$Ni$_{0.25}$ FCC structures selected by a
-frozen rule have XRD cosine similarity 0.9967 but first/second-shell SRO
-$L_1$ distance 13.33 (Figure~\ref{fig:hea_sro_example}). A model can fit the
-dominant Bragg pattern and still miss the local chemical order. The same
-disconnect appears in \gphase{}/\gp{} mixtures: a low residual after summing
-peaks does not show whether intensity was assigned to the correct phase/HKL
-components. \dataset{} is built around this distinction between looking right
-and being physically right.
+\begin{revision}
+The motivating failure case is concrete. In the public high-entropy-alloy
+(HEA) training split, two Co$_{0.25}$Cr$_{0.25}$Fe$_{0.25}$Ni$_{0.25}$
+face-centered cubic (FCC) structures have XRD cosine similarity 0.9967 but
+corrected first/second-shell short-range-order (SRO) $L_1$ distance 26.67
+(Figure~\ref{fig:hea_sro_example}). We retain the original released pair;
+we do not reselect it after correcting the labels. A model can fit the
+dominant Bragg pattern and still miss the structure-derived local-order
+target. Similarly, a small residual for a \gphase{}/\gp{} mixture does not
+establish correct assignment to phase and Miller-index (HKL) components.
+\dataset{} distinguishes observation matching from recovery of generated
+latent targets, not simulated consistency from experimentally proven truth.
+\end{revision}
 
-Two alloy settings expose complementary ambiguities. In high-entropy alloys
-(HEAs), structures with the same composition and BCC/FCC parent lattice can
-differ in atomic arrangement and short-range order (SRO), while their dominant
-Bragg peaks remain similar~\cite{miracle2017hea,george2019hea,zhang2020sro}.
-In Ni-based superalloys, FCC \gphase{} and \lone{} \gp{} have related lattices;
-their reflections overlap under broadening, strain, and acquisition effects
-~\cite{reed2006superalloys,devaux2008gamma,mignanelli2017dual}.
+Two alloy settings motivate complementary tests. High-entropy alloys (HEAs)
+extend alloy design to multiple principal elements
+~\cite{yeh2004hea,cantor2004multicomponent}. Their structure, phase behavior,
+and modelling are reviewed in
+~\cite{pickering2016hea,gorsse2018hea,widom2014hea,miracle2017hea,george2019hea}.
+\begin{revision}
+Experimental SRO studies include microscopy observations in FCC
+CrCoNi~\cite{zhang2020sro} and atom-probe-based
+quantification~\cite{he2024apt}. These studies establish the existence of
+experimental SRO research, not unique SRO recovery from conventional powder XRD.
+\end{revision}
+Our same-composition controls test that distinction under a declared forward
+model. Ni-based superalloy metallurgy provides the second setting
+~\cite{reed2006superalloys,pollock2006superalloys,sims1987superalloys,durand1997superalloys}:
+the released mixtures test separation of related \gphase{}/\gp{} reflection
+profiles under simulated broadening and acquisition perturbations.
 
-\dataset{} separates observational fit from latent correctness. It contributes
+\begin{revision}
+The shared long-term objective is alloy powder-XRD refinement. This benchmark
+is a first step toward that objective, providing data, targets, and evaluation
+protocols for future refinement-oriented models. HEA-SRO and Gamma-Decomp
+address complementary subproblems, local chemical-order information and
+reflection-resolved components. They are scored separately at this stage;
+we do not present a completed joint refinement algorithm.
+\dataset{} separates observational fit from latent correctness and contributes
 (1) a shared structure--reflection--component--observation hierarchy, (2)
 same-composition HEA controls and traceable \gphase{}/\gp{} mixtures, (3)
 task-specific permutation-invariant metrics, and (4) grouped ID/OOD protocols,
 identifiability diagnostics, and parent-aware uncertainty estimates. Strength
 and creep-life prediction are outside the benchmark contract.
+\end{revision}
 
 \section{Related Work and Positioning}
 
-Rietveld refinement remains the canonical whole-pattern framework
-~\cite{rietveld1969}; pseudo-Voigt line shapes provide a standard representation
-of diffraction broadening~\cite{thompson1987tch}. A good profile fit, however,
-does not prove unique site occupancy. Warren--Cowley coefficients summarize
-conditional neighbor probabilities without assigning arbitrary atom indices
-~\cite{cowley1950}.
+Classical powder-diffraction procedures~\cite{klug1974xray} and Rietveld
+refinement~\cite{rietveld1969,young1993rietveld} provide the measurement and
+whole-pattern modelling background. Pseudo-Voigt line shapes model diffraction
+broadening~\cite{thompson1987tch}, while crystallography packages support
+standardized profile refinement~\cite{toby2013gsasii,lutterotti2010maud}.
+Small profile residuals alone do not establish a correct structural
+model~\cite{toby2006rvalues}. Warren--Cowley coefficients
+summarize conditional neighbor probabilities without assigning arbitrary atom
+indices~\cite{cowley1950}.
 
 XRD learning has addressed symmetry classification, augmentation, and
 multiphase identification or quantification
-~\cite{vecsei2019symmetry,oviedo2019xrd,lee2020multiphase,greasley2023multiphase},
+~\cite{vecsei2019symmetry,oviedo2019xrd,lee2020multiphase,greasley2023multiphase,szymanski2021crabnet},
 while set prediction supports unordered component outputs
-~\cite{lee2019settransformer,carion2020detr}. Calibration and domain
-generalization motivate controlled shifts rather than random-split accuracy
-alone~\cite{guo2017calibration,gulrajani2021domainbed}.
+~\cite{lee2019settransformer,carion2020detr}. Confidence calibration
+~\cite{guo2017calibration} and proper probabilistic scoring
+~\cite{gneiting2007proper} concern the quality of uncertainty estimates.
+Domain-generalization benchmarks and uncertainty-under-shift evaluations
+motivate assessing controlled shifts beyond random-split accuracy
+~\cite{gulrajani2021domainbed,koh2021wilds,ovadia2019uncertainty}.
 
-\IfFileExists{generated/dataset_overview.png}{
+\IfFileExists{generated/revision_2026_10_06/dataset_overview.png}{
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=\textwidth]{generated/dataset_overview.png}
+  \includegraphics[width=\textwidth]{generated/revision_2026_10_06/dataset_overview.png}
   \caption{The two released data tracks and their traceable forward chains.
-  Every displayed object comes from a public training manifest; IDs, selection
-  metrics, reasons, and input hashes are stored in the visual manifest.}
+  Structure panels render projected $2\times2$ periodic cells for visual
+  readability rather than full simulation supercells; the gamma/gamma-prime
+  panels are phase-prototype guides for FCC \gphase{} and ordered \lone{}
+  \gp{}. Displayed spectra, labels, component profiles, IDs, selection metrics,
+  reasons, and input hashes are stored in the visual manifest. The HEA panel
+  uses corrected SRO labels; gray entries are undefined, not zero. Gamma
+  profiles retain the released forward model.}
+  \label{fig:dataset_overview}
   \Description{HEA and gamma/gamma-prime structures are linked to reflections,
   latent labels or component profiles, clean patterns, and observations.}
 \end{figure*}}{}
 
+Table~\ref{tab:related_resources} contrasts the source resources with the
+supervision needed for this benchmark.
 \begin{table}[t]
   \caption{Representative resources and released supervision. ``Missing''
   denotes absence from that resource's contract, not a defect.}
@@ -143,14 +226,33 @@ alone~\cite{guo2017calibration,gulrajani2021domainbed}.
     \midrule
     COD~\cite{grazulis2012cod} & Open crystal structures & Component truth and grouped inverse evaluation \\
     Materials Project~\cite{jain2013materialsproject} & Computed structures/properties & Observed-pattern component provenance \\
-    RRUFF~\cite{lafuente2015rruff} & Experimental mineral XRD & SRO and phase/HKL component truth \\
-    HEA source~\cite{li2024dataset} & Relaxed structures/attributes & XRD tasks, perturbations, evaluator \\
-    \dataset{} & SRO, reflections, components, XRD, OOD & Exact experimental latent truth \\
+    RRUFF~\cite{lafuente2015rruff} & Mineral XRD, indexing & SRO and pre-mixing component truth \\
+    HEA source~\cite{li2024dataset} & Structures, attributes, initial SRO & XRD tasks, perturbations, evaluator \\
+    \dataset{} & SRO, reflections, components, XRD, OOD & Independent experimental SRO/component labels \\
     \bottomrule
-  \end{tabular}
+\end{tabular}
 \end{table}
 
+Materials repositories improve access to structures and calculations
+~\cite{belsky2002icsd,saal2013oqmd,draxl2019nomad,choudhary2020jarvis},
+and frameworks such as AFLOW automate high-throughput calculations
+~\cite{curtarolo2012aflowlib},
+but benchmark supervision for latent SRO and pre-mixing phase/HKL components
+requires additional forward-chain provenance.
+
+\begin{revision}
+Among the resources considered in this study, benchmark-ready experimental
+data pairing powder-XRD observations with independently quantified,
+sample-matched SRO targets are rare. This is a scoped assessment, not an
+exhaustive dataset census. The current release does not include these
+experimental SRO labels or independently annotated reflection-level components.
+Its computational targets provide a controlled starting point for future
+refinement-model development, complementing the experimental studies above.
+\end{revision}
+
 \section{Dataset Overview}
+
+Figure~\ref{fig:dataset_overview} summarizes the two data-generation chains.
 
 For latent material state $z$ and acquisition condition $n$, the release stores
 \begin{equation}
@@ -165,6 +267,18 @@ y(\theta)=\sum_{k=1}^{K}c_k(\theta;z,n)+b(\theta;n)+\epsilon(\theta;n).
 Stable sample, structure-state, parent-group, reflection, and component IDs link
 every level to a frozen manifest, configuration, checksum, and provenance row.
 
+\textbf{Data significance.}
+The release is useful not merely because it contains additional XRD curves, but
+because it preserves the hidden causes of those curves. HEA-SRO links spectra to
+site-resolved chemical order, so users can test whether a model recovers local
+arrangement rather than composition shortcuts. Gamma-Decomp stores phase/HKL
+components before they are summed into an observed pattern, so users can test
+whether a method assigns intensity to the correct physical source rather than
+only reducing residual error. The paired clean, perturbed, OOD, and
+identifiability views make failure modes measurable: learnability, shortcut use,
+acquisition sensitivity, component ambiguity, and principled abstention are
+separated instead of collapsed into one reconstruction score.
+
 Every source row receives a stable ID, canonical structure hash, composition,
 quality result, and eligibility flags. Derived labels are deterministic,
 versioned functions of formal structures. Rejected rows remain accounted for.
@@ -174,7 +288,8 @@ $\{c_k\}$.
 
 \section{HEA-SRO Data}
 
-The source corpus contains ordered cells and SQS structures with up to 125 atoms
+The source corpus contains ordered cells and special quasirandom structures
+(SQS) with up to 125 atoms
 from Al, Co, Cr, Cu, Fe, Mn, Ni, and Si
 ~\cite{li2024dataset,li2024modeling}. Of 84,024 source rows, 84,019 pass quality
 checks and five are rejected. Each accepted structure has one immutable clean
@@ -185,30 +300,45 @@ For species $a,b$ and shell $s$, the primary target is
 \begin{equation}
 \alpha_{ab}^{(s)}=1-\frac{P(b\mid a,s)}{c_b},
 \end{equation}
-where $c_b$ is the global concentration. Each sample stores complete masked
-first/second-shell species-pair matrices, topology, shell definitions, and
-provenance to the relaxed structure. Exact atom-index recovery is not a task.
+\begin{revision}
+where $c_b$ is the global concentration. For a present central species, a
+defined neighbor shell, and $c_b>0$, a zero $a\!\to\!b$ count gives
+$P(b\mid a,s)=0$ and hence $\alpha_{ab}^{(s)}=1$; it is not missing data.
+Absent species and undefined shells remain masked. The corrected overlay
+adds 669,370 previously omitted targets across 88,019 rows (84,019 source
+structures and 4,000 counterfactuals), without changing the frozen splits.
+An independent implementation agrees on 1,819 checked rows. This validates
+label arithmetic under the declared shell convention, not bulk-alloy SRO
+or the physical sufficiency of the XRD simulator. Each target remains
+linked to its finite structure. Exact atom-index recovery is not a task.
+\end{revision}
 
-\IfFileExists{generated/hea_sro_example.png}{
+\IfFileExists{generated/revision_2026_10_06/hea_sro_example.png}{
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=\textwidth]{generated/hea_sro_example.png}
-  \caption{Deterministically selected HEA-SRO training pair: same reduced
-  composition and BCC/FCC topology, XRD cosine similarity at least 0.995, and
-  maximum eligible SRO $L_1$ difference. The full spectra, most different local
-  peak region, and first/second-shell SRO difference are shown.}
+  \includegraphics[width=0.96\textwidth]{generated/revision_2026_10_06/hea_sro_example.png}
+  \caption{Fixed released HEA training example, now shown with corrected
+  SRO labels. The original selection maximized eligible SRO difference
+  among same-composition/topology pairs with cosine similarity at least
+  0.995 under the old mask. The pair is not reoptimized here. Corrected
+  $L_1$ distance is 26.67 across 32 common defined targets; gray entries
+  remain undefined. Structure panels project $2\times2$ periodic cells.}
   \label{fig:hea_sro_example}
   \Description{Composition-matched structures have nearly identical XRD but
   different local chemical order.}
 \end{figure*}}{}
 
-Matching composition and topology blocks a composition shortcut, while the
-near-identical spectra retain different local order. This is why the dataset
-needs both SRO labels and identifiability analysis. Family is retained only as
-an automated evidence diagnostic. A 1,000-parent counterfactual diagnostic
-contains 4,000 same-composition occupancy pairs; none exceeds its
-parent-specific simulated-noise floor. Ambiguous pairs are not ranking
-negatives, and the threshold is not lowered to meet a quota.
+\begin{revision}
+Matching composition and topology removes a composition-only distinction
+between this pair, but does not by itself isolate the scattering mechanism.
+The source structures are relaxed, so lattice and positional changes may
+carry correlated information. A separate 1,000-parent, 4,000-pair diagnostic
+fixes composition, cell, and positions while changing occupancy. Its
+historical 0/4,000 threshold-exceedance result is conditional on the original
+uncalibrated perturbation generator (Section~\ref{sec:diagnostics}); it is
+not a universal non-identifiability result. Family labels remain automated
+diagnostics rather than adjudicated phase truth.
+\end{revision}
 
 \section{Gamma/Gamma-Prime Decomposition Data}
 
@@ -224,30 +354,42 @@ window view has 34,983 scoring components. Strictly coincident \gp{} $(221)$ and
 $(300)$ reflections remain separate in provenance but merge into an equivalent
 HKL scoring group. Seventeen phase/HKL groups are evaluated.
 
-Overlap difficulty is quantitative and frozen in the manifest. For every pair
-of components in a window, the separation ratio is
+\begin{revision}
+Scoring difficulty is computed from eligible targets after merging
+equivalent components. Context reflections do not define the scoring
+bucket. For each eligible pair, the separation ratio is
 \[
 \rho_{ij}=|m_i-m_j|/\{(w_i+w_j)/2\},
 \]
-where $m$ is peak center and $w$ is FWHM. The window difficulty uses
-$\rho_{\min}=\min_{i<j}\rho_{ij}$: single if no scored pair exists, severe if
+where $m$ is peak center and $w$ is full width at half maximum (FWHM).
+Zero-target windows are empty; one-target windows are single. For at least
+two targets, $\rho_{\min}=\min_{i<j}\rho_{ij}$ defines severe if
 $\rho_{\min}<0.5$, strong if $0.5\le\rho_{\min}<1$, partial if
 $1\le\rho_{\min}<2$, and resolved if $\rho_{\min}\ge2$. Thus ``severe
 overlap'' means peak centers are separated by less than half the average FWHM,
-not an aesthetic choice made after seeing model errors.
+not an aesthetic choice made after seeing model errors. Released context
+buckets are retained as provenance and must not substitute for these
+target-based buckets.
+\end{revision}
 
 \IfFileExists{generated/gamma_decomp_example.png}{
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=\textwidth]{generated/gamma_decomp_example.png}
+  \includegraphics[width=0.95\textwidth]{generated/gamma_decomp_example.png}
   \caption{Gamma-Decomp training examples nearest to the resolved and
-  severe-overlap medians in component count, SNR, and phase weight. The panels
-  show FCC \gphase{}, \lone{} \gp{}, phase/HKL profiles, clean sum,
-  background/noise residual, observed pattern, center, FWHM, and area.}
+  severe-overlap context medians in component count, signal-to-noise ratio
+  (SNR), and phase weight. These are released illustrations, not new
+  corrected-evaluator results. The panels
+  show FCC \gphase{} and ordered \lone{} \gp{} prototype guides, phase/HKL
+  profiles, clean sum, background/noise residual, observed pattern, center,
+  FWHM, and area.}
+  \label{fig:gamma_decomp_example}
   \Description{Resolved and severely overlapping windows show multiple
   physical components combining into observed peaks.}
 \end{figure*}}{}
 
+Figure~\ref{fig:gamma_decomp_example} illustrates how constituent profiles
+combine in resolved and severely overlapping windows.
 The target is an unordered component set with phase, equivalent HKL group,
 center, width, area, and profile parameters. An observed peak may contain
 several such components. Low reconstruction error therefore does not imply
@@ -255,6 +397,9 @@ correct latent decomposition; evaluation uses deterministic optimal bipartite
 matching rather than output order.
 
 \section{Coverage, Tasks, and Splits}
+
+Figure~\ref{fig:dataset_coverage} summarizes release coverage and diagnostic
+difficulty; Table~\ref{tab:contract} lists the two task contracts.
 
 The clean reference uses Cu K$\alpha$, $20^\circ$--$100^\circ$ in $2\theta$,
 and $0.02^\circ$ spacing. Reflection tables retain position, intensity, HKL,
@@ -264,17 +409,21 @@ texture, and noise. Validation/test perturbations are frozen.
 \IfFileExists{generated/dataset_coverage.png}{
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=\textwidth]{generated/dataset_coverage.png}
+  \includegraphics[width=0.95\textwidth]{generated/dataset_coverage.png}
   \caption{Manifest-derived coverage and difficulty: HEA element
-  co-occurrence, BCC/FCC and ID/OOD support, Gamma component-count/overlap
-  support, and occupancy identifiability ratio with frozen threshold 1.0.}
+  co-occurrence, body-centered cubic (BCC)/FCC and ID/OOD support, released
+  Gamma context-count/overlap support, and the historical occupancy
+  identifiability ratio under the old perturbation generator (threshold
+  1.0). The latter is not experimentally calibrated.}
+  \label{fig:dataset_coverage}
   \Description{Four panels summarize HEA chemistry and splits, Gamma overlap
   difficulty, and occupancy signal relative to simulated noise.}
 \end{figure*}}{}
 
 \begin{table*}[t]
-  \caption{Dataset and task contract. Both tracks belong to one release and
-  are scored independently. Reconstruction is supplementary and never replaces
+  \caption{Dataset and task contract. The two subproblems serve a shared
+  future-refinement objective and are scored separately.
+  Reconstruction is supplementary and never replaces
   a latent metric.}
   \label{tab:contract}
   \scriptsize\setlength{\tabcolsep}{3pt}
@@ -298,72 +447,135 @@ improvement over mandatory Composition Ridge is
 \begin{equation}
 S_{\mathrm{SRO}}=100\max(0,1-\mathrm{MAE}_{model}/\mathrm{MAE}_{base}).
 \end{equation}
-Gamma reports component F1, phase/HKL and count accuracy, and errors in center,
-width, area, and profile. Whole-pattern error remains supplementary. Random-seed
-standard deviations and 2,000-replicate paired-parent bootstrap intervals (seed
-2027) are reported separately. No cross-track composite score is defined
-because SRO matrix regression and unordered component recovery have different
-target spaces and metrics.
+\begin{revision}
+Per-shell Spearman correlation pools valid targets within each shell; it is
+not a parent-macro statistic. We retain the original SRO-OOD membership as
+\emph{legacy SRO OOD}: its label-shift interpretation has not been
+re-established under the corrected mask.
+Gamma's protocol requires component F1, joint phase/HKL recovery, count
+accuracy, and matched center/width/area/profile errors. Its complete revised
+matrix remains pending. Matching requires equal phase and equivalent HKL,
+with center error at most $\max(0.15^\circ,1.5w_{\rm true})$; the cost
+combines normalized center, width, and profile errors. Appendix~\ref{app:gamma}
+defines aggregation and empty-target handling. Resampling follows the
+bootstrap principle~\cite{efron1994bootstrap}, with analysis-specific
+replicate counts stated below. No cross-track composite score is defined
+because SRO regression and unordered component recovery use different targets.
+\end{revision}
 
 \section{Benchmark Validation}
 
-The formal HEA matrix consists of Composition Ridge, Peak XGBoost, ResNet1D, and Spectrum Transformer.
-Ridge is deterministic; the three XRD models use
-split-specific training memberships and seeds 2027--2031. A
-physics-constrained HEA experiment is appendix-only and is not part of the
-formal four-model matrix. Gamma adds a no-spectrum prior, constrained
-pseudo-Voigt fit, peak features, neural set predictors, and a
-physics-constrained component model.
+\begin{revision}
+\subsection{Corrected HEA Results}
+All HEA results in Tables~\ref{tab:primary_results}--\ref{tab:signal_controls}
+use corrected labels, frozen original splits, and the original clean
+observations. Table~\ref{tab:primary_results} reports \emph{retraining}, not
+rescoring of old predictions. Composition Ridge is deterministic; the other
+formal models record seeds 2027--2031. XGBoost yields identical predictions
+across these seeds, so its zero standard deviation (SD) does not represent five distinct
+stochastic fits. Appendix~\ref{app:settings} gives training settings.
 
-The physics-constrained variants are reported but not promoted into the primary
-leaderboard for two reasons. First, they introduce additional forward-profile
-structure and latent peak-parameter priors, so they test a different contract
-than end-to-end learning from the released inputs. Second, their gains are not
-uniform: in HEA-SRO the appendix variant changes MAE by only
-0.0011--0.0024 relative to Spectrum Transformer, while in Gamma-Decomp it is
-competitive on full patterns but much weaker on fixed overlap windows. Keeping
-them in the appendix makes the design choice explicit without letting a
-specialized prior define the benchmark's main comparison.
-
-On HEA ID, Spectrum Transformer reduces parent-macro MAE from 0.4496 to 0.3400.
-The 24.4\% reduction has a parent-bootstrap interval of 23.8--24.9\% over 12,556
-groups. Peak XGBoost is competitive; ResNet1D does not consistently beat the
-metadata control, demonstrating why a simple shortcut baseline is necessary.
-
-On Gamma test data, Peak Feature attains component F1 of 0.683 on full patterns
-and 0.809 on windows, versus 0.421 and 0.072 for the no-spectrum prior. For seed
-2027, paired-parent improvements are 0.260 (0.207--0.313) and 0.740
-(0.717--0.762). Neural predictors are not uniformly superior: the Gamma
-physics-constrained model scores 0.627 on full patterns but 0.304 on windows.
-The occupancy diagnostic remains a formal negative result: 0/4,000 pairs exceed
-the frozen ratio 1.0.
+Spectrum Transformer has the lowest mean MAE among the four formal models
+on every split. On ID it improves over Composition Ridge from 0.5310 to
+0.4156 (21.73\%), while Peak XGBoost reaches 0.4402 and ResNet1D 0.5121.
+Thus spectral predictors are not interchangeable: a neural architecture
+alone does not guarantee a large gain, and handcrafted peak descriptors
+remain competitive. Error is highest on the legacy SRO-OOD membership
+for every model; this is an empirical difficulty comparison, not renewed
+validation of that split's SRO-shift semantics. The exploratory
+physics-constrained variant improves Transformer MAE by only
+0.0003--0.0024; its complete metrics are reported separately in
+Table~\ref{tab:extended_hea}, without a claim of significant superiority.
 
 \begin{table*}[t]
   \centering
-  \caption{Compact primary results. HEA reports parent-macro SRO MAE for ID and
-  three OOD splits; Gamma reports component F1 for full patterns and windows.
-  SD is across declared seeds; ``--'' means not applicable.}
+  \caption{Corrected-label HEA retraining: parent-macro masked MAE
+  (lower is better), mean $\pm$ seed SD. The best formal-model mean in
+  each column is \textbf{bold}, the runner-up \underline{underlined}, with
+  consistently ranked model names highlighted likewise; this
+  denotes numerical rank, not significance. Ridge has one deterministic
+  fit (no SD shown); the others record five seeds. Legacy SRO OOD
+  retains the original membership but not a revalidated label-shift claim.}
   \label{tab:primary_results}
-  \input{generated/compact_primary_results.tex}
+  \input{generated/revision_2026_10_06/hea_primary.tex}
 \end{table*}
 
-All prediction IDs must match the declared split exactly. Perfect-oracle tests
-attain the exact optimum, shuffled predictions degrade, and component
-permutations leave set scores unchanged. Release readiness depends on complete
-IDs, splits, seeds, manifests, checksums, and statistics, not on whether a model
-beats Ridge.
+\subsection{Incremental Value Beyond Composition}
+Comparing different model families cannot isolate the value of the input.
+We therefore fit the same XGBoost learner with composition alone (C),
+98 peak descriptors alone (X), and their concatenation (C+X), using the
+same splits, training budget, and seed 2027. Table~\ref{tab:signal_controls}
+shows the C+X versus C contrast. ID MAE decreases from 0.5230 to 0.4077,
+with paired difference $-0.1153$ and 95\% parent-bootstrap interval
+$[-0.1180,-0.1125]$. Reductions span 19.90--22.56\% across four splits.
+The 10,000-resample intervals (bootstrap seed 20261002) condition on one
+fitted seed; they do not measure training-seed variation. This is a
+post-review feature ablation, not a preregistered confirmatory test.
 
-\FloatBarrier
+\begin{table*}[t]
+  \centering
+  \caption{Same-learner feature ablation on corrected clean targets:
+  composition (C), peak descriptors (X), and both (C+X).
+  $\Delta=\mathrm{MAE}_{C+X}-\mathrm{MAE}_{C}$; negative favors adding
+  spectral descriptors. Intervals are paired, pointwise, parent-level
+  percentile intervals conditional on the fitted models.}
+  \label{tab:signal_controls}
+  \input{generated/revision_2026_10_06/signal_controls.tex}
+\end{table*}
+
+These gains establish predictive information beyond composition under the
+released clean simulator, not a direct diffuse-scattering SRO signature.
+With composition, cell, and positions fixed, the Transformer reduces
+error relative to a zero-change predictor by only 4.84--7.44\%; C+X
+does not improve that paired-change target (Table~\ref{tab:fixed_cell}).
+In an additional matched ID diagnostic, the old perturbation generator
+increases C+X MAE from 0.2751 to 0.6260. The renderer was subsequently
+corrected to preserve integrated peak area; matched reevaluation is not
+complete. The old negative result therefore demonstrates sensitivity to
+that generator, not a calibrated experimental noise limit.
+
+\subsection{Gamma Evaluation Status}
+The revised evaluator distinguishes eligible targets from context, handles
+empty windows, and removes arbitrary component IDs from physical matching
+and tied-risk calculations. However, the full prediction inventory,
+adaptation, and corrected uncertainty analysis are incomplete. Historical
+Gamma F1 scores are therefore not carried into the updated main table.
+A constrained peak-profile fit is not a Rietveld refinement baseline;
+neither a validated Rietveld comparison nor the requested known-count,
+known-phase, and known-instrument models is available. This limits the
+current benchmark evaluation, rather than being resolved by the HEA gains.
+\end{revision}
 
 \section{Availability, Limitations, and Conclusion}
 
 Code, configuration, evaluation, cards, download tools, and smoke data are
 released separately from the sharded structures/XRD/labels and the frozen
-metadata/checksum snapshot. The final paper records public GitHub, Hugging Face,
-and Zenodo DOI links only after the records exist and anonymous HTTP checks
-succeed; no provisional URL or unminted DOI is printed. The repository also
-contains the Dataset Card, Benchmark Card, Croissant metadata, citation record,
-and release checklist.
+metadata/checksum snapshot.
+\ifdefined\anonymouscopy
+For blind review, an anonymized supplementary package contains the code,
+configuration, evaluator, cards, smoke data, checksum manifests, and download
+instructions. Public repository, dataset-hosting, and archived-release links
+will be de-anonymized after review.
+\else
+Code is available at
+\url{https://github.com/guohajining-cmd/alloy-xrd-bench}; dataset shards are
+hosted at \url{https://huggingface.co/datasets/jimi7771/alloy-xrd-bench}; and
+the original v1.1.1 archive is \url{https://doi.org/10.5281/zenodo.21620650}.
+\fi
+The release also contains the Dataset Card, Benchmark Card, Croissant metadata,
+citation record, and release checklist, following broader dataset and model
+reporting practices
+~\cite{wilkinson2016fair,gebru2021datasheets,mitchell2019modelcards}.
+\begin{revision}
+The v1.1.2 correction release provides the source-bound SRO-label overlay,
+revised evaluation code, corrected-result summaries, and this manuscript.
+Version-specific assets and checksums are available from the GitHub
+\href{https://github.com/guohajining-cmd/alloy-xrd-bench/releases/tag/v1.1.2}{v1.1.2 release}
+and the Hugging Face
+\href{https://huggingface.co/datasets/jimi7771/alloy-xrd-bench/tree/v1.1.2}{v1.1.2 dataset revision}.
+The original data and frozen split membership are retained; the correction
+does not establish completion of the outstanding validation described below.
+\end{revision}
 
 The computational structure is ground truth for generated samples, but does not
 prove that experimental powder XRD uniquely determines occupancy. Periodic
@@ -372,63 +584,166 @@ nanostructure, and unmodeled phases can make inversion ambiguous. Family labels
 are automated and unadjudicated. Occupancy uses simulated perturbations only;
 real repeated-measurement import and noise calibration are v1.2 gates.
 
-The admitted HEA experimental set supports only mother-phase trends
-~\cite{wang2021heaf}. The Ni-based sanity set contains licensed raw arrays for
+\begin{revision}
+The experimental data included in this release do not provide independent
+SRO or reflection-level component labels. The HEA experimental set supports mother-phase trends
+~\cite{wang2021heaf}. The Ni-based sanity set uses public raw arrays for
 heat-treated IN718 and AM718R, where \gp{} and gamma-double-prime superlattice
 reflections are not distinguishable
 ~\cite{markanday2022repairdata,markanday2022repair}. It supports phase-level and
 whole-pattern checks, not experimental component-level validation.
+The distinction between \gp{} and gamma-double-prime is important: Alloy 718
+precipitation and dual-superlattice alloy studies concern distinct precipitate
+structures~\cite{devaux2008gamma,mignanelli2017dual}, not interchangeable
+ground-truth labels for this two-phase benchmark.
+\end{revision}
 
-\dataset{} therefore unifies two complementary inverse problems within one
-versioned benchmark: subtle local chemical order and overlapping \gphase{}/\gp{}
-phase evidence. Its central claim is not that every latent variable is
-recoverable, but that recoverability, shortcut use, OOD behavior, and abstention
-can now be evaluated against traceable truth.
+\begin{revision}
+The current forward model has not been validated for recovering an explicit
+diffuse-scattering SRO signal. Finite-cell label arithmetic also does not
+quantify convergence to bulk order: neither a supercell-size study nor
+independent configuration-sampling uncertainty is complete. Parent-bootstrap
+intervals describe predictive-error variation, not these physical or label
+uncertainties.
 
+\dataset{} provides a first-stage evaluation resource for future alloy
+powder-XRD refinement models, with complementary local-order and
+component-decomposition subproblems. Corrected HEA experiments show incremental predictive value
+over composition on clean simulated observations, but substantially weaker
+fixed-cell evidence and sensitivity to the old perturbation generator.
+The contribution is a traceable evaluation resource with explicit failure
+boundaries, not a new universal inverse-problem principle or demonstrated
+experimental SRO recovery. Completing corrected Gamma evaluation and
+external physical validation is necessary before making broader claims
+about benchmark maturity or experimental transfer.
+A joint refinement pipeline remains future work.
+\end{revision}
+
+\FloatBarrier
+\ifdefined\anonymouscopy
+\else
+\begin{acks}
+\begin{revision}
+This work was financially supported by the Advanced Materials-National
+Science and Technology Major Project (Grant No. 2025ZD0620100), National
+Natural Science Foundation of China (Grant No. 52401015), and Shanghai
+Artificial Intelligence Open Source Award Project.
+\end{revision}
+\end{acks}
+\fi
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{sitexrd_bench_references}
 
 \appendix
 
-\section{Secondary Results and Diagnostics}
+\begin{revision}
+\section{Training and Statistical Protocol}
+\label{app:settings}
 
-The physics-constrained HEA experiment is exploratory and excluded from the
-formal matrix. Full per-seed results, parameter errors, instrument/overlap
-slices, and perturbation curves remain in machine-readable evidence. The PDF
-keeps the main four data figures in the body; secondary model-slice plots are
-released with the generated artifacts to preserve the page budget:
-\path{generated/hea_occupancy_signal_noise.png},
-\path{generated/hea_perturbation_severity.png},
-\path{generated/gamma_instrument_slices.png}, and
-\path{generated/gamma_overlap_difficulty.png}. Detailed generated tables remain
-in \path{generated/hea_sro_results.tex} and
-\path{generated/gamma_decomp_results.tex}.
+Each model is fit on the training partition of the declared split; neural
+checkpoint selection uses validation parent-macro MAE. Test observations
+are not used for checkpoint selection. Networks use masked target loss,
+AdamW, learning rate $10^{-3}$, at most 40 epochs, and patience 6.
+ResNet1D and Transformer use batch size 128; the exploratory physics
+variant uses 64, 16 reconstructed peaks, and reconstruction weight 0.1.
+Ridge uses regularization $\alpha=1$. Peak XGBoost uses at most 32 peaks,
+300 estimators, depth 6, and learning rate 0.05. The feature ablation uses
+the same tree budget, CPU histogram training, and one seed (2027).
+Its recorded environment is Python 3.11.15, NumPy 2.4.6, and XGBoost 3.2.0.
+These settings describe completed experiments, not newly tuned models.
 
-\subsection{Diagnostic Slices}
+For parent $p$, we first average absolute error over defined targets of
+each sample, then over samples of that parent, and finally across held-out
+parents. The paired bootstrap draws the same parent IDs with replacement
+for both models, recomputes the mean difference, and takes percentile
+endpoints. All C versus C+X comparisons use 10,000 replicates and bootstrap
+seed 20261002. The evidence also stores 98.75\% intervals allocating error
+over these four splits; neither interval family corrects all exploratory
+contrasts. Across-seed SD and parent-bootstrap intervals answer different
+questions and are not substituted for each other.
 
-The occupancy panel places every controlled pair below its parent-specific
-simulated-noise threshold, supporting abstention rather than forced ranking.
-The perturbation curve measures a different failure mode: SRO remains a defined
-structure-derived target even when observation quality degrades. For Gamma,
-instrument shift changes component F1 much less than severe overlap. Reporting
-these axes separately prevents a single average from hiding whether failure is
-caused by observability, acquisition shift, or component coincidence.
+\section{Complete Corrected HEA Metrics}
+Table~\ref{tab:extended_hea} gives every model/split cell for MAE, root mean
+squared error (RMSE), both shell correlations, and the score relative to
+the corresponding corrected Composition Ridge baseline. Correlations
+pool valid entries within each shell; they are not correlations of
+parent means. The physics variant adds a reconstruction prior and is
+exploratory, so it is not ranked with the four formal methods in Table~3.
 
-\subsection{Extended HEA-SRO Results}
+\begin{table*}[t]
+  \centering
+  \caption{Complete corrected-label HEA results, means over recorded seeds.
+  $\rho_1,\rho_2$ are per-shell Spearman correlations; $S_{\mathrm{SRO}}$
+  is the clipped percentage improvement over Composition Ridge.
+  Bold denotes the lowest MAE on chemistry and legacy SRO OOD, including
+  the exploratory model; no statistical significance is implied.}
+  \label{tab:extended_hea}
+  \input{generated/revision_2026_10_06/hea_extended.tex}
+\end{table*}
 
-Across all four HEA splits, Spectrum Transformer is the strongest member of the
-formal model matrix. The exploratory physics-constrained variant changes MAE by
-only 0.0011--0.0024 relative to Spectrum Transformer, whereas ResNet1D can fall
-behind the composition-only control under composition and SRO shift. These
-small gains are why the physics-constrained variant is not promoted into the
-formal comparison.
+\section{Conditional Diagnostics and Their Limits}
+\label{sec:diagnostics}
+\begin{table*}[t]
+  \centering
+  \caption{Fixed-cell paired-change diagnostic relative to zero change.
+  Positive reduction favors the model; negative $\Delta$ MAE favors it.
+  Parent-only intervals condition on fitted seeds and are pointwise.}
+  \label{tab:fixed_cell}
+  \input{generated/revision_2026_10_06/fixed_cell.tex}
+\end{table*}
 
-\subsection{Extended Gamma-Decomp Results}
+The fixed-cell evaluation predicts the SRO difference between occupancy
+variants relative to a zero-change predictor. Table~\ref{tab:fixed_cell}
+uses only held-out parents: 150 ID, 147 composition OOD, 99 chemistry OOD,
+and 227 legacy SRO OOD. Transformer averages five fitted seeds; C+X has
+one. The displayed 4,000-resample intervals condition on those fitted
+models. These experiments do not supply independently measured SRO.
 
-Peak Feature gives the strongest component F1 on both views and the strongest
-window count accuracy. The neural set predictors are less stable across seeds,
-and the physics-constrained model does not recover its full-pattern advantage
-on windows. Center, width, and area errors are therefore reported separately
-from component F1 rather than collapsed into a reconstruction-weighted score.
+The released 0/4,000 diagnostic compares occupancy-induced spectral
+distance with a simulated nuisance floor; the largest ratio is 0.1527
+against threshold 1.0. Two pairs have no corrected SRO change. The
+original angle-domain renderer changes relative integrated peak areas
+when width changes. Its negative result cannot therefore establish a
+physical broadening or experimental noise limit. The area-normalized
+replacement is implemented, but the matched reevaluation required to
+support revised perturbation claims remains incomplete.
+
+The separate matched ID perturbation comparison uses 150 test parents,
+the same examples for clean and perturbed views, and one C+X fit. Its
+MAE increase of 0.3509 has paired 95\% interval [0.3328, 0.3693]. Those
+values are not comparable to the full source-corpus MAEs in Table~4:
+they describe a different, smaller diagnostic population under the old
+renderer. Keeping this negative result explicit prevents clean-corpus
+gains from being mistaken for robust experimental performance.
+
+\section{Gamma Scoring Contract and Outstanding Evidence}
+\label{app:gamma}
+Eligible truth components are grouped by sample. Phase/HKL-gated optimal
+bipartite matching gives true positives (TP), false positives (FP), and
+false negatives (FN). Counts are pooled within each parent pair before
+forming F1, $2\mathrm{TP}/(2\mathrm{TP}+\mathrm{FP}+\mathrm{FN})$;
+parent scores are then macro-averaged. A zero denominator gives zero F1.
+The field named phase/HKL accuracy is joint recovery,
+$\mathrm{TP}/\max(\mathrm{TP}+\mathrm{FN},\mathrm{TP}+\mathrm{FP},1)$,
+not separate phase and HKL classification accuracy. Count accuracy is
+the fraction of samples with exactly correct component count within a
+parent, macro-averaged over parents. Empty-target cases are therefore
+retained even though their F1 convention differs from count accuracy.
+
+Center, width, integrated-area, and profile errors apply to matched
+components and must be read alongside F1 to avoid rewarding selective
+detection. The revised forward-reconstruction reference contains only
+eligible component curves; it is not the observed whole pattern including
+context/background. Tied confidence risk uses expected uniform
+tie permutations. Sorting by component ID is not a physical tie-break.
+
+These definitions are now explicit, but definitions and regression tests
+do not replace a completed experiment. The outstanding matrix must cover
+both full patterns and windows, all required metrics, eligible-target
+difficulty, instrument slices, empty cases, and uncertainty that handles
+shared structures across parent pairs. Traditional whole-pattern and
+privileged-information baselines remain missing. No corrected numerical
+Gamma ranking or superiority claim is asserted in this revision.
+\end{revision}
 
 \end{document}

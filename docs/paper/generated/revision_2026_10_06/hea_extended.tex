@@ -1,0 +1,27 @@
+\small\setlength{\tabcolsep}{5pt}
+\begin{tabular}{@{}llrrrrr@{}}
+\toprule
+Split & Model & MAE & RMSE & $\rho_1$ & $\rho_2$ & $S_{\mathrm{SRO}}$ \\
+\midrule
+ID & Composition Ridge & 0.5310 & 0.8156 & 0.227 & 0.074 & 0.00 \\
+ID & Peak XGBoost & 0.4402 & 0.7017 & 0.446 & 0.457 & 17.09 \\
+ID & ResNet1D & 0.5121 & 0.7863 & 0.194 & 0.260 & 3.56 \\
+ID & Spectrum Transformer & 0.4156 & 0.6749 & 0.501 & 0.514 & 21.73 \\
+ID & Physics Transformer (exploratory) & 0.4153 & 0.6740 & 0.503 & 0.514 & 21.79 \\
+Composition OOD & Composition Ridge & 0.5312 & 0.7927 & 0.243 & 0.066 & 0.00 \\
+Composition OOD & Peak XGBoost & 0.4383 & 0.6779 & 0.479 & 0.472 & 17.49 \\
+Composition OOD & ResNet1D & 0.5226 & 0.7761 & 0.190 & 0.245 & 1.62 \\
+Composition OOD & Spectrum Transformer & 0.4135 & 0.6475 & 0.541 & 0.538 & 22.16 \\
+Composition OOD & Physics Transformer (exploratory) & 0.4111 & 0.6459 & 0.545 & 0.543 & 22.61 \\
+Chemistry OOD & Composition Ridge & 0.5167 & 0.7641 & 0.240 & 0.037 & 0.00 \\
+Chemistry OOD & Peak XGBoost & 0.4332 & 0.6593 & 0.459 & 0.455 & 16.16 \\
+Chemistry OOD & ResNet1D & 0.5008 & 0.7418 & 0.254 & 0.199 & 3.09 \\
+Chemistry OOD & Spectrum Transformer & 0.4079 & 0.6325 & 0.530 & 0.526 & 21.05 \\
+Chemistry OOD & Physics Transformer (exploratory) & \textbf{0.4069} & 0.6316 & 0.530 & 0.527 & 21.26 \\
+Legacy SRO OOD & Composition Ridge & 0.5853 & 0.9772 & 0.089 & -0.045 & 0.00 \\
+Legacy SRO OOD & Peak XGBoost & 0.5026 & 0.8605 & 0.328 & 0.394 & 14.13 \\
+Legacy SRO OOD & ResNet1D & 0.5557 & 0.9522 & 0.107 & 0.175 & 5.06 \\
+Legacy SRO OOD & Spectrum Transformer & 0.4859 & 0.8557 & 0.367 & 0.409 & 16.99 \\
+Legacy SRO OOD & Physics Transformer (exploratory) & \textbf{0.4847} & 0.8508 & 0.367 & 0.414 & 17.19 \\
+\bottomrule
+\end{tabular}

@@ -3,22 +3,22 @@
     {
       "key": "dataset_overview",
       "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\dataset_overview.png",
-      "sha256": "204e40045bc6b69f62932536e545203c046df0147563ca645af14592fc132596"
+      "sha256": "295651e689738eb97bf98dff74612582020cf3607b6e4cd1a20676fa2330c996"
     },
     {
       "key": "hea_sro_example",
       "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\hea_sro_example.png",
-      "sha256": "8b50495a24c97fd60765462b1c7adfce91aa5b4eaed4e3896b45cef5656029c3"
+      "sha256": "16f08f6c198e300aef80466a89efbc5bdcdb906ad1b566ee34ea5c9c1472dda1"
     },
     {
       "key": "gamma_decomp_example",
       "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\gamma_decomp_example.png",
-      "sha256": "db9edbeefbf5c1e69bed88f0e9bc60483acd321f8140cb7646d2ef856ac875f0"
+      "sha256": "cc0c93119686a0a3db99c808c01c3642d116db9c620e22d1527f6a0d357da438"
     },
     {
       "key": "dataset_coverage",
       "path": "E:\\project\\xrd-benchmark\\docs\\paper\\generated\\dataset_coverage.png",
-      "sha256": "e4109338d19ccbeaa145282f7fd7f12961344b18948b91930ac73a4de1671bb9"
+      "sha256": "a5497892d1bc5b20af9109425c9b04b8a9379b3b7f52bdd9e7681ce2e931518e"
     },
     {
       "key": "examples",
@@ -41,10 +41,10 @@
     "hea_min_cosine_similarity": 0.995,
     "hea_pair_tiebreak": "descending_sro_l1_then_lexicographic_sample_ids",
     "seed": 2027,
-    "structure_projection": "[001]"
+    "structure_projection": "[001] projected 2x2 cells; Gamma panels use FCC and L1_2 prototype guides"
   },
   "schema_version": "sitexrd-dataset-paper-visuals-v1.1",
-  "script_sha256": "470951a005a972e7baa3bb5319182d499c9b4e9ec21b583d0c78bcbcf7b66d94",
+  "script_sha256": "d04d5d50b73ebb36423df1dc72e1e4314e1305a4738d1c0a3a0a0f9b3d2fc537",
   "seed": 2027,
   "sources": [
     {

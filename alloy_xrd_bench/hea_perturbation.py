@@ -107,6 +107,24 @@ def _model_from_checkpoint(checkpoint: dict[str, Any], output_dim: int) -> torch
     return model
 
 
+def validate_heldout_scope(tasks, merged, split_column, clean_metrics_path):
+    """Fail closed for legacy inputs that cannot establish matched held-out scope."""
+    if clean_metrics_path is not None:
+        raise ValueError(
+            "An aggregate clean metric does not establish matched states; use the "
+            "clean-prediction checks in scripts/evaluate_sro_corrected_perturbations.py"
+        )
+    if split_column not in tasks:
+        raise ValueError(f"Cannot verify held-out scope without split column {split_column}")
+    if (tasks.groupby("parent_group_id")[split_column].nunique(dropna=False) != 1).any():
+        raise ValueError("Parent groups cross split boundaries")
+    truth_split = split_column + "_truth" if split_column + "_truth" in merged else split_column
+    if truth_split not in merged or not merged[truth_split].eq("test").all():
+        raise ValueError("Legacy evaluator requires test-only observations; use the matched corrected evaluator")
+    if truth_split != split_column and not merged[truth_split].eq(merged[split_column]).all():
+        raise ValueError("Observation split disagrees with source manifest")
+
+
 def evaluate_perturbed_checkpoint(
     dataset: Path,
     observation_run: str,
@@ -122,6 +140,11 @@ def evaluate_perturbed_checkpoint(
     dataset = dataset.resolve()
     observation_dataset = (observation_dataset or dataset).resolve()
     config = json.loads(config_path.read_text(encoding="utf-8"))
+    if config.get("sro_label_revision"):
+        raise ValueError("Use scripts/evaluate_sro_corrected_perturbations.py for source-bound revised labels")
+    checkpoint = (joblib.load(checkpoint_path) if checkpoint_path.suffix.lower() == ".joblib"
+                  else torch.load(checkpoint_path, map_location="cpu", weights_only=True))
+    split_column = str(checkpoint.get("split_column", "id_split"))
     perturbation_config_path = perturbation_config_path or Path("configs/xrd_perturbation_v1.json")
     perturbation_config = json.loads(perturbation_config_path.read_text(encoding="utf-8"))
     observations = pd.read_parquet(
@@ -134,6 +157,9 @@ def evaluate_perturbed_checkpoint(
         "sro_shell1_json",
         "sro_shell2_json",
     ]
+    if split_column not in tasks:
+        raise ValueError(f"Cannot verify held-out scope without split column {split_column}")
+    truth_columns.append(split_column)
     if tasks["structure_state_id"].astype(str).duplicated().any():
         raise ValueError("duplicate structure states in task manifest")
     merged = observations.merge(
@@ -150,8 +176,8 @@ def evaluate_perturbed_checkpoint(
         merged["parent_group_id_truth"].astype(str)
     ).all():
         raise ValueError("observation parent group does not match task truth")
+    validate_heldout_scope(tasks, merged, split_column, clean_metrics_path)
     if checkpoint_path.suffix.lower() == ".joblib":
-        checkpoint = joblib.load(checkpoint_path)
         if checkpoint.get("model") != "peak-xgboost":
             raise ValueError("unsupported classical checkpoint model")
         raw_spectra, axis = _load_raw_spectra(observation_dataset, merged)
@@ -164,7 +190,6 @@ def evaluate_perturbed_checkpoint(
         prediction = checkpoint["estimator"].predict(features)
     else:
         spectra = _load_spectra(observation_dataset, merged)
-        checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
         model = _model_from_checkpoint(checkpoint, len(config["sro_targets"]))
         predictions = []
         with torch.no_grad():
@@ -228,6 +253,8 @@ def evaluate_perturbed_checkpoint(
     report: dict[str, Any] = {
         "schema_version": "sitexrd-hea-perturbation-eval-v1",
         "status": "pass",
+        "evaluation_scope": "held_out_test",
+        "clean_reference_scope": None,
         "model": checkpoint["model"],
         "seed": int(checkpoint.get("seed", 0)),
         "split_column": str(checkpoint.get("split_column", "id_split")),
@@ -243,14 +270,6 @@ def evaluate_perturbed_checkpoint(
         "severity_definition": "mean_normalized_frozen_perturbation_magnitude",
         "severity_curve": severity_curve,
     }
-    if clean_metrics_path is not None:
-        clean = json.loads(clean_metrics_path.read_text(encoding="utf-8"))
-        clean_mae = float(clean["sro"]["masked_parent_macro_mae"])
-        report["clean_parent_macro_mae"] = clean_mae
-        report["mae_increase"] = perturbed_mae - clean_mae
-        report["clean_to_perturbed_retention"] = (
-            min(1.0, clean_mae / perturbed_mae) if perturbed_mae > 0 else 1.0
-        )
     output.mkdir(parents=True, exist_ok=True)
     scored.to_parquet(output / "perturbation_predictions.parquet", index=False)
     (output / "perturbation_summary.json").write_text(
@@ -269,6 +288,14 @@ def aggregate_perturbation_reports(
     paths = sorted(root.rglob("perturbation_summary.json"))
     reports = [json.loads(path.read_text(encoding="utf-8")) for path in paths]
     valid = [report for report in reports if report.get("status") == "pass"]
+    if composition_ridge_metrics is not None:
+        return {"status": "fail", "reason": "unmatched_composition_reference",
+                "detail": "Full-test Ridge metrics cannot define a matched perturbation reference"}
+    if any(report.get("evaluation_scope") != "held_out_test"
+           or report.get("clean_reference_scope") != "identical_structure_states"
+           or "clean_to_perturbed_retention" not in report for report in valid):
+        return {"status": "fail", "reason": "unverified_matched_evaluation_scope",
+                "detail": "Legacy mixed-split or unpaired summaries must be re-evaluated"}
     seeds = sorted({int(report["seed"]) for report in valid})
     expected_seeds = list(range(2027, 2027 + minimum_seeds))
     missing_by_model: dict[str, list[int]] = {}
@@ -308,17 +335,6 @@ def aggregate_perturbation_reports(
     )
     if not np.isfinite(mae).all() or not np.isfinite(retention).all():
         raise ValueError("perturbation reports contain non-finite metrics")
-    ridge_control = None
-    if composition_ridge_metrics is not None:
-        ridge = json.loads(composition_ridge_metrics.read_text(encoding="utf-8"))
-        ridge_mae = float(ridge["sro"]["masked_parent_macro_mae"])
-        ridge_control = {
-            "model": "composition-ridge",
-            "depends_on_xrd": False,
-            "clean_parent_macro_mae": ridge_mae,
-            "perturbed_parent_macro_mae": ridge_mae,
-            "retention": 1.0,
-        }
     return {
         "schema_version": "sitexrd-hea-perturbation-summary-v1",
         "status": "pass",
@@ -332,7 +348,7 @@ def aggregate_perturbation_reports(
         "clean_to_perturbed_retention_std": float(retention.std()),
         "metrics_by_model": metrics_by_model,
         "missing_seeds_by_model": missing_by_model,
-        "composition_ridge_negative_control": ridge_control,
+        "composition_ridge_negative_control": None,
     }
 
 

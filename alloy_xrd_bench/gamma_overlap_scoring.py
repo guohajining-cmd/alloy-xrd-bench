@@ -10,7 +10,11 @@ from typing import Any, Mapping, Sequence
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
-from .gamma_overlap_physics import canonical_cubic_hkl, pseudo_voigt_profile
+from .gamma_overlap_physics import canonical_cubic_hkl, overlap_difficulty, pseudo_voigt_profile
+
+
+SCORING_VERSION = "nickel-gamma-overlap-score-v2"
+CONFIDENCE_TIE_POLICY = "expected_uniform_tie_order"
 
 
 REQUIRED_FIELDS = {
@@ -89,6 +93,33 @@ def build_scoring_components(
     return result
 
 
+def target_overlap_difficulty(component_rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """Describe one window's merged, score-eligible targets, not its context peaks."""
+    components = [row for row in build_scoring_components(component_rows)
+                  if bool(row.get("score_eligible", True))]
+    if len({str(row["sample_id"]) for row in components}) > 1:
+        raise ValueError("target difficulty requires a single sample")
+    ratios = [
+        abs(float(left["center_deg"]) - float(right["center_deg"]))
+        / (0.5 * (float(left["fwhm_deg"]) + float(right["fwhm_deg"])))
+        for index, left in enumerate(components) for right in components[index + 1:]
+    ]
+    return {
+        "difficulty": overlap_difficulty(ratios) if components else "empty",
+        "minimum_separation_ratio": min(ratios) if ratios else None,
+        "scored_component_count": len(components),
+    }
+
+
+def _component_order_key(row: Mapping[str, Any]) -> tuple:
+    # Resolve assignment ties by physical parameters, then confidence, never IDs.
+    return (
+        str(_phase_hkl(row)), float(row["center_deg"]), float(row["fwhm_deg"]),
+        float(row["integrated_intensity"]), float(row.get("eta", 0.5)),
+        -float(row.get("confidence", 0.0)),
+    )
+
+
 def score_component_predictions(
     truth_rows: Sequence[Mapping[str, Any]],
     prediction_rows: Sequence[Mapping[str, Any]],
@@ -101,9 +132,9 @@ def score_component_predictions(
     truths = _group_by_sample(truth_rows)
     predictions = _group_by_sample(prediction_rows)
     for rows in truths.values():
-        rows.sort(key=lambda row: str(row["component_id"]))
+        rows.sort(key=_component_order_key)
     for rows in predictions.values():
-        rows.sort(key=lambda row: str(row["component_id"]))
+        rows.sort(key=_component_order_key)
     expected = set(str(value) for value in expected_sample_ids) if expected_sample_ids is not None else set(truths)
     parent_lookup = (
         {str(sample_id): str(parent_id) for sample_id, parent_id in expected_parent_ids.items()}
@@ -334,7 +365,17 @@ def _calibration_metrics(rows: Sequence[tuple[float, int]]) -> dict[str, float]:
         if mask.any():
             ece += float(mask.mean()) * abs(float(correct[mask].mean()) - float(confidence[mask].mean()))
     order = np.argsort(-confidence, kind="stable")
-    cumulative_risk = 1.0 - np.cumsum(correct[order]) / np.arange(1, len(rows) + 1)
+    sorted_confidence = confidence[order]
+    sorted_correct = correct[order]
+    boundaries = np.r_[0, np.flatnonzero(np.diff(sorted_confidence) != 0) + 1, len(rows)]
+    expected_correct = np.empty(len(rows), dtype=float)
+    prior_correct = 0.0
+    # Average over all orders within an exact tie, never over arbitrary component IDs.
+    for start, stop in zip(boundaries[:-1], boundaries[1:]):
+        group_correct = float(sorted_correct[start:stop].sum())
+        expected_correct[start:stop] = prior_correct + np.arange(1, stop - start + 1) * group_correct / (stop - start)
+        prior_correct += group_correct
+    cumulative_risk = 1.0 - expected_correct / np.arange(1, len(rows) + 1)
     index_80 = max(0, int(math.ceil(0.8 * len(rows))) - 1)
     return {
         "confidence_ece": float(ece),

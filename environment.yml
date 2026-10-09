@@ -1,0 +1,17 @@
+name: alloy-xrd-bench
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10
+  - pandas
+  - pyarrow
+  - pyyaml
+  - numpy
+  - scipy
+  - pymatgen
+  - ase
+  - pip
+  - pip:
+      - chgnet
+      - matgl
+      - mace-torch

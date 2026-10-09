@@ -1,0 +1,21 @@
+{
+  "title": "Alloy-XRD-Bench: HEA-SRO and Gamma-Decomp",
+  "upload_type": "software",
+  "version": "1.1.2",
+  "publication_date": "2026-10-09",
+  "description": "<p>Alloy-XRD-Bench is a first-stage benchmark toward alloy powder-XRD refinement, with complementary HEA-SRO and Gamma-Decomp subproblems and separate evaluation metrics.</p><p>Version 1.1.2 corrects SRO zero-count labels and masks, updates evaluation code, and provides the revised manuscript and corrected-result summaries. The source-bound label overlay covers 88,019 states; frozen original split membership is retained. The versioned dataset is available at https://huggingface.co/datasets/jimi7771/alloy-xrd-bench/tree/v1.1.2.</p><p>This correction does not claim a completed joint refinement pipeline or completion of the outstanding Gamma, traditional-baseline, finite-size, and experimental-validation work. See the release notes for scope and limitations. Reviewer reports and response letters are excluded.</p><p>This work was financially supported by the Advanced Materials-National Science and Technology Major Project (Grant No. 2025ZD0620100), National Natural Science Foundation of China (Grant No. 52401015), and Shanghai Artificial Intelligence Open Source Award Project.</p>",
+  "creators": [
+    {"name": "Guo, Jingmin", "affiliation": "Shanghai University"},
+    {"name": "Xiong, Jie", "affiliation": "Shanghai University"},
+    {"name": "Zhang, Tongyi", "affiliation": "Shanghai University"}
+  ],
+  "license": "cc-by-4.0",
+  "keywords": ["XRD", "alloys", "benchmark", "short-range order", "diffraction refinement"],
+  "related_identifiers": [
+    {
+      "identifier": "https://huggingface.co/datasets/jimi7771/alloy-xrd-bench/tree/v1.1.2",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    }
+  ]
+}

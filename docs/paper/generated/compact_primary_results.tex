@@ -6,21 +6,21 @@
 \toprule Split & Model & MAE $\downarrow$ & SD \\
 \midrule
 chemistry\_ood & Composition Ridge & 0.4340 & 0.0000 \\
-chemistry\_ood & Peak XGBoost & 0.3575 & 0.0000 \\
+chemistry\_ood & Peak XGBoost & \underline{0.3575} & 0.0000 \\
 chemistry\_ood & ResNet1D & 0.4396 & 0.0055 \\
-chemistry\_ood & Spectrum Transformer & 0.3362 & 0.0035 \\
+chemistry\_ood & \textbf{Spectrum Transformer} & \textbf{0.3362} & 0.0035 \\
 composition\_ood & Composition Ridge & 0.4433 & 0.0000 \\
-composition\_ood & Peak XGBoost & 0.3621 & 0.0000 \\
+composition\_ood & Peak XGBoost & \underline{0.3621} & 0.0000 \\
 composition\_ood & ResNet1D & 0.4632 & 0.0164 \\
-composition\_ood & Spectrum Transformer & 0.3402 & 0.0022 \\
+composition\_ood & \textbf{Spectrum Transformer} & \textbf{0.3402} & 0.0022 \\
 id & Composition Ridge & 0.4496 & 0.0000 \\
-id & Peak XGBoost & 0.3621 & 0.0000 \\
+id & Peak XGBoost & \underline{0.3621} & 0.0000 \\
 id & ResNet1D & 0.4414 & 0.0202 \\
-id & Spectrum Transformer & 0.3400 & 0.0009 \\
+id & \textbf{Spectrum Transformer} & \textbf{0.3400} & 0.0009 \\
 sro\_ood & Composition Ridge & 0.5142 & 0.0000 \\
-sro\_ood & Peak XGBoost & 0.4493 & 0.0000 \\
+sro\_ood & Peak XGBoost & \underline{0.4493} & 0.0000 \\
 sro\_ood & ResNet1D & 0.5020 & 0.0136 \\
-sro\_ood & Spectrum Transformer & 0.4291 & 0.0025 \\
+sro\_ood & \textbf{Spectrum Transformer} & \textbf{0.4291} & 0.0025 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
@@ -32,14 +32,14 @@ sro\_ood & Spectrum Transformer & 0.4291 & 0.0025 \\
 \midrule
 Full & No-spectrum prior & 0.421 & -- \\
 Window & No-spectrum prior & 0.072 & -- \\
-Full & Peak Feature & 0.683 & 0.003 \\
-Window & Peak Feature & 0.809 & 0.002 \\
-Window & Pseudo-Voigt (BIC) & 0.527 & -- \\
+Full & \textbf{Peak Feature} & \textbf{0.683} & 0.003 \\
+Window & \textbf{Peak Feature} & \textbf{0.809} & 0.002 \\
+Window & Pseudo-Voigt (BIC) & \underline{0.527} & -- \\
 Full & ResNet Set & 0.473 & 0.015 \\
 Window & ResNet Set & 0.466 & 0.114 \\
 Full & Transformer Set & 0.599 & 0.163 \\
 Window & Transformer Set & 0.494 & 0.038 \\
-Full & Physics-constr. & 0.627 & 0.155 \\
+Full & Physics-constr. & \underline{0.627} & 0.155 \\
 Window & Physics-constr. & 0.304 & 0.059 \\
 \bottomrule
 \end{tabular}

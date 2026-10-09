@@ -39,6 +39,10 @@ from .occupancy_production import (
 from .xrd import _broadened_grid, _xrd_pattern
 
 
+OBSERVATION_RENDERER_VERSION = "integrated_area_v2"
+LEGACY_OBSERVATION_RENDERER_VERSION = "peak_height_v1"
+
+
 COUNTERFACTUAL_STRATEGIES = (
     "local_swap",
     "randomized",
@@ -628,6 +632,7 @@ def freeze_observations(
     requested = {
         "source_task_manifest_sha256": _sha256_file(task_path),
         "config_sha256": _mapping_sha256(config),
+        "renderer_version": config["renderer_version"],
         "variants_per_structure": variants,
         "splits": sorted(set(splits)),
         "structure_state_count": len(selected),
@@ -647,6 +652,7 @@ def freeze_observations(
         }
         compatible = (
             existing.get("source_task_manifest_sha256") == requested["source_task_manifest_sha256"]
+            and existing.get("renderer_version", LEGACY_OBSERVATION_RENDERER_VERSION) == config["renderer_version"]
             and existing.get("config_sha256") in accepted_config_hashes
             and int(existing.get("variants_per_structure", 0)) == variants
             and existing.get("splits") == sorted(set(splits))
@@ -1059,6 +1065,8 @@ def _validate_counterfactual_shard(
 
 def _load_perturbation_config(path: Path) -> dict[str, Any]:
     config = _read_json(path.resolve())
+    config.setdefault("renderer_version", OBSERVATION_RENDERER_VERSION)
+    _validate_renderer_version(config["renderer_version"])
     ranges = (
         "zero_shift_deg", "instrument_fwhm_deg", "microstrain_fraction",
         "crystallite_size_nm", "background_fraction", "gaussian_noise_fraction",
@@ -1081,6 +1089,8 @@ def sample_observation_parameters(
 ) -> dict[str, Any]:
     """Sample one reproducible online or frozen observation parameter set."""
 
+    renderer_version = config.get("renderer_version", OBSERVATION_RENDERER_VERSION)
+    _validate_renderer_version(renderer_version)
     seed = int(hashlib.sha256(
         f"{config['config_id']}:{structure_hash}:{variant_index}".encode("utf-8")
     ).hexdigest()[:8], 16)
@@ -1092,6 +1102,7 @@ def sample_observation_parameters(
 
     axes = list(config["texture_axes"])
     return {
+        "renderer_version": renderer_version,
         "zero_shift_deg": sample("zero_shift_deg"),
         "instrument_fwhm_deg": sample("instrument_fwhm_deg"),
         "microstrain_fraction": sample("microstrain_fraction"),
@@ -1251,14 +1262,28 @@ def generate_counterfactual_variants(
     return rows
 
 
+def _validate_renderer_version(version: str) -> None:
+    if version not in {OBSERVATION_RENDERER_VERSION, LEGACY_OBSERVATION_RENDERER_VERSION}:
+        raise ValueError(f"Unknown observation renderer version: {version}")
+
+
 def render_observation(
     two_theta: Sequence[float] | np.ndarray,
     peaks: pd.DataFrame,
     params: Mapping[str, Any],
 ) -> np.ndarray:
-    """Render a perturbed pattern from indexed reflection components."""
+    """Render integrated reflection weights, then normalize the whole observation.
+
+    Gaussian areas are normalized analytically, not over the visible grid: tails
+    outside the measurement window stay truncated. Use peak_height_v1 explicitly
+    only to replay the historical, non-area-preserving perturbation protocol.
+    """
 
     axis = np.asarray(two_theta, dtype=float)
+    if axis.ndim != 1 or len(axis) < 2 or not np.isfinite(axis).all() or not np.all(np.diff(axis) > 0):
+        raise ValueError("two_theta must be a finite increasing one-dimensional grid")
+    renderer_version = params.get("renderer_version", OBSERVATION_RENDERER_VERSION)
+    _validate_renderer_version(renderer_version)
     values = np.zeros_like(axis)
     shift = float(params.get("zero_shift_deg", 0.0))
     instrument = float(params.get("instrument_fwhm_deg", 0.1))
@@ -1267,9 +1292,18 @@ def render_observation(
     texture_r = float(params.get("march_dollase_r", 1.0))
     texture_axis = np.asarray(params.get("texture_axis", [1, 0, 0]), dtype=float)
     wavelength_nm = float(params.get("wavelength_angstrom", 1.5406)) * 0.1
+    if not np.isfinite([shift, instrument, microstrain, wavelength_nm]).all():
+        raise ValueError("Shift, widths and wavelength must be finite")
+    if instrument < 0 or microstrain < 0 or wavelength_nm <= 0:
+        raise ValueError("Widths must be non-negative and wavelength positive")
+    if crystallite_nm is not None and (not np.isfinite(float(crystallite_nm)) or float(crystallite_nm) <= 0):
+        raise ValueError("Crystallite size must be positive and finite, or None")
 
     for peak in peaks.to_dict(orient="records"):
         center = float(peak["two_theta"]) + shift
+        intensity = float(peak["intensity"])
+        if not np.isfinite([center, intensity]).all() or intensity < 0:
+            raise ValueError("Reflection positions and non-negative weights must be finite")
         theta = math.radians(float(peak["two_theta"]) / 2.0)
         strain_width = math.degrees(4.0 * microstrain * math.tan(theta))
         size_width = 0.0
@@ -1280,9 +1314,12 @@ def render_observation(
         fwhm = math.sqrt(instrument**2 + strain_width**2 + size_width**2)
         sigma = max(fwhm, 1e-6) / (2.0 * math.sqrt(2.0 * math.log(2.0)))
         texture = _texture_factor(str(peak.get("hkls_json", "[]")), texture_axis, texture_r)
-        values += float(peak["intensity"]) * texture * np.exp(
+        profile = np.exp(
             -0.5 * ((axis - center) / sigma) ** 2
         )
+        if renderer_version == OBSERVATION_RENDERER_VERSION:
+            profile /= sigma * math.sqrt(2.0 * math.pi)
+        values += intensity * texture * profile
 
     peak_max = float(values.max()) if len(values) else 0.0
     if peak_max > 0:

@@ -1,0 +1,25 @@
+{
+  "schema_version": "paper-table-format-v1",
+  "scope": "Formatting only; historical v1.1 inputs, no experimental rerun.",
+  "ranking": "Within split/view; best bold, second distinct displayed value underlined; ties share rank.",
+  "significance_claim": false,
+  "provenance_note": "Supersedes only the compact_results hash in dataset_visual_manifest.json; figures were not regenerated.",
+  "files": [
+    {
+      "path": "docs/paper/generated/hea_sro_results.csv",
+      "sha256": "06dac8940caeb550af07497780a8bdc6f41c8434083c4eae716a902d26d12b89"
+    },
+    {
+      "path": "docs/paper/generated/gamma_decomp_results.csv",
+      "sha256": "fe52032daed01dcee48f1c66634592e6001e52a810107313115e4b5966f6f7b5"
+    },
+    {
+      "path": "docs/paper/generated/compact_primary_results.tex",
+      "sha256": "46127f3207cc4ceaf5368b383910a2e01d55e8c3dfee120ca8258284bfc30e26"
+    },
+    {
+      "path": "E:/project/xrd-benchmark/alloy_xrd_bench/dataset_paper_visuals.py",
+      "sha256": "f6e8ec1bd5bbdd29276d1a72f7943536b59dcd1175c1b321cdd08c40a00b14a5"
+    }
+  ]
+}
